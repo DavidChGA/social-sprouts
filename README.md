@@ -1,1 +1,3 @@
-# social-sprouts
+# Social Sprouts
+
+El Trastorno del Espectro Autista (TEA) está compuesto por un conjunto amplio de alteraciones que afectan al neurodesarrollo, entre los que se encuentran déficits persistentes en comunicación, interacción social y reciprocidad socioemocional. Estas barreras provocan que las personas que lo presentan tengan dificultades para comunicarse con su entorno. En este trabajo se propone diseñar y evaluar una aplicación gamificada de código libre con el objetivo de mejorar las habilidades sociales de estos niños. En particular, se propone mejorar su desempeño sociocomunicativo: expresión verbal, reconocimiento emocional y predictibilidad y adaptación a nuevos entornos.
