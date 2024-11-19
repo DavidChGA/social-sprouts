@@ -1,31 +1,39 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+/* eslint-disable prettier/prettier */
+import React, { useEffect } from 'react';
+import { View, Image, StyleSheet} from 'react-native';
+import { globalStyles } from '../theme/theme';
+import { type NavigationProp, useNavigation } from '@react-navigation/native';
+import { PrimaryButton } from '../components/PrimaryButton';
+import type { RootStackParams } from '../routes/StackNavigator';
 
-type IHomeScreenProps = {
-  navigation: any;
-}
+export const HomeScreen = () => {
 
-const HomeScreen: React.FC<IHomeScreenProps> = ({navigation}) => {
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  });
+
   return (
-    <React.Fragment>
-        <View style={styles.container}>
-        <Text style={styles.text}>Hola</Text>
-      </View>
-    </React.Fragment>
+    <View style={[globalStyles.container, homeStyles.container]}>
+      <Image
+        source={require('../img/Logo_SP.png')}
+        style={globalStyles.logo}
+        resizeMode="contain"
+      />
+
+      <PrimaryButton
+        onPress={() => navigation.navigate('Game')}
+        label="Jugar"
+      />
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
+const homeStyles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
+      flexDirection: 'column',
   },
 });
-
-export default HomeScreen;
