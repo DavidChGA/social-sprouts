@@ -1,17 +1,12 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src/screens/HomeScreen';
-
-// Define el Stack Navigator
-const Stack = createStackNavigator();
+import { StackNavigator } from './src/routes/StackNavigator';
 
 export default function App(): JSX.Element {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+      <StackNavigator/>
     </NavigationContainer>
   );
 }
