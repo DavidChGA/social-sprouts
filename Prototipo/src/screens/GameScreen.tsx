@@ -13,11 +13,16 @@ export const GameScreen = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [modalImage, setModalImage] = useState('');
+    const txt1 = 'OSO';
+    const txt2 = 'LEÓN';
+    const txt3 = 'MAPACHE';
+    const [visibleTexts, setVisibleTexts] = useState({ [txt1]: false, [txt2]: false, [txt3]: false });
 
     const handleImagePress = (name: string, image: any, navigateAfterModal = false) => {
         setModalMessage(`¡SELECCIONASTE ${name}!`);
         setModalImage(image);
         setIsModalVisible(true);
+        toggleVisibility(name);
 
         setTimeout(() => {
             setIsModalVisible(false);
@@ -25,6 +30,13 @@ export const GameScreen = () => {
                 navigation.navigate('GameOver');
             }
         }, 3000);
+    };
+
+    const toggleVisibility = (key) => {
+        setVisibleTexts((prevState) => ({
+            ...prevState,
+            [key]: !prevState[key],
+        }));
     };
 
     return (
@@ -37,18 +49,40 @@ export const GameScreen = () => {
             </View>
 
             <View style={gameStyles.imageContainer}>
-                <ImageButton
-                    onPress={() => handleImagePress('OSO', require('../img/bien.png'), true)}
-                    image={require('../img/oso.png')}
-                />
-                <ImageButton
-                    onPress={() => handleImagePress('LEÓN', require('../img/mal.png'))}
-                    image={require('../img/león.png')}
-                />
-                <ImageButton
-                    onPress={() => handleImagePress('MAPACHE', require('../img/mal.png'))}
-                    image={require('../img/mapache.png')}
-                />
+
+                <View style={{ alignItems: 'center', flexDirection: 'column' }}>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <ImageButton
+                            onPress={() => handleImagePress(txt1, require('../img/bien.png'), true)}
+                            image={require('../img/oso.png')}
+                        />
+                    </View>
+
+                    {visibleTexts[txt1] && <Text style={{font: 20, color: globalColors.dark}}>{txt1}</Text>}
+                </View>
+
+                <View style={{ alignItems: 'center', flexDirection: 'column' }}>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <ImageButton
+                            onPress={() => handleImagePress(txt2, require('../img/mal.png'))}
+                            image={require('../img/león.png')}
+                        />
+                    </View>
+
+                    {visibleTexts[txt2] && <Text style={{font: 20, color: globalColors.dark}}>{txt2}</Text>}
+                </View>
+
+                <View style={{ alignItems: 'center', flexDirection: 'column' }}>
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <ImageButton
+                            onPress={() => handleImagePress(txt3, require('../img/mal.png'))}
+                            image={require('../img/mapache.png')}
+                        />
+                    </View>
+
+                    {visibleTexts[txt3] && <Text style={{font: 20, color: globalColors.dark}}>{txt3}</Text>}
+                </View>
+
             </View>
 
             <View style={gameStyles.textContainer}>

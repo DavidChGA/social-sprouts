@@ -40,7 +40,6 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 5,
         padding: 10,
-        width: '25%',
     },
 
     imageButton: {
