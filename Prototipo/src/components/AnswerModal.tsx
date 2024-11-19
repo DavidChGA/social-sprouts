@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import { Modal, View, Text, StyleSheet, Image } from 'react-native';
 import { globalStyles } from '../theme/theme';
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     modalContent: {
+        height: '60%',
         width: '50%',
         padding: 20,
         backgroundColor: 'white',
