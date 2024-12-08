@@ -53,8 +53,8 @@ export const GameScreen = () => {
                 <View style={{ alignItems: 'center', flexDirection: 'column' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                         <ImageButton
-                            onPress={() => handleImagePress(txt1, require('../img/bien.png'), true)}
-                            image={require('../img/oso.png')}
+                            onPress={() => handleImagePress(txt1, require('../img/answer/bien.png'), true)}
+                            image={require('../img/animales/oso.png')}
                         />
                     </View>
 
@@ -64,8 +64,8 @@ export const GameScreen = () => {
                 <View style={{ alignItems: 'center', flexDirection: 'column' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                         <ImageButton
-                            onPress={() => handleImagePress(txt2, require('../img/mal.png'))}
-                            image={require('../img/león.png')}
+                            onPress={() => handleImagePress(txt2, require('../img/answer/mal.png'))}
+                            image={require('../img/animales/león.png')}
                         />
                     </View>
 
@@ -75,8 +75,8 @@ export const GameScreen = () => {
                 <View style={{ alignItems: 'center', flexDirection: 'column' }}>
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                         <ImageButton
-                            onPress={() => handleImagePress(txt3, require('../img/mal.png'))}
-                            image={require('../img/mapache.png')}
+                            onPress={() => handleImagePress(txt3, require('../img/answer/mal.png'))}
+                            image={require('../img/animales/mapache.png')}
                         />
                     </View>
 
