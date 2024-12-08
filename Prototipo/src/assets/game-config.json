@@ -1,0 +1,41 @@
+{
+  "categorias": {
+    "animales": [
+      {"id": 1, "path": "../img/animales/león.png", "name": "LEÓN"},
+      {"id": 2, "path": "../img/animales/oso.png", "name": "OSO"},
+      {"id": 3, "path": "../img/animales/mapache.png", "name": "MAPACHE"},
+      {"id": 4, "path": "../img/animales/búho.png", "name": "BÚHO"},
+      {"id": 5, "path": "../img/animales/elefante.png", "name": "ELEFANTE"},
+      {"id": 6, "path": "../img/animales/gato.png", "name": "GATO"},
+      {"id": 7, "path": "../img/animales/paloma.png", "name": "PALOMA"},
+      {"id": 8, "path": "../img/animales/perro.png", "name": "PERRO"},
+      {"id": 9, "path": "../img/animales/pez.png", "name": "PEZ"}
+    ],
+    "colores": [
+        {"id": 1, "path": "../img/colores/amarillo.png", "name": "AMARILLO"},
+        {"id": 2, "path": "../img/colores/azul.png", "name": "AZUL"},
+        {"id": 3, "path": "../img/colores/blanco.png", "name": "BLANCO"},
+        {"id": 4, "path": "../img/colores/marrón.png", "name": "MARRÓN"},
+        {"id": 5, "path": "../img/colores/naranja.png", "name": "NARANJA"},
+        {"id": 6, "path": "../img/colores/negro.png", "name": "NEGRO"},
+        {"id": 7, "path": "../img/colores/rojo.png", "name": "ROJO"},
+        {"id": 8, "path": "../img/colores/verde.png", "name": "VERDE"},
+        {"id": 9, "path": "../img/colores/violeta.png", "name": "VIOLETA"}
+      ],
+    "transportes": [
+        {"id": 1, "path": "../img/transportes/autobús.png", "name": "AUTOBÚS"},
+        {"id": 2, "path": "../img/transportes/avión.png", "name": "AVIÓN"},
+        {"id": 3, "path": "../img/transportes/barco.png", "name": "BARCO"},
+        {"id": 4, "path": "../img/transportes/bicicleta.png", "name": "BICICLETA"},
+        {"id": 5, "path": "../img/transportes/camión.png", "name": "CAMIÓN"},
+        {"id": 6, "path": "../img/transportes/coche.png", "name": "COCHE"},
+        {"id": 7, "path": "../img/transportes/metro.png", "name": "METRO"},
+        {"id": 8, "path": "../img/transportes/moto.png", "name": "MOTO"},
+        {"id": 9, "path": "../img/transportes/submarino.png", "name": "SUBMARINO"}
+      ]
+  },
+  "defaultConfig": {
+    "imagesToShow": 3,
+    "rounds": 5
+  }
+}
