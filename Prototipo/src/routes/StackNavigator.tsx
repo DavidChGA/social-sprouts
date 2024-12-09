@@ -4,12 +4,21 @@ import { HomeScreen } from '../screens/HomeScreen';
 import React from 'react';
 import { GameScreen } from '../screens/GameScreen';
 import { GameOverScreen } from '../screens/GameOverScreen';
+import { SetupScreen } from '../screens/SetupScreen';
 
 export type RootStackParams = {
-  Home: undefined,
-  Game: undefined,
-  GameOver: undefined,
-}
+  Home: undefined;
+  Setup: undefined;
+  Game: {
+    category: string;
+    imagesPerRound: number;
+    rounds: number;
+  };
+  GameOver: {
+    attempts: number;
+    roundsPlayed: number;
+  };
+};
 
 const Stack = createStackNavigator<RootStackParams>();
 
@@ -24,6 +33,7 @@ export const StackNavigator = () => {
       },
     }}>
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Setup" component={SetupScreen} />
       <Stack.Screen name="Game" component={GameScreen} />
       <Stack.Screen name="GameOver" component={GameOverScreen} />
     </Stack.Navigator>

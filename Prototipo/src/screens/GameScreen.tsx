@@ -27,7 +27,10 @@ export const GameScreen = () => {
         setTimeout(() => {
             setIsModalVisible(false);
             if (navigateAfterModal) {
-                navigation.navigate('GameOver');
+                navigation.navigate('GameOver', {
+                    attempts: totalAttempts,
+                    roundsPlayed: roundsPlayed,
+                  });
             }
         }, 3000);
     };
