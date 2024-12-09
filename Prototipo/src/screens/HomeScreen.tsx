@@ -25,7 +25,7 @@ export const HomeScreen = () => {
       />
 
       <PrimaryButton
-        onPress={() => navigation.navigate('Game')}
+        onPress={() => navigation.navigate('Setup')}
         label="Jugar"
       />
     </View>
