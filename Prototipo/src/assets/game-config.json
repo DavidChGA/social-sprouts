@@ -9,7 +9,8 @@
       {"id": 6, "path": "../img/animales/gato.png", "name": "GATO"},
       {"id": 7, "path": "../img/animales/paloma.png", "name": "PALOMA"},
       {"id": 8, "path": "../img/animales/perro.png", "name": "PERRO"},
-      {"id": 9, "path": "../img/animales/pez.png", "name": "PEZ"}
+      {"id": 9, "path": "../img/animales/pez.png", "name": "PEZ"},
+      {"id": 10, "path": "../img/animales/caballo.png", "name": "CABALLO"}
     ],
     "colores": [
         {"id": 1, "path": "../img/colores/amarillo.png", "name": "AMARILLO"},
@@ -20,7 +21,8 @@
         {"id": 6, "path": "../img/colores/negro.png", "name": "NEGRO"},
         {"id": 7, "path": "../img/colores/rojo.png", "name": "ROJO"},
         {"id": 8, "path": "../img/colores/verde.png", "name": "VERDE"},
-        {"id": 9, "path": "../img/colores/violeta.png", "name": "VIOLETA"}
+        {"id": 9, "path": "../img/colores/violeta.png", "name": "VIOLETA"},
+        {"id": 10, "path": "../img/colores/gris.png", "name": "GRIS"}
       ],
     "transportes": [
         {"id": 1, "path": "../img/transportes/autobús.png", "name": "AUTOBÚS"},
@@ -31,11 +33,12 @@
         {"id": 6, "path": "../img/transportes/coche.png", "name": "COCHE"},
         {"id": 7, "path": "../img/transportes/metro.png", "name": "METRO"},
         {"id": 8, "path": "../img/transportes/moto.png", "name": "MOTO"},
-        {"id": 9, "path": "../img/transportes/submarino.png", "name": "SUBMARINO"}
+        {"id": 9, "path": "../img/transportes/submarino.png", "name": "SUBMARINO"},
+        {"id": 10, "path": "../img/transportes/helicóptero.png", "name": "HELICÓPTERO"}
       ]
   },
   "defaultConfig": {
     "imagesToShow": 3,
-    "rounds": 5
+    "rounds": 3
   }
 }
