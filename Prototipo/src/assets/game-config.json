@@ -1,40 +1,40 @@
 {
   "categorias": {
     "animales": [
-      {"id": 1, "path": "../img/animales/león.png", "name": "LEÓN"},
-      {"id": 2, "path": "../img/animales/oso.png", "name": "OSO"},
-      {"id": 3, "path": "../img/animales/mapache.png", "name": "MAPACHE"},
-      {"id": 4, "path": "../img/animales/búho.png", "name": "BÚHO"},
-      {"id": 5, "path": "../img/animales/elefante.png", "name": "ELEFANTE"},
-      {"id": 6, "path": "../img/animales/gato.png", "name": "GATO"},
-      {"id": 7, "path": "../img/animales/paloma.png", "name": "PALOMA"},
-      {"id": 8, "path": "../img/animales/perro.png", "name": "PERRO"},
-      {"id": 9, "path": "../img/animales/pez.png", "name": "PEZ"},
-      {"id": 10, "path": "../img/animales/caballo.png", "name": "CABALLO"}
+      {"id": 1, "path": "https://globalsymbols.com/uploads/production/image/imagefile/20797/17_20798_1a7d2abe-8d34-451c-b9e7-91a1fddcfe14.png", "name": "LEÓN"},
+      {"id": 2, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15553/17_15554_8e2a8dd2-72f1-46cb-ac3b-b3a713e7cd1e.png", "name": "OSO"},
+      {"id": 3, "path": "https://globalsymbols.com/uploads/production/image/imagefile/14154/17_14155_2d90dcc2-e286-4904-af05-37402eb1500b.png", "name": "MAPACHE"},
+      {"id": 4, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15729/17_15730_be79d8a2-034f-45df-bfbe-0bcb209c0d75.png", "name": "BÚHO"},
+      {"id": 5, "path": "https://globalsymbols.com/uploads/production/image/imagefile/49031/103_49032_9e207dd1-4ba7-4f31-8189-2d0e3456ae10.jpg", "name": "ELEFANTE"},
+      {"id": 6, "path": "https://globalsymbols.com/uploads/production/image/imagefile/17792/17_17793_f71b1cbc-fe20-4e7c-a7c3-b9482080b488.png", "name": "GATO"},
+      {"id": 7, "path": "https://globalsymbols.com/uploads/production/image/imagefile/44789/17_44790_36a3c80c-623e-4f43-bf4e-2ba04ddf6342.png", "name": "PALOMA"},
+      {"id": 8, "path": "https://globalsymbols.com/uploads/production/image/imagefile/17880/17_17881_fcf4a2ab-4bc1-4814-b7aa-9221396dba80.png", "name": "PERRO"},
+      {"id": 9, "path": "https://globalsymbols.com/uploads/production/image/imagefile/19972/17_19973_2ba2012e-4c15-4971-b52c-84a53fa0905a.png", "name": "PEZ"},
+      {"id": 10, "path": "https://globalsymbols.com/uploads/production/image/imagefile/18879/17_18880_79086b48-6f51-4521-a0b9-e4cd1df8b91d.png", "name": "CABALLO"}
     ],
     "colores": [
-        {"id": 1, "path": "../img/colores/amarillo.png", "name": "AMARILLO"},
-        {"id": 2, "path": "../img/colores/azul.png", "name": "AZUL"},
-        {"id": 3, "path": "../img/colores/blanco.png", "name": "BLANCO"},
-        {"id": 4, "path": "../img/colores/marrón.png", "name": "MARRÓN"},
-        {"id": 5, "path": "../img/colores/naranja.png", "name": "NARANJA"},
-        {"id": 6, "path": "../img/colores/negro.png", "name": "NEGRO"},
-        {"id": 7, "path": "../img/colores/rojo.png", "name": "ROJO"},
-        {"id": 8, "path": "../img/colores/verde.png", "name": "VERDE"},
-        {"id": 9, "path": "../img/colores/violeta.png", "name": "VIOLETA"},
-        {"id": 10, "path": "../img/colores/gris.png", "name": "GRIS"}
+        {"id": 1, "path": "https://globalsymbols.com/uploads/production/image/imagefile/48488/98_48489_68ad6411-af38-4150-b26e-7e6683574d04.jpg", "name": "AMARILLO"},
+        {"id": 2, "path": "https://globalsymbols.com/uploads/production/image/imagefile/16674/17_16675_2ef4a72c-c510-43ce-aaea-dafcb7bd166d.png", "name": "AZUL"},
+        {"id": 3, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15720/17_15721_6d792a9f-9409-4567-a397-c4a1f558a254.png", "name": "BLANCO"},
+        {"id": 4, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15947/17_15948_a2b36141-24a7-4eca-822f-ba43d467dd76.png", "name": "MARRÓN"},
+        {"id": 5, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15923/17_15924_a9cf8dbe-87e1-4c9b-8a85-fef53d224473.png", "name": "NARANJA"},
+        {"id": 6, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15921/17_15922_e2a5fc37-829d-4c49-9383-b43edef91131.png", "name": "NEGRO"},
+        {"id": 7, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15843/17_15844_9772e2ee-deea-4296-88a3-dcf45f9228f5.png", "name": "ROJO"},
+        {"id": 8, "path": "https://globalsymbols.com/uploads/production/image/imagefile/16692/17_16693_ab25656d-5e93-4add-92b4-0bde38cd09ec.png", "name": "VERDE"},
+        {"id": 9, "path": "https://globalsymbols.com/uploads/production/image/imagefile/45496/17_45497_7a4b562f-48d5-4608-8fd7-3008405f729f.png", "name": "VIOLETA"},
+        {"id": 10, "path": "https://globalsymbols.com/uploads/production/image/imagefile/16353/17_16354_644f03ab-2882-4704-9a03-ec1f47b5b220.png", "name": "GRIS"}
       ],
     "transportes": [
-        {"id": 1, "path": "../img/transportes/autobús.png", "name": "AUTOBÚS"},
-        {"id": 2, "path": "../img/transportes/avión.png", "name": "AVIÓN"},
-        {"id": 3, "path": "../img/transportes/barco.png", "name": "BARCO"},
-        {"id": 4, "path": "../img/transportes/bicicleta.png", "name": "BICICLETA"},
-        {"id": 5, "path": "../img/transportes/camión.png", "name": "CAMIÓN"},
-        {"id": 6, "path": "../img/transportes/coche.png", "name": "COCHE"},
-        {"id": 7, "path": "../img/transportes/metro.png", "name": "METRO"},
-        {"id": 8, "path": "../img/transportes/moto.png", "name": "MOTO"},
-        {"id": 9, "path": "../img/transportes/submarino.png", "name": "SUBMARINO"},
-        {"id": 10, "path": "../img/transportes/helicóptero.png", "name": "HELICÓPTERO"}
+        {"id": 1, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15335/17_15336_5af1fd0a-70a1-473f-8696-8a8d9c6d2331.png", "name": "AUTOBÚS"},
+        {"id": 2, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15336/17_15337_b5767350-0011-4a42-96ef-d45eb71b817b.png", "name": "AVIÓN"},
+        {"id": 3, "path": "https://globalsymbols.com/uploads/production/image/imagefile/17617/17_17618_90855422-fb19-4c8f-a36f-424c4a9d66fe.png", "name": "BICICLETA"},
+        {"id": 4, "path": "https://globalsymbols.com/uploads/production/image/imagefile/17638/17_17639_380ea1f0-e35e-44f3-bfb1-98ba844ba3b3.png", "name": "CAMIÓN"},
+        {"id": 5, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15409/17_15410_3fe34bca-ce69-4a07-a26c-847634d18174.png", "name": "COCHE"},
+        {"id": 6, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15538/17_15539_ff1d3eb9-a4fd-4a79-823f-acd543e28b11.png", "name": "METRO"},
+        {"id": 7, "path": "https://globalsymbols.com/uploads/production/image/imagefile/21799/17_21800_5a08ac71-7eb8-4c46-ab3b-a60a133dd6cd.png", "name": "MOTO"},
+        {"id": 8, "path": "https://globalsymbols.com/uploads/production/image/imagefile/16178/17_16179_71625fe4-f153-4b57-ac89-859a7830bc69.png", "name": "SUBMARINO"},
+        {"id": 9, "path": "https://globalsymbols.com/uploads/production/image/imagefile/17804/17_17805_0e9b9998-a333-4efb-a32a-404d970e1b45.png", "name": "HELICÓPTERO"},
+        {"id": 10, "path": "https://globalsymbols.com/uploads/production/image/imagefile/17614/17_17615_ee85cf4a-3850-408f-a951-20c2c2300bf9.png", "name": "BARCO"}
       ]
   },
   "defaultConfig": {
