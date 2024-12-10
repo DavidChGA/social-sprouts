@@ -9,13 +9,15 @@ interface Props {
 }
 
 export const ImageButton = ({ onPress, image }: Props) => {
+    const imageSource = image.startsWith('http') ? { uri: image } : image;
+
     return (
         <Pressable
             onPress={() => onPress()}
             style={globalStyles.imageButton}
         >
             <Image
-                source={image}
+                source={imageSource}
                 style={globalStyles.image}
                 resizeMode="contain"
             />
