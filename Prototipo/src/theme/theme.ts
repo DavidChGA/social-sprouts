@@ -35,11 +35,12 @@ export const globalStyles = StyleSheet.create({
         alignSelf: 'center',
     },
 
-    primaryButton: {
+    button: {
         backgroundColor: globalColors.primary,
         borderRadius: 10,
-        borderWidth: 5,
+        borderWidth: 4,
         padding: 10,
+        marginVertical: 20,
     },
 
     imageButton: {
@@ -58,9 +59,15 @@ export const globalStyles = StyleSheet.create({
         alignSelf: 'center',
     },
 
-    buttonText: {
+    PButtonText: {
         color: globalColors.light,
         fontSize: 50,
+        alignSelf: 'center',
+    },
+
+    SButtonText: {
+        color: globalColors.light,
+        fontSize: 30,
         alignSelf: 'center',
     },
 });

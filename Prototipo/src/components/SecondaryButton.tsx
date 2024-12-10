@@ -8,13 +8,13 @@ interface Props{
     label: string;
 }
 
-export const PrimaryButton = ({onPress, label}: Props) => {
+export const SecondaryButton = ({onPress, label}: Props) => {
     return (
         <Pressable
             onPress={() => onPress()}
             style={globalStyles.button}
         >
-            <Text style={globalStyles.PButtonText}>{label}</Text>
+            <Text style={globalStyles.SButtonText}>{label}</Text>
         </Pressable>
     );
 };
