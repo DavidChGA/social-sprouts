@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
-import { globalStyles } from '../theme/theme';
-import { type NavigationProp, StackActions, useNavigation } from '@react-navigation/native';
-import { PrimaryButton } from '../components/PrimaryButton';
-import type { RootStackParams } from '../routes/StackNavigator';
+/* eslint-disable prettier/prettier */
+import React, {useEffect} from 'react';
+import {View, Text} from 'react-native';
+import {globalStyles} from '../theme/theme';
+import {
+  type NavigationProp,
+  StackActions,
+  useNavigation,
+} from '@react-navigation/native';
+import {PrimaryButton} from '../components/PrimaryButton';
+import type {RootStackParams} from '../routes/StackNavigator';
 
-export const GameOverScreen = () => {
-
+export const GameOverScreen = ({ route }) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const { attempts, roundsPlayed } = route.params;
 
   useEffect(() => {
     navigation.setOptions({
@@ -17,6 +22,10 @@ export const GameOverScreen = () => {
 
   return (
     <View style={globalStyles.container}>
+ 
+        <Text style={globalStyles.title}>¡Juego Terminado!</Text>
+        <Text style={globalStyles.title}>Rondas Jugadas: {roundsPlayed}</Text>
+        <Text style={globalStyles.title}>Intentos Realizados: {attempts}</Text>
 
       <PrimaryButton
         onPress={() => navigation.dispatch(StackActions.popToTop())}

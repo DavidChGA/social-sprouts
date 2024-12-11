@@ -20,7 +20,7 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: globalColors.background,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
+        paddingHorizontal: 20,
     },
 
     logo:{
@@ -33,6 +33,8 @@ export const globalStyles = StyleSheet.create({
         color: globalColors.light,
         fontSize: 50,
         alignSelf: 'center',
+        textAlign: 'center',
+        fontWeight: 'bold',
     },
 
     button: {
@@ -47,10 +49,8 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: globalColors.light,
         borderRadius: 10,
         borderWidth: 5,
-        width: '25%',
-        height: '60%',
-        marginLeft: 40,
-        marginRight: 40,
+        width: '60%',
+        height: '100%',
     },
 
     image: {

@@ -1,7 +1,7 @@
 {
   "categorias": {
-    "animales": [
-      {"id": 1, "path": "https://globalsymbols.com/uploads/production/image/imagefile/20797/17_20798_1a7d2abe-8d34-451c-b9e7-91a1fddcfe14.png", "name": "LEÓN"},
+    "Animales": [
+      {"id": 1, "path": "https://globalsymbols.com/uploads/production/image/imagefile/44775/17_44776_7d9aa74b-6b16-4955-9a7f-82ea87d86520.png", "name": "LEÓN"},
       {"id": 2, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15553/17_15554_8e2a8dd2-72f1-46cb-ac3b-b3a713e7cd1e.png", "name": "OSO"},
       {"id": 3, "path": "https://globalsymbols.com/uploads/production/image/imagefile/14154/17_14155_2d90dcc2-e286-4904-af05-37402eb1500b.png", "name": "MAPACHE"},
       {"id": 4, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15729/17_15730_be79d8a2-034f-45df-bfbe-0bcb209c0d75.png", "name": "BÚHO"},
@@ -12,7 +12,7 @@
       {"id": 9, "path": "https://globalsymbols.com/uploads/production/image/imagefile/19972/17_19973_2ba2012e-4c15-4971-b52c-84a53fa0905a.png", "name": "PEZ"},
       {"id": 10, "path": "https://globalsymbols.com/uploads/production/image/imagefile/18879/17_18880_79086b48-6f51-4521-a0b9-e4cd1df8b91d.png", "name": "CABALLO"}
     ],
-    "colores": [
+    "Colores": [
         {"id": 1, "path": "https://globalsymbols.com/uploads/production/image/imagefile/48488/98_48489_68ad6411-af38-4150-b26e-7e6683574d04.jpg", "name": "AMARILLO"},
         {"id": 2, "path": "https://globalsymbols.com/uploads/production/image/imagefile/16674/17_16675_2ef4a72c-c510-43ce-aaea-dafcb7bd166d.png", "name": "AZUL"},
         {"id": 3, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15720/17_15721_6d792a9f-9409-4567-a397-c4a1f558a254.png", "name": "BLANCO"},
@@ -24,7 +24,7 @@
         {"id": 9, "path": "https://globalsymbols.com/uploads/production/image/imagefile/45496/17_45497_7a4b562f-48d5-4608-8fd7-3008405f729f.png", "name": "VIOLETA"},
         {"id": 10, "path": "https://globalsymbols.com/uploads/production/image/imagefile/16353/17_16354_644f03ab-2882-4704-9a03-ec1f47b5b220.png", "name": "GRIS"}
       ],
-    "transportes": [
+    "Transportes": [
         {"id": 1, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15335/17_15336_5af1fd0a-70a1-473f-8696-8a8d9c6d2331.png", "name": "AUTOBÚS"},
         {"id": 2, "path": "https://globalsymbols.com/uploads/production/image/imagefile/15336/17_15337_b5767350-0011-4a42-96ef-d45eb71b817b.png", "name": "AVIÓN"},
         {"id": 3, "path": "https://globalsymbols.com/uploads/production/image/imagefile/17617/17_17618_90855422-fb19-4c8f-a36f-424c4a9d66fe.png", "name": "BICICLETA"},

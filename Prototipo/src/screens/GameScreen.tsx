@@ -29,11 +29,15 @@ export const GameScreen = () => {
     const [correctImage, setCorrectImage] = useState<any | null>(null); // Imagen correcta de la ronda
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
+    const [attempts, setAttempts] = useState(0);
 
     const route = useRoute<GameScreenRouteProp>();
     const { category, imagesPerRound, rounds } = route.params;
 
     useEffect(() => {
+        navigation.setOptions({
+            headerShown: false,
+        });
         initializeGame();
     }, []);
 
@@ -68,7 +72,7 @@ export const GameScreen = () => {
             roundsArray.push({
                 roundNumber: i + 1,
                 images: roundImages.map(image => ({
-                    ...image
+                    ...image,
                 })),
                 correctImage: correctImageForRound,
             });
@@ -84,106 +88,96 @@ export const GameScreen = () => {
             ...prevState,
             [key]: true,
         }));
-    }
-
-        // Manejar la selección de una imagen
-        const handleImagePress = (name: string) => {
-            const isCorrect = name === correctImage.name;
-
-            setModalMessage(isCorrect ? `¡Correcto! Era ${name}` : `¡Incorrecto! Era ${correctImage.name}`);
-            setModalImage(isCorrect ? require('../img/answer/bien.png') : require('../img/answer/mal.png'));
-            setIsModalVisible(true);
-            toggleVisibility(name);
-
-            setTimeout(() => {
-                setIsModalVisible(false);
-                if (isCorrect) {
-                    handleNextRound();
-                }
-            }, 3000);
-        };
-
-        // Manejar el avance de ronda
-        const handleNextRound = () => {
-            if (currentRound < rounds) {
-                setCurrentRound((prevRound) => prevRound + 1);
-                loadNextRound(roundsData[currentRound]);
-            } else {
-                Alert.alert('¡Juego terminado!', 'Has completado todas las rondas.', [
-                    {
-                        text: 'Finalizar',
-                        onPress: () => {
-                            navigation.navigate('GameOver', {
-                                attempts: currentRound,
-                                roundsPlayed: rounds,
-                            });
-                        },
-                    },
-                ]);
-            }
-        };
-
-        return (
-            <View style={[globalStyles.container, gameStyles.container]}>
-                <View style={gameStyles.textContainer}>
-                    <Text style={gameStyles.title}>MARCA LA FIGURA QUE CORRESPONDE A LA PALABRA</Text>
-                </View>
-
-                <View style={gameStyles.imageContainer}>
-                    {currentImages.map((item, index) => (
-                        <View key={index} style={{ alignItems: 'center', flexDirection: 'column' }}>
-                            <ImageButton
-                                onPress={() => !visibleTexts[item.name] ? handleImagePress(item.name): undefined}
-                                image={item.path}
-                            />
-                            {visibleTexts[item.name] && (
-                                <Text style={{ fontSize: 20, color: globalColors.dark }}>{item.name}</Text>
-                            )}
-                        </View>
-                    ))}
-                </View>
-
-                <View style={gameStyles.textContainer}>
-                    <Text style={gameStyles.answer}>{correctImage?.name.toUpperCase()}</Text>
-                </View>
-
-                <AnswerModal
-                    isVisible={isModalVisible}
-                    message={modalMessage}
-                    onClose={() => setIsModalVisible(false)}
-                    image={modalImage}
-                />
-            </View>
-        );
     };
 
-    const gameStyles = StyleSheet.create({
-        container: {
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        textContainer: {
-            flex: 0.3,
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        title: {
-            textAlign: 'center',
-            fontSize: 40,
-            fontWeight: 'bold',
-            color: globalColors.light,
-        },
-        answer: {
-            textAlign: 'center',
-            fontSize: 80,
-            fontWeight: 'bold',
-            color: globalColors.light,
-        },
-        imageContainer: {
-            flex: 0.4,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-    });
+    // Manejar la selección de una imagen
+    const handleImagePress = (name: string) => {
+        setAttempts((prevAttempts) => prevAttempts + 1);
+        const isCorrect = name === correctImage.name;
+
+        setModalMessage(isCorrect ? `¡Correcto! Seleccionaste ${name}` : `¡Incorrecto! Seleccionaste ${name}`);
+        setModalImage(isCorrect ? require('../img/answer/bien.png') : require('../img/answer/mal.png'));
+        setIsModalVisible(true);
+        toggleVisibility(name);
+
+        setTimeout(() => {
+            setIsModalVisible(false);
+            if (isCorrect) {
+                handleNextRound();
+            }
+        }, 3000);
+    };
+
+    // Manejar el avance de ronda
+    const handleNextRound = () => {
+        if (currentRound < rounds) {
+            setCurrentRound((prevRound) => prevRound + 1);
+            loadNextRound(roundsData[currentRound]);
+        } else {
+            Alert.alert('¡Juego terminado!', 'Has completado todas las rondas.', [
+                {
+                    text: 'Finalizar',
+                    onPress: () => {
+                        navigation.navigate('GameOver', {
+                            attempts: attempts + 1,
+                            roundsPlayed: rounds,
+                        });
+                    },
+                },
+            ]);
+        }
+    };
+
+    return (
+        <View style={[globalStyles.container, gameStyles.container]}>
+            <View style={gameStyles.textContainer}>
+                <Text style={globalStyles.title}>MARCA LA FIGURA QUE CORRESPONDE A LA PALABRA</Text>
+            </View>
+
+            <View style={gameStyles.imageContainer}>
+                {currentImages.map((item, index) => (
+                    <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
+                        <ImageButton
+                            onPress={() => !visibleTexts[item.name] ? handleImagePress(item.name) : undefined}
+                            image={item.path}
+                        />
+                        {visibleTexts[item.name] && (
+                            <Text style={{ fontSize: 40, color: globalColors.dark }}>{item.name}</Text>
+                        )}
+                    </View>
+                ))}
+            </View>
+
+            <View style={gameStyles.textContainer}>
+                <Text style={{ ...globalStyles.title, ...gameStyles.answer }}>{correctImage?.name}</Text>
+            </View>
+
+            <AnswerModal
+                isVisible={isModalVisible}
+                message={modalMessage}
+                onClose={() => setIsModalVisible(false)}
+                image={modalImage}
+            />
+        </View>
+    );
+};
+
+const gameStyles = StyleSheet.create({
+    textContainer: {
+        flex: 0.3,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    answer: {
+        fontSize: 80,
+    },
+
+    imageContainer: {
+        flex: 0.3,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: '5%',
+    },
+});
