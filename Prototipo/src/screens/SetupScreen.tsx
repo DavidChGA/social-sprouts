@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, Alert} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -10,6 +10,12 @@ import { SecondaryButton } from '../components/SecondaryButton';
 
 export const SetupScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  });
 
   // Estados para configuración del juego (cambiamos a string | null)
   const [selectedCategory, setSelectedCategory] = useState('');
