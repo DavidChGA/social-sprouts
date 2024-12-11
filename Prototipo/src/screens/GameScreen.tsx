@@ -142,7 +142,7 @@ export const GameScreen = () => {
                             image={item.path}
                         />
                         {visibleTexts[item.name] && (
-                            <Text style={{ fontSize: 40, color: globalColors.dark }}>{item.name}</Text>
+                            <Text style={{ fontSize: 30, color: globalColors.dark }}>{item.name}</Text>
                         )}
                     </View>
                 ))}
