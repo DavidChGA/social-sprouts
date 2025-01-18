@@ -5,6 +5,7 @@ import { globalStyles } from '../theme/theme';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
+import { SettingsButton } from '../components/SettingsButton';
 
 export const HomeScreen = () => {
 
@@ -27,6 +28,10 @@ export const HomeScreen = () => {
       <PrimaryButton
         onPress={() => navigation.navigate('Setup')}
         label="Jugar"
+      />
+
+      <SettingsButton
+        onPress={() => navigation.navigate('Settings')}
       />
     </View>
   );
