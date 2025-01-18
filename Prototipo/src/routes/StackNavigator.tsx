@@ -5,6 +5,7 @@ import React from 'react';
 import { GameScreen } from '../screens/GameScreen';
 import { GameOverScreen } from '../screens/GameOverScreen';
 import { SetupScreen } from '../screens/SetupScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 export type RootStackParams = {
   Home: undefined;
@@ -18,6 +19,7 @@ export type RootStackParams = {
     attempts: number;
     roundsPlayed: number;
   };
+  Settings: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -36,6 +38,7 @@ export const StackNavigator = () => {
       <Stack.Screen name="Setup" component={SetupScreen} />
       <Stack.Screen name="Game" component={GameScreen} />
       <Stack.Screen name="GameOver" component={GameOverScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
   );
 };
