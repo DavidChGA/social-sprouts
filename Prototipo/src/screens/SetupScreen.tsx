@@ -7,20 +7,18 @@ import {RootStackParams} from '../routes/StackNavigator';
 import gameConfig from '../assets/game-config.json';
 import { globalStyles } from '../theme/theme';
 import { SecondaryButton } from '../components/SecondaryButton';
+import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 
 export const SetupScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const {selectedCategory, selectedImages, selectedRounds,
+    setSelectedCategory, setSelectedImages, setSelectedRounds} = useGlobalStoreSetup();
 
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   });
-
-  // Estados para configuración del juego (cambiamos a string | null)
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedImages, setSelectedImages] = useState('');
-  const [selectedRounds, setSelectedRounds] = useState('');
 
   // Opciones válidas de imágenes y rondas
   const options = [
@@ -62,11 +60,7 @@ export const SetupScreen = () => {
     }
 
     // Navegar a la pantalla de juego con la configuración seleccionada
-    navigation.navigate('Game', {
-      category: selectedCategory,
-      imagesPerRound: parseInt(selectedImages, 10),
-      rounds: parseInt(selectedRounds, 10),
-    });
+    navigation.goBack();
   };
 
   return (
