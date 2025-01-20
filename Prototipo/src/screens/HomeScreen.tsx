@@ -31,7 +31,7 @@ export const HomeScreen = () => {
       />
 
       <SettingsButton
-        onPress={() => navigation.navigate('Settings')}
+        onPress={() => navigation.navigate('Setup')}
       />
     </View>
   );
