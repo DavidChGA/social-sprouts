@@ -114,7 +114,7 @@ export const SetupScreen = () => {
       />
 
       {/* Botón para iniciar el juego */}
-      <SecondaryButton onPress={startGame} label="Iniciar juego" />
+      <SecondaryButton onPress={startGame} label="Guardar configuración" />
     </View>
   );
 };
@@ -142,5 +142,5 @@ const styles = StyleSheet.create({
   },
   disabledDropdown: {
     backgroundColor: 'gray',
-  },
+  }
 });
