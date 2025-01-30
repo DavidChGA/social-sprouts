@@ -11,9 +11,9 @@ interface SetupState {
 
 // Crea el store global con Zustand
 const useGlobalStoreSetup = create<SetupState>((set) => ({
-  selectedCategory: "",
-  selectedImages: "",
-  selectedRounds: "",
+  selectedCategory: "Animales",
+  selectedImages: "3",
+  selectedRounds: "2",
   setSelectedCategory: (category) => set(() => ({ selectedCategory: category })),
   setSelectedImages: (images) => set(() => ({ selectedImages: images })),
   setSelectedRounds: (rounds) => set(() => ({ selectedRounds: rounds })),
