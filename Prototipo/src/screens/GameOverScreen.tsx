@@ -22,7 +22,7 @@ export const GameOverScreen = ({ route }) => {
 
   return (
     <View style={globalStyles.container}>
- 
+
         <Text style={globalStyles.title}>¡Juego Terminado!</Text>
         <Text style={globalStyles.title}>Rondas Jugadas: {roundsPlayed}</Text>
         <Text style={globalStyles.title}>Intentos Realizados: {attempts}</Text>

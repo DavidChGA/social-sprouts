@@ -2,6 +2,7 @@
 import { Pressable, Image } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import React from 'react';
+import imageMap from '../assets/imageMap';
 
 interface Props {
     onPress: () => void;
@@ -9,7 +10,7 @@ interface Props {
 }
 
 export const ImageButton = ({ onPress, image }: Props) => {
-    const imageSource = image.startsWith('http') ? { uri: image } : image;
+    const imageSource = imageMap[image];
 
     return (
         <Pressable

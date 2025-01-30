@@ -22,7 +22,7 @@ export const HomeScreen = () => {
   return (
     <View style={[globalStyles.container, homeStyles.container]}>
       <Image
-        source={require('../img/Logo_SP.png')}
+        source={require('../assets/img/Logo_SP.png')}
         style={globalStyles.logo}
         resizeMode="contain"
       />
