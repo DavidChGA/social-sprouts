@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
@@ -72,7 +74,7 @@ export const GameScreen = () => {
             roundsArray.push({
                 roundNumber: i + 1,
                 images: roundImages.map(image => ({
-                    ...image,
+                    name: image.name,
                 })),
                 correctImage: correctImageForRound,
             });
@@ -96,7 +98,7 @@ export const GameScreen = () => {
         const isCorrect = name === correctImage.name;
 
         setModalMessage(isCorrect ? `¡Correcto! Seleccionaste ${name}` : `¡Incorrecto! Seleccionaste ${name}`);
-        setModalImage(isCorrect ? require('../img/answer/bien.png') : require('../img/answer/mal.png'));
+        setModalImage(isCorrect ? require('../assets/img/answer/bien.png') : require('../assets/img/answer/mal.png'));
         setIsModalVisible(true);
         toggleVisibility(name);
 
@@ -105,7 +107,7 @@ export const GameScreen = () => {
             if (isCorrect) {
                 handleNextRound();
             }
-        }, 3000);
+        }, 1500);
     };
 
     // Manejar el avance de ronda
@@ -139,7 +141,7 @@ export const GameScreen = () => {
                     <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
                         <ImageButton
                             onPress={() => !visibleTexts[item.name] ? handleImagePress(item.name) : undefined}
-                            image={item.path}
+                            image={item.name}
                         />
                         {visibleTexts[item.name] && (
                             <Text style={{ fontSize: 30, color: globalColors.dark }}>{item.name}</Text>

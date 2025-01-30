@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet, Text, Alert} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -142,5 +142,5 @@ const styles = StyleSheet.create({
   },
   disabledDropdown: {
     backgroundColor: 'gray',
-  }
+  },
 });
