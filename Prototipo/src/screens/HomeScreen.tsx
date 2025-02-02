@@ -7,6 +7,7 @@ import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { SettingsButton } from '../components/SettingsButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+import logger from '../logger/Logger';
 
 export const HomeScreen = () => {
 
@@ -35,6 +36,11 @@ export const HomeScreen = () => {
           })
         }
         label="Jugar"
+      />
+
+      <PrimaryButton
+        onPress={() => logger.log('Esto es un log al pulsar un botón') }
+        label="Logger"
       />
 
       <SettingsButton
