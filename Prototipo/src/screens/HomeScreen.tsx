@@ -8,11 +8,13 @@ import type { RootStackParams } from '../routes/StackNavigator';
 import { SettingsButton } from '../components/SettingsButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import logger from '../logger/Logger';
+import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
 
 export const HomeScreen = () => {
 
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
   const {selectedCategory, selectedImages, selectedRounds} = useGlobalStoreSetup();
+  const {userName} = useGlobalStoreUser();
 
   useEffect(() => {
     navigation.setOptions({
@@ -29,6 +31,11 @@ export const HomeScreen = () => {
       />
 
       <PrimaryButton
+        onPress={() => logger.log({name: userName}, "boton log", "tocado pantalla", new Date().toISOString()) }
+        label="Logger"
+      />
+
+      <PrimaryButton
         onPress={() => navigation.navigate('Game', {
             category: selectedCategory,
             imagesPerRound: parseInt(selectedImages, 10),
@@ -36,11 +43,6 @@ export const HomeScreen = () => {
           })
         }
         label="Jugar"
-      />
-
-      <PrimaryButton
-        onPress={() => logger.log('Esto es un log al pulsar un botón') }
-        label="Logger"
       />
 
       <SettingsButton
