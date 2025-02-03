@@ -8,6 +8,7 @@ class Logger {
     //this.logFilePath = `${RNFS.ExternalDirectoryPath}/${fileName}`;
   }
 
+  // es un singletion
   static getInstance(): Logger {
     if (!Logger.instance) {
       Logger.instance = new Logger();
@@ -15,12 +16,12 @@ class Logger {
     return Logger.instance;
   }
 
-  async log(message: string): Promise<void> {
-    const timestamp = new Date().toISOString();
-    const logMessage = `[${timestamp}] ${message}\n`;
+  async log(player: { name: string }, action: string, object: string, timestamp: string): Promise<void> {
+    // Cadena de texto que nos interesa
+    const logMessage = `${player.name} ${action} ${object} a las "${timestamp}"`;
 
     try {
-      //await RNFS.appendFile(this.logFilePath, logMessage, 'utf8');
+      //await RNFS.appendFile(this.logFilePath, logMessage + '\n', 'utf8');
       console.log('Log guardado:', logMessage);
     } catch (error) {
       console.error('Error guardando log:', error);
