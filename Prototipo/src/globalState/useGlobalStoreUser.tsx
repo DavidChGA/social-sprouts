@@ -8,7 +8,7 @@ interface UserState {
 
 // Crea el store global con Zustand
 const useGlobalStoreUser = create<UserState>((set) => ({
-  userName: "Prueba",
+  userName: "UserTest",
   setUserName: (name) => set(() => ({ userName: name })),
    getUserName: () => {
     return useGlobalStoreUser.getState().userName;

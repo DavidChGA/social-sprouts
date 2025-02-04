@@ -73,7 +73,7 @@ export const GameScreen = () => {
         const shuffledImages = shuffleArray(gameConfig.categorias[category]);
         const roundsArray: Round[] = [];
 
-        logger.log({name: userName}, "initialized", "with " + rounds + " and " + imagesPerRound + " images per round" + " category: " + category, new Date().toISOString());
+        logger.log({name: userName}, "initialized", "with " + rounds + " rounds and " + imagesPerRound + " images per round" + " category: " + category, new Date().toISOString());
 
         // Crear las rondas con las imágenes correctas
         for (let i = 0; i < rounds; i++) {
