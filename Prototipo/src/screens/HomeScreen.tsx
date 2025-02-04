@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
-import { View, Image, StyleSheet} from 'react-native';
+import { View, Image, StyleSheet, Pressable} from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
@@ -40,9 +40,22 @@ export const HomeScreen = () => {
         label="Jugar"
       />
 
-      <SettingsButton
-        onPress={() => navigation.navigate('Setup')}
-      />
+      <View style={homeStyles.buttonContainer}>
+      <Pressable
+        onPress={() => navigation.navigate('Logs')}>
+      <Image
+                      source={require('../assets/img/informacion.png')}
+                      style={{
+                          width: 50,
+                          height: 50,
+                      }}
+                  />
+      </Pressable>
+
+        <SettingsButton
+          onPress={() => navigation.navigate('Setup')}
+        />
+      </View>
     </View>
   );
 };
@@ -51,4 +64,10 @@ const homeStyles = StyleSheet.create({
   container: {
       flexDirection: 'column',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Espaciado entre los botones
+    alignItems: 'center',  // Alineación vertical en el centro
+    padding: 10,
+  }
 });

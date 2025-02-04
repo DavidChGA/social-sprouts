@@ -2,11 +2,7 @@ import RNFS from 'react-native-fs';
 
 class Logger {
   private static instance: Logger;
-  private logFilePath: string;
-
-  private constructor(fileName: string = 'tracker.log') {
-    //this.logFilePath = `${RNFS.ExternalDirectoryPath}/${fileName}`;
-  }
+  private logFilePath = `${RNFS.DocumentDirectoryPath}/app.log`;
 
   // es un singletion
   static getInstance(): Logger {
@@ -18,11 +14,11 @@ class Logger {
 
   async log(player: { name: string }, action: string, object: string, timestamp: string): Promise<void> {
     // Cadena de texto que nos interesa
-    const logMessage = `${player.name} ${action} ${object} a las "${timestamp}"`;
+    const logMessage = `${player.name} ${action} ${object} at "${timestamp}"`;
 
     try {
-      //await RNFS.appendFile(this.logFilePath, logMessage + '\n', 'utf8');
       console.log('`[LOG]', logMessage);
+      await RNFS.appendFile(this.logFilePath, logMessage + '\n', 'utf8');
     } catch (error) {
       console.error('Error guardando log:', error);
     }
@@ -34,15 +30,6 @@ class Logger {
     } catch (error) {
       console.error('Error leyendo log:', error);
       return '';
-    }
-  }
-
-  async clearLog(): Promise<void> {
-    try {
-      await RNFS.writeFile(this.logFilePath, '', 'utf8');
-      console.log('Log limpiado');
-    } catch (error) {
-      console.error('Error limpiando log:', error);
     }
   }
 }
