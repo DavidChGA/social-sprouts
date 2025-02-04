@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Button, StyleSheet } from 'react-native';
 import logger from '../logger/Logger';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParams } from '../routes/StackNavigator';
 
 export const LogScreen = () => {
   const [logs, setLogs] = useState<string>('');
-
+  const navigation = useNavigation<NavigationProp<RootStackParams>>();
   // Cargar logs al abrir la pantalla
   useEffect(() => {
     fetchLogs();
+    navigation.setOptions({
+      headerShown: false,
+    });
   }, []);
 
   const fetchLogs = async () => {
