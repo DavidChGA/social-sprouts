@@ -22,7 +22,7 @@ class Logger {
 
     try {
       //await RNFS.appendFile(this.logFilePath, logMessage + '\n', 'utf8');
-      console.log('Log guardado:', logMessage);
+      console.log('`[LOG]', logMessage);
     } catch (error) {
       console.error('Error guardando log:', error);
     }

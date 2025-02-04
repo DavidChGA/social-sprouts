@@ -11,6 +11,8 @@ import { ImageButton } from '../components/ImageButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/game-config.json';
+import logger from '../logger/Logger';
+import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
 
 type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
 
@@ -36,6 +38,8 @@ export const GameScreen = () => {
     const route = useRoute<GameScreenRouteProp>();
     const { category, imagesPerRound, rounds } = route.params;
 
+    const {userName} = useGlobalStoreUser();
+
     useEffect(() => {
         navigation.setOptions({
             headerShown: false,
@@ -53,6 +57,8 @@ export const GameScreen = () => {
         setCurrentImages(round.images);
         setCorrectImage(round.correctImage);
 
+        logger.log({name: userName}, "initialized", "ronda correct animal: " + round.correctImage.name, new Date().toISOString());
+
         // Resetear visibilidad del texto para las imágenes actuales
         const initialVisibleTexts: Record<string, boolean> = {};
 
@@ -66,6 +72,8 @@ export const GameScreen = () => {
     const initializeGame = () => {
         const shuffledImages = shuffleArray(gameConfig.categorias[category]);
         const roundsArray: Round[] = [];
+
+        logger.log({name: userName}, "initialized", "with " + rounds + " and " + imagesPerRound + " images per round" + " category: " + category, new Date().toISOString());
 
         // Crear las rondas con las imágenes correctas
         for (let i = 0; i < rounds; i++) {
@@ -97,6 +105,14 @@ export const GameScreen = () => {
         setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = name === correctImage.name;
 
+        if(isCorrect){
+            logger.log({name: userName}, "selected CORRECTLY", name, new Date().toISOString());
+            logger.log({name: userName}, "progressed", "go next round", new Date().toISOString());
+        } else{
+            logger.log({name: userName}, "selected INCORRECTLY", name, new Date().toISOString());
+            logger.log({name: userName}, "progressed", "retry round", new Date().toISOString());
+        }
+
         setModalMessage(isCorrect ? `¡Correcto! Seleccionaste ${name}` : `¡Incorrecto! Seleccionaste ${name}`);
         setModalImage(isCorrect ? require('../assets/img/answer/bien.png') : require('../assets/img/answer/mal.png'));
         setIsModalVisible(true);
@@ -116,6 +132,9 @@ export const GameScreen = () => {
             setCurrentRound((prevRound) => prevRound + 1);
             loadNextRound(roundsData[currentRound]);
         } else {
+
+            logger.log({name: userName}, "completed", "all the rounds", new Date().toISOString());
+
             Alert.alert('¡Juego terminado!', 'Has completado todas las rondas.', [
                 {
                     text: 'Finalizar',

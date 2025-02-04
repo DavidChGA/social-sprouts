@@ -31,11 +31,6 @@ export const HomeScreen = () => {
       />
 
       <PrimaryButton
-        onPress={() => logger.log({name: userName}, "boton log", "tocado pantalla", new Date().toISOString()) }
-        label="Logger"
-      />
-
-      <PrimaryButton
         onPress={() => navigation.navigate('Game', {
             category: selectedCategory,
             imagesPerRound: parseInt(selectedImages, 10),
