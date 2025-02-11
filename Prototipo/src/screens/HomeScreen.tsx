@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Pressable} from 'react-native';
 import { globalStyles } from '../theme/theme';
@@ -69,5 +71,5 @@ const homeStyles = StyleSheet.create({
     justifyContent: 'space-between', // Espaciado entre los botones
     alignItems: 'center',  // Alineación vertical en el centro
     padding: 10,
-  }
+  },
 });

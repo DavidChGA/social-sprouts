@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Alert } from 'react-native';
+import { View, StyleSheet, Text} from 'react-native';
 import { globalColors, globalStyles } from '../theme/theme';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ImageButton } from '../components/ImageButton';
@@ -105,10 +107,10 @@ export const GameScreen = () => {
         setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = name === correctImage.name;
 
-        if(isCorrect){
+        if (isCorrect){
             logger.log({name: userName}, "selected CORRECTLY", name, new Date().toISOString());
             logger.log({name: userName}, "progressed", "go next round", new Date().toISOString());
-        } else{
+        } else {
             logger.log({name: userName}, "selected INCORRECTLY", name, new Date().toISOString());
             logger.log({name: userName}, "progressed", "retry round", new Date().toISOString());
         }
@@ -135,22 +137,15 @@ export const GameScreen = () => {
 
             logger.log({name: userName}, "completed", "all the rounds", new Date().toISOString());
 
-            Alert.alert('¡Juego terminado!', 'Has completado todas las rondas.', [
-                {
-                    text: 'Finalizar',
-                    onPress: () => {
-                        navigation.navigate('GameOver', {
-                            attempts: attempts + 1,
-                            roundsPlayed: rounds,
-                        });
-                    },
-                },
-            ]);
+            navigation.navigate('GameOver', {
+                attempts: attempts + 1,
+                roundsPlayed: rounds,
+            });
         }
     };
 
     return (
-        <View style={[globalStyles.container, gameStyles.container]}>
+        <View style={[globalStyles.container]}>
             <View style={gameStyles.textContainer}>
                 <Text style={globalStyles.title}>MARCA LA FIGURA QUE CORRESPONDE A LA PALABRA</Text>
             </View>
