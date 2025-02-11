@@ -59,7 +59,7 @@ export const GameScreen = () => {
         setCurrentImages(round.images);
         setCorrectImage(round.correctImage);
 
-        logger.log({name: userName}, "initialized", "ronda correct animal: " + round.correctImage.name, new Date().toISOString());
+        logger.log({name: userName}, "initialized", "ronda correct image: " + round.correctImage.name, new Date().toISOString());
 
         // Resetear visibilidad del texto para las imágenes actuales
         const initialVisibleTexts: Record<string, boolean> = {};
@@ -67,6 +67,7 @@ export const GameScreen = () => {
         //let imageMap: { [key: string]: any } = {};
         round.images.forEach((img: any) => {
             initialVisibleTexts[img.name] = false;
+            logger.log({name: userName}, "initialized", "ronda image: " + img.name, new Date().toISOString());
         });
         setVisibleTexts(initialVisibleTexts);
     };
