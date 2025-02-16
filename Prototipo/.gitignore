@@ -459,4 +459,6 @@ gradle-app.setting
 # and uncomment the following lines
 # .pnp.*
 
+*.lock
+
 # End of https://www.toptal.com/developers/gitignore/api/android,reactnative,visualstudiocode,node,yarn
