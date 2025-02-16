@@ -1,11 +1,6 @@
 import RNFS from 'react-native-fs';
-
-interface Log {
-  player: { name: string },
-  action: string,
-  object: string,
-  timestamp: string
-}
+import logTypes from './LogTypesEnum';
+import Log from './LogInterface';
 
 //Para pasarlo a un JSON que podamos usar en una petición JSON.stringify(Log), revisar si añadimos más campos
 //Cuando estén decididos cambiar la interfaz como argumento de log() y no las cosas por separado.
@@ -22,13 +17,35 @@ class Logger {
     return Logger.instance;
   }
 
-  async log(player: { name: string }, action: string, object: string, timestamp: string): Promise<void> {
+  async log(log: Log): Promise<void> {
     // Cadena de texto que nos interesa
-    const logMessage = `${player.name} ${action} ${object} at "${timestamp}"`;
+
+    const logMessage = ``;
+    let json = "";
+
+    if(log.action == logTypes.Completed){
+      json = JSON.stringify(log, ["player", "object", "timestamp", "otherInfo"], 2)
+    }
+
+    if(log.action = logTypes.Initialized){
+      if(log.object == "Game"){
+        json = JSON.stringify(log, ["player", "object", "timestamp", "otherInfo"], 2)
+      } else {
+        json = JSON.stringify(log, ["playe.name", "object", "timestamp", "otherOptions"], 2)
+      }
+    }
+
+    if(log.action = logTypes.Progressed){
+      json = JSON.stringify(log, ["player", "object", "timestamp", "otherInfo"], 2)
+    }
+
+    if(log.action = logTypes.Selected){
+      json = JSON.stringify(log, ["player", "object", "timestamp", "selectedOption", "correctOption", "result", "otherInfo"], 2)
+    }
 
     try {
-      console.log('`[LOG]', logMessage);
-      await RNFS.appendFile(this.logFilePath, logMessage + '\n', 'utf8');
+      console.log('`[LOG]', json);
+      //await RNFS.appendFile(this.logFilePath, logMessage + '\n', 'utf8');
     } catch (error) {
       console.error('Error guardando log:', error);
     }

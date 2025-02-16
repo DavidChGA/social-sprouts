@@ -15,6 +15,8 @@ import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/game-config.json';
 import logger from '../logger/Logger';
 import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
+import logTypes from '../logger/LogTypesEnum';
+import Log from '../logger/LogInterface';
 
 type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
 
@@ -59,7 +61,17 @@ export const GameScreen = () => {
         setCurrentImages(round.images);
         setCorrectImage(round.correctImage);
 
-        logger.log({name: userName}, "initialized", "ronda correct image: " + round.correctImage.name, new Date().toISOString());
+        const logInicioRonda: Log = {
+            player: userName,
+            action: logTypes.Initialized,
+            object: 'Round',
+            timestamp: new Date().toISOString(),
+            correctOption: round.correctImage.name,
+            otherOptions: [],
+            result: "",
+            otherInfo: "",
+            selectedOption: ""
+        };
 
         // Resetear visibilidad del texto para las imágenes actuales
         const initialVisibleTexts: Record<string, boolean> = {};
@@ -67,8 +79,12 @@ export const GameScreen = () => {
         //let imageMap: { [key: string]: any } = {};
         round.images.forEach((img: any) => {
             initialVisibleTexts[img.name] = false;
-            logger.log({name: userName}, "initialized", "ronda image: " + img.name, new Date().toISOString());
+            logInicioRonda.otherOptions.push(img.name);
         });
+
+        console.log(logInicioRonda);
+        logger.log(logInicioRonda);
+
         setVisibleTexts(initialVisibleTexts);
     };
 
@@ -76,7 +92,19 @@ export const GameScreen = () => {
         const shuffledImages = shuffleArray(gameConfig.categorias[category]);
         const roundsArray: Round[] = [];
 
-        logger.log({name: userName}, "initialized", "with " + rounds + " rounds and " + imagesPerRound + " images per round" + " category: " + category, new Date().toISOString());
+        const logInicio: Log = {
+            player: userName,
+            action: logTypes.Initialized,
+            object: 'Game',
+            timestamp: new Date().toISOString(),
+            correctOption: "",
+            otherOptions: [],
+            result: "",
+            selectedOption: "",
+            otherInfo: rounds + " rounds and " + imagesPerRound + " images per round" + " category: " + category
+        };
+
+        logger.log(logInicio);
 
         // Crear las rondas con las imágenes correctas
         for (let i = 0; i < rounds; i++) {
@@ -108,12 +136,40 @@ export const GameScreen = () => {
         setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = name === correctImage.name;
 
+        const logTry: Log = {
+            player: userName,
+            action: logTypes.Selected,
+            object: 'Round',
+            timestamp: new Date().toISOString(),
+            correctOption: correctImage.name,
+            otherOptions: [],
+            result: "",
+            selectedOption: name,
+            otherInfo: ""
+        };
+
+        const logTryP: Log = {
+            player: userName,
+            action: logTypes.Progressed,
+            object: 'Game',
+            timestamp: new Date().toISOString(),
+            correctOption: "",
+            otherOptions: [],
+            result: "",
+            selectedOption: "",
+            otherInfo: ""
+        };
+
         if (isCorrect){
-            logger.log({name: userName}, "selected CORRECTLY", name, new Date().toISOString());
-            logger.log({name: userName}, "progressed", "go next round", new Date().toISOString());
+            logTry.result = "CORRECTLY";
+            logTryP.otherInfo = "go next round"
+            logger.log(logTry);
+            logger.log(logTryP);
         } else {
-            logger.log({name: userName}, "selected INCORRECTLY", name, new Date().toISOString());
-            logger.log({name: userName}, "progressed", "retry round", new Date().toISOString());
+            logTry.result = "INCORRECTLY";
+            logTryP.otherInfo = "retry round"
+            logger.log(logTry);
+            logger.log(logTryP);
         }
 
         setModalMessage(isCorrect ? `¡Correcto! Seleccionaste ${name}` : `¡Incorrecto! Seleccionaste ${name}`);
@@ -136,7 +192,19 @@ export const GameScreen = () => {
             loadNextRound(roundsData[currentRound]);
         } else {
 
-            logger.log({name: userName}, "completed", "all the rounds", new Date().toISOString());
+            const logFin: Log = {
+                player: userName,
+                action: logTypes.Completed,
+                object: 'Game',
+                timestamp: new Date().toISOString(),
+                correctOption: "",
+                result: "",
+                selectedOption: "",
+                otherOptions: [],
+                otherInfo: "all the rounds completed"
+            };
+            
+            logger.log(logFin);
 
             navigation.navigate('GameOver', {
                 attempts: attempts + 1,
