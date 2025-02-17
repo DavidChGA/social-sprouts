@@ -1,9 +1,5 @@
 import RNFS from 'react-native-fs';
-import logTypes from './LogTypesEnum';
 import { Log } from './LogInterface';
-
-//Para pasarlo a un JSON que podamos usar en una petición JSON.stringify(Log), revisar si añadimos más campos
-//Cuando estén decididos cambiar la interfaz como argumento de log() y no las cosas por separado.
 
 class Logger {
   private static instance: Logger;
@@ -18,9 +14,7 @@ class Logger {
   }
 
   async log(log: Log): Promise<void> {
-    // Cadena de texto que nos interesa
 
-    const logMessage = ``;
     const json =  JSON.stringify(log, null, 2);
 
     try {

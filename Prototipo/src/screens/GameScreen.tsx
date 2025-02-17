@@ -15,8 +15,8 @@ import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/game-config.json';
 import logger from '../logger/Logger';
 import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
-import logTypes from '../logger/LogTypesEnum';
 import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
+import { logTypes, objectTypes, resultTypes } from '../logger/LogEnums';
 
 type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
 
@@ -64,7 +64,7 @@ export const GameScreen = () => {
         const logInicioRonda: LogInitializedRound = {
             player: userName,
             action: logTypes.Initialized,
-            object: 'Round',
+            object: objectTypes.Round,
             timestamp: new Date().toISOString(),
             correctOption: round.correctImage.name,
             allOptions: [],
@@ -92,7 +92,7 @@ export const GameScreen = () => {
         const logInicio: LogInitializedGame = {
             player: userName,
             action: logTypes.Initialized,
-            object: 'Game',
+            object: objectTypes.Game,
             timestamp: new Date().toISOString(),
             otherInfo: "",
             rounds: rounds,
@@ -134,7 +134,7 @@ export const GameScreen = () => {
         const logTry: LogSelect = {
             player: userName,
             action: logTypes.Selected,
-            object: 'Round',
+            object: objectTypes.Round,
             timestamp: new Date().toISOString(),
             correctOption: correctImage.name,
             result: "",
@@ -145,18 +145,18 @@ export const GameScreen = () => {
         const logTryP: LogProgressed = {
             player: userName,
             action: logTypes.Progressed,
-            object: 'Game',
+            object: objectTypes.Game,
             timestamp: new Date().toISOString(),
             otherInfo: ""
         };
 
         if (isCorrect){
-            logTry.result = "CORRECTLY";
+            logTry.result = resultTypes.Correctly;
             logTryP.otherInfo = "go next round"
             logger.log(logTry);
             logger.log(logTryP);
         } else {
-            logTry.result = "INCORRECTLY";
+            logTry.result = resultTypes.Incorrectly;
             logTryP.otherInfo = "retry round"
             logger.log(logTry);
             logger.log(logTryP);
@@ -185,7 +185,7 @@ export const GameScreen = () => {
             const logFin: LogCompleted = {
                 player: userName,
                 action: logTypes.Completed,
-                object: 'Game',
+                object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
                 otherInfo: "all the rounds completed"
             };
