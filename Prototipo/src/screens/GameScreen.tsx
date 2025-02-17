@@ -16,7 +16,7 @@ import gameConfig from '../assets/game-config.json';
 import logger from '../logger/Logger';
 import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
 import logTypes from '../logger/LogTypesEnum';
-import Log from '../logger/LogInterface';
+import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
 
 type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
 
@@ -61,16 +61,14 @@ export const GameScreen = () => {
         setCurrentImages(round.images);
         setCorrectImage(round.correctImage);
 
-        const logInicioRonda: Log = {
+        const logInicioRonda: LogInitializedRound = {
             player: userName,
             action: logTypes.Initialized,
             object: 'Round',
             timestamp: new Date().toISOString(),
             correctOption: round.correctImage.name,
             otherOptions: [],
-            result: "",
             otherInfo: "",
-            selectedOption: ""
         };
 
         // Resetear visibilidad del texto para las imágenes actuales
@@ -82,7 +80,6 @@ export const GameScreen = () => {
             logInicioRonda.otherOptions.push(img.name);
         });
 
-        console.log(logInicioRonda);
         logger.log(logInicioRonda);
 
         setVisibleTexts(initialVisibleTexts);
@@ -92,16 +89,14 @@ export const GameScreen = () => {
         const shuffledImages = shuffleArray(gameConfig.categorias[category]);
         const roundsArray: Round[] = [];
 
-        const logInicio: Log = {
+        const logInicio: LogInitializedGame = {
             player: userName,
             action: logTypes.Initialized,
             object: 'Game',
             timestamp: new Date().toISOString(),
-            correctOption: "",
-            otherOptions: [],
-            result: "",
-            selectedOption: "",
-            otherInfo: rounds + " rounds and " + imagesPerRound + " images per round" + " category: " + category
+            otherInfo: "",
+            rounds: rounds,
+            imagesPerRound: imagesPerRound
         };
 
         logger.log(logInicio);
@@ -136,27 +131,22 @@ export const GameScreen = () => {
         setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = name === correctImage.name;
 
-        const logTry: Log = {
+        const logTry: LogSelect = {
             player: userName,
             action: logTypes.Selected,
             object: 'Round',
             timestamp: new Date().toISOString(),
             correctOption: correctImage.name,
-            otherOptions: [],
             result: "",
             selectedOption: name,
             otherInfo: ""
         };
 
-        const logTryP: Log = {
+        const logTryP: LogProgressed = {
             player: userName,
             action: logTypes.Progressed,
             object: 'Game',
             timestamp: new Date().toISOString(),
-            correctOption: "",
-            otherOptions: [],
-            result: "",
-            selectedOption: "",
             otherInfo: ""
         };
 
@@ -192,15 +182,11 @@ export const GameScreen = () => {
             loadNextRound(roundsData[currentRound]);
         } else {
 
-            const logFin: Log = {
+            const logFin: LogCompleted = {
                 player: userName,
                 action: logTypes.Completed,
                 object: 'Game',
                 timestamp: new Date().toISOString(),
-                correctOption: "",
-                result: "",
-                selectedOption: "",
-                otherOptions: [],
                 otherInfo: "all the rounds completed"
             };
             
