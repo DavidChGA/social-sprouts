@@ -67,7 +67,7 @@ export const GameScreen = () => {
             object: 'Round',
             timestamp: new Date().toISOString(),
             correctOption: round.correctImage.name,
-            otherOptions: [],
+            allOptions: [],
             otherInfo: "",
         };
 
@@ -77,7 +77,7 @@ export const GameScreen = () => {
         //let imageMap: { [key: string]: any } = {};
         round.images.forEach((img: any) => {
             initialVisibleTexts[img.name] = false;
-            logInicioRonda.otherOptions.push(img.name);
+            logInicioRonda.allOptions.push(img.name);
         });
 
         logger.log(logInicioRonda);

@@ -15,7 +15,7 @@ interface LogInitializedGame extends Log {
 
 interface LogInitializedRound extends Log {
   correctOption: string;
-  otherOptions: string[];
+  allOptions: string[];
 }
 
 interface LogCompleted extends Log {
