@@ -1,44 +1,246 @@
 {
-  "categorias": {
-    "Animales": [
-      {"id": 1, "name": "LEÓN"},
-      {"id": 2, "name": "OSO"},
-      {"id": 3, "name": "MAPACHE"},
-      {"id": 4, "name": "BÚHO"},
-      {"id": 5, "name": "ELEFANTE"},
-      {"id": 6, "name": "GATO"},
-      {"id": 7, "name": "PALOMA"},
-      {"id": 8, "name": "PERRO"},
-      {"id": 9, "name": "PEZ"},
-      {"id": 10, "name": "CABALLO"}
-    ],
-    "Transportes": [
-        {"id": 1, "name": "AUTOBÚS"},
-        {"id": 2, "name": "AVIÓN"},
-        {"id": 3, "name": "BICICLETA"},
-        {"id": 4, "name": "CAMIÓN"},
-        {"id": 5, "name": "COCHE"},
-        {"id": 6, "name": "METRO"},
-        {"id": 7, "name": "MOTO"},
-        {"id": 8, "name": "SUBMARINO"},
-        {"id": 9, "name": "HELICÓPTERO"},
-        {"id": 10, "name": "BARCO"}
-      ],
-      "Frutas y verduras": [
-        {"id": 1, "name": "CALABAZA"},
-        {"id": 2, "name": "FRESA"},
-        {"id": 3, "name": "LECHUGA"},
-        {"id": 4, "name": "MANZANA"},
-        {"id": 5, "name": "NARANJA"},
-        {"id": 6, "name": "PERA"},
-        {"id": 7, "name": "PIMIENTO"},
-        {"id": 8, "name": "PLÁTANO"},
-        {"id": 9, "name": "TOMATE"},
-        {"id": 10, "name": "ZANAHORIA"}
-      ]
-  },
-  "defaultConfig": {
-    "imagesToShow": 3,
-    "rounds": 3
-  }
+    "categorias": {
+        "Comida": [
+            {
+                "id": 1,
+                "name": "BOCADILLO"
+            },
+            {
+                "id": 2,
+                "name": "CEREALES"
+            },
+            {
+                "id": 3,
+                "name": "CEREZAS"
+            },
+            {
+                "id": 4,
+                "name": "CROISSANT"
+            },
+            {
+                "id": 5,
+                "name": "FRESA"
+            },
+            {
+                "id": 6,
+                "name": "GALLETAS"
+            },
+            {
+                "id": 7,
+                "name": "JAMÓN"
+            },
+            {
+                "id": 8,
+                "name": "JUDÍAS"
+            },
+            {
+                "id": 9,
+                "name": "MANTEQUILLA"
+            },
+            {
+                "id": 10,
+                "name": "HUEVO"
+            },
+            {
+                "id": 11,
+                "name": "MANZANA"
+            },
+            {
+                "id": 12,
+                "name": "MELÓN"
+            },
+            {
+                "id": 13,
+                "name": "PAN"
+            },
+            {
+                "id": 14,
+                "name": "PASTEL"
+            },
+            {
+                "id": 15,
+                "name": "PATATA"
+            },
+            {
+                "id": 16,
+                "name": "PLÁTANO"
+            },
+            {
+                "id": 17,
+                "name": "QUESO"
+            },
+            {
+                "id": 18,
+                "name": "TOMATE"
+            },
+            {
+                "id": 19,
+                "name": "YOGUR"
+            },
+            {
+                "id": 20,
+                "name": "ACEITUNAS"
+            }
+        ],
+        "Animal": [
+            {
+                "id": 1,
+                "name": "PEZ"
+            },
+            {
+                "id": 2,
+                "name": "COCODRILO"
+            },
+            {
+                "id": 3,
+                "name": "ELEFANTE"
+            },
+            {
+                "id": 4,
+                "name": "SERPIENTE"
+            },
+            {
+                "id": 5,
+                "name": "GATO"
+            },
+            {
+                "id": 6,
+                "name": "PERRO"
+            },
+            {
+                "id": 7,
+                "name": "TORTUGA"
+            },
+            {
+                "id": 8,
+                "name": "CABALLO"
+            },
+            {
+                "id": 9,
+                "name": "ARAÑA"
+            },
+            {
+                "id": 10,
+                "name": "BALLENA"
+            },
+            {
+                "id": 11,
+                "name": "CANGURO"
+            },
+            {
+                "id": 12,
+                "name": "CEBRA"
+            },
+            {
+                "id": 13,
+                "name": "FOCA"
+            },
+            {
+                "id": 14,
+                "name": "JIRAFA"
+            },
+            {
+                "id": 15,
+                "name": "OSO"
+            },
+            {
+                "id": 16,
+                "name": "MONO"
+            },
+            {
+                "id": 17,
+                "name": "TIGRE"
+            },
+            {
+                "id": 18,
+                "name": "DELFÍN"
+            },
+            {
+                "id": 19,
+                "name": "LAGARTIJA"
+            },
+            {
+                "id": 20,
+                "name": "LOBO"
+            }
+        ],
+        "Transporte": [
+            {
+                "id": 1,
+                "name": "AUTOBÚS"
+            },
+            {
+                "id": 2,
+                "name": "AVIÓN"
+            },
+            {
+                "id": 3,
+                "name": "COHETE"
+            },
+            {
+                "id": 4,
+                "name": "RUEDA"
+            },
+            {
+                "id": 5,
+                "name": "AMBULANCIA"
+            },
+            {
+                "id": 6,
+                "name": "BARCO"
+            },
+            {
+                "id": 7,
+                "name": "CAMIÓN"
+            },
+            {
+                "id": 8,
+                "name": "HELICÓPTERO"
+            },
+            {
+                "id": 9,
+                "name": "TRINEO"
+            },
+            {
+                "id": 10,
+                "name": "TREN"
+            },
+            {
+                "id": 11,
+                "name": "FURGONETA"
+            },
+            {
+                "id": 12,
+                "name": "COCHE"
+            },
+            {
+                "id": 13,
+                "name": "AUTOCARAVANA"
+            },
+            {
+                "id": 14,
+                "name": "MOTOCICLETA"
+            },
+            {
+                "id": 15,
+                "name": "METRO"
+            },
+            {
+                "id": 16,
+                "name": "BICICLETA"
+            },
+            {
+                "id": 17,
+                "name": "CONDUCIR"
+            },
+            {
+                "id": 18,
+                "name": "BILLETE"
+            }
+        ]
+    },
+    "defaultConfig": {
+        "imagesToShow": 3,
+        "rounds": 3
+    }
 }

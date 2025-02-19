@@ -1,4 +1,5 @@
 import RNFS from 'react-native-fs';
+import { Log } from './LogInterface';
 
 class Logger {
   private static instance: Logger;
@@ -12,13 +13,13 @@ class Logger {
     return Logger.instance;
   }
 
-  async log(player: { name: string }, action: string, object: string, timestamp: string): Promise<void> {
-    // Cadena de texto que nos interesa
-    const logMessage = `${player.name} ${action} ${object} at "${timestamp}"`;
+  async log(log: Log): Promise<void> {
+
+    const json =  JSON.stringify(log, null, 2);
 
     try {
-      console.log('`[LOG]', logMessage);
-      await RNFS.appendFile(this.logFilePath, logMessage + '\n', 'utf8');
+      console.log('`[LOG]', json);
+      await RNFS.appendFile(this.logFilePath, json + '\n', 'utf8');
     } catch (error) {
       console.error('Error guardando log:', error);
     }

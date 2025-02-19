@@ -22,10 +22,10 @@ export const SetupScreen = () => {
 
   // Opciones válidas de imágenes y rondas
   const options = [
-    {images: 3, rounds: [1, 2, 3]},
-    {images: 4, rounds: [1, 2]},
-    {images: 5, rounds: [1, 2]},
-    {images: 6, rounds: [1]},
+    {images: 3, rounds: [1, 3, 5]},
+    {images: 4, rounds: [1, 3, 5]},
+    {images: 5, rounds: [1, 2, 4]},
+    {images: 6, rounds: [1, 2, 3]},
   ];
 
   // Categorías

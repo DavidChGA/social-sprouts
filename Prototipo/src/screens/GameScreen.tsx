@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable quotes */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Alert } from 'react-native';
+import { View, StyleSheet, Text} from 'react-native';
 import { globalColors, globalStyles } from '../theme/theme';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ImageButton } from '../components/ImageButton';
@@ -13,6 +15,8 @@ import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/game-config.json';
 import logger from '../logger/Logger';
 import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
+import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
+import { logTypes, objectTypes, resultTypes } from '../logger/LogEnums';
 
 type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
 
@@ -57,7 +61,15 @@ export const GameScreen = () => {
         setCurrentImages(round.images);
         setCorrectImage(round.correctImage);
 
-        logger.log({name: userName}, "initialized", "ronda correct animal: " + round.correctImage.name, new Date().toISOString());
+        const logInicioRonda: LogInitializedRound = {
+            player: userName,
+            action: logTypes.Initialized,
+            object: objectTypes.Round,
+            timestamp: new Date().toISOString(),
+            correctOption: round.correctImage.name,
+            allOptions: [],
+            otherInfo: "",
+        };
 
         // Resetear visibilidad del texto para las imágenes actuales
         const initialVisibleTexts: Record<string, boolean> = {};
@@ -65,7 +77,11 @@ export const GameScreen = () => {
         //let imageMap: { [key: string]: any } = {};
         round.images.forEach((img: any) => {
             initialVisibleTexts[img.name] = false;
+            logInicioRonda.allOptions.push(img.name);
         });
+
+        logger.log(logInicioRonda);
+
         setVisibleTexts(initialVisibleTexts);
     };
 
@@ -73,7 +89,17 @@ export const GameScreen = () => {
         const shuffledImages = shuffleArray(gameConfig.categorias[category]);
         const roundsArray: Round[] = [];
 
-        logger.log({name: userName}, "initialized", "with " + rounds + " rounds and " + imagesPerRound + " images per round" + " category: " + category, new Date().toISOString());
+        const logInicio: LogInitializedGame = {
+            player: userName,
+            action: logTypes.Initialized,
+            object: objectTypes.Game,
+            timestamp: new Date().toISOString(),
+            otherInfo: "",
+            rounds: rounds,
+            imagesPerRound: imagesPerRound
+        };
+
+        logger.log(logInicio);
 
         // Crear las rondas con las imágenes correctas
         for (let i = 0; i < rounds; i++) {
@@ -105,12 +131,35 @@ export const GameScreen = () => {
         setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = name === correctImage.name;
 
-        if(isCorrect){
-            logger.log({name: userName}, "selected CORRECTLY", name, new Date().toISOString());
-            logger.log({name: userName}, "progressed", "go next round", new Date().toISOString());
-        } else{
-            logger.log({name: userName}, "selected INCORRECTLY", name, new Date().toISOString());
-            logger.log({name: userName}, "progressed", "retry round", new Date().toISOString());
+        const logTry: LogSelect = {
+            player: userName,
+            action: logTypes.Selected,
+            object: objectTypes.Round,
+            timestamp: new Date().toISOString(),
+            correctOption: correctImage.name,
+            result: "",
+            selectedOption: name,
+            otherInfo: ""
+        };
+
+        const logTryP: LogProgressed = {
+            player: userName,
+            action: logTypes.Progressed,
+            object: objectTypes.Game,
+            timestamp: new Date().toISOString(),
+            otherInfo: ""
+        };
+
+        if (isCorrect){
+            logTry.result = resultTypes.Correctly;
+            logTryP.otherInfo = "go next round"
+            logger.log(logTry);
+            logger.log(logTryP);
+        } else {
+            logTry.result = resultTypes.Incorrectly;
+            logTryP.otherInfo = "retry round"
+            logger.log(logTry);
+            logger.log(logTryP);
         }
 
         setModalMessage(isCorrect ? `¡Correcto! Seleccionaste ${name}` : `¡Incorrecto! Seleccionaste ${name}`);
@@ -133,24 +182,25 @@ export const GameScreen = () => {
             loadNextRound(roundsData[currentRound]);
         } else {
 
-            logger.log({name: userName}, "completed", "all the rounds", new Date().toISOString());
+            const logFin: LogCompleted = {
+                player: userName,
+                action: logTypes.Completed,
+                object: objectTypes.Game,
+                timestamp: new Date().toISOString(),
+                otherInfo: "all the rounds completed"
+            };
+            
+            logger.log(logFin);
 
-            Alert.alert('¡Juego terminado!', 'Has completado todas las rondas.', [
-                {
-                    text: 'Finalizar',
-                    onPress: () => {
-                        navigation.navigate('GameOver', {
-                            attempts: attempts + 1,
-                            roundsPlayed: rounds,
-                        });
-                    },
-                },
-            ]);
+            navigation.navigate('GameOver', {
+                attempts: attempts + 1,
+                roundsPlayed: rounds,
+            });
         }
     };
 
     return (
-        <View style={[globalStyles.container, gameStyles.container]}>
+        <View style={[globalStyles.container]}>
             <View style={gameStyles.textContainer}>
                 <Text style={globalStyles.title}>MARCA LA FIGURA QUE CORRESPONDE A LA PALABRA</Text>
             </View>
