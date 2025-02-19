@@ -16,7 +16,7 @@ import gameConfig from '../assets/game-config.json';
 import logger from '../logger/Logger';
 import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
 import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
-import { logTypes, objectTypes, resultTypes } from '../logger/LogEnums';
+import { logTypes, objectTypes } from '../logger/LogEnums';
 
 type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
 
@@ -137,7 +137,7 @@ export const GameScreen = () => {
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
             correctOption: correctImage.name,
-            result: "",
+            result: false,
             selectedOption: name,
             otherInfo: ""
         };
@@ -151,12 +151,12 @@ export const GameScreen = () => {
         };
 
         if (isCorrect){
-            logTry.result = resultTypes.Correctly;
+            logTry.result = true;
             logTryP.otherInfo = "go next round"
             logger.log(logTry);
             logger.log(logTryP);
         } else {
-            logTry.result = resultTypes.Incorrectly;
+            logTry.result = false;
             logTryP.otherInfo = "retry round"
             logger.log(logTry);
             logger.log(logTryP);

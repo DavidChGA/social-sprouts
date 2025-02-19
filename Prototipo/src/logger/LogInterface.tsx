@@ -1,4 +1,4 @@
-import logTypes from "./LogTypesEnum"
+import { logTypes } from "./LogEnums";
 
 interface Log {
     player: string;
@@ -27,7 +27,7 @@ interface LogProgressed extends Log {
 }
 
 interface LogSelect extends Log {
-  result: string;
+  result: boolean;
   selectedOption: string;
   correctOption: string;
 }
