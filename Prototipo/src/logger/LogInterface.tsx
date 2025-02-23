@@ -9,6 +9,7 @@ interface Log {
   }
 
 interface LogInitializedGame extends Log {
+    category: string;
     rounds: number;
     imagesPerRound: number;
 }

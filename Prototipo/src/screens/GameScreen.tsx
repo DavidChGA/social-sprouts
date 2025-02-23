@@ -96,7 +96,8 @@ export const GameScreen = () => {
             timestamp: new Date().toISOString(),
             otherInfo: "",
             rounds: rounds,
-            imagesPerRound: imagesPerRound
+            imagesPerRound: imagesPerRound,
+            category: category
         };
 
         logger.log(logInicio);
