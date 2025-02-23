@@ -1,7 +1,8 @@
+import { Genders } from "../globalState/useGlobalStoreUser";
 import { logTypes } from "./LogEnums";
 
 interface Log {
-    player: string;
+    player: userData;
     action: logTypes;
     object: string;
     timestamp: string;
@@ -31,6 +32,12 @@ interface LogSelect extends Log {
   result: boolean;
   selectedOption: string;
   correctOption: string;
+}
+
+interface userData{
+    userName: string;
+    userAge: number;
+    userGender: Genders;
 }
 
 export {Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect};
