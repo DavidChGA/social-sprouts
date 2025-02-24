@@ -223,18 +223,26 @@
             },
             {
                 "id": 15,
-                "name": "METRO"
+                "name": "AUTOBÚS"
             },
             {
                 "id": 16,
-                "name": "BICICLETA"
+                "name": "METRO"
             },
             {
                 "id": 17,
-                "name": "CONDUCIR"
+                "name": "BICICLETA"
             },
             {
                 "id": 18,
+                "name": "FURGONETA"
+            },
+            {
+                "id": 19,
+                "name": "CONDUCIR"
+            },
+            {
+                "id": 20,
                 "name": "BILLETE"
             }
         ]
