@@ -15,7 +15,7 @@ import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/game-config.json';
 import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
-import { logTypes, objectTypes } from '../logger/LogEnums';
+import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 type GameScreenVocabularyRouteProp = RouteProp<RootStackParams, 'GameVocabulary'>;
@@ -98,7 +98,8 @@ export const GameScreenVocabulary = () => {
             otherInfo: "",
             rounds: rounds,
             imagesPerRound: imagesPerRound,
-            category: category
+            category: category,
+            gameType: gameTypes.Vocabulary,
         };
 
         logger.log(logInicio);

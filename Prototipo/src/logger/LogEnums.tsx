@@ -10,4 +10,9 @@ enum logTypes {
     Round = "ROUND",
   }
 
-export {logTypes, objectTypes};
+  enum gameTypes {
+    Vocabulary = "VOCABULARY",
+    Sequence = "SEQUENCE",
+  }
+
+export {logTypes, objectTypes, gameTypes};
