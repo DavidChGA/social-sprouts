@@ -49,30 +49,4 @@ function GameModeSelectionScreen() {
     )
 }
 
-const gameStyles = StyleSheet.create({
-    textContainer: {
-        flex: 0.3,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    answer: {
-        fontSize: 80,
-    },
-
-    imageContainer: {
-        flex: 0.3,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: '5%',
-    },
-
-    buttons: {
-        width: 120,
-        height: 40,
-        paddingVertical: 5
-    },
-});
-
 export default GameModeSelectionScreen
