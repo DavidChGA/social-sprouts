@@ -2,15 +2,16 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import React from 'react';
-import { GameScreen } from '../screens/GameScreen';
+import { GameScreenVocabulary } from '../screens/GameScreenVocabulary';
 import { GameOverScreen } from '../screens/GameOverScreen';
-import { SetupScreen } from '../screens/SetupScreen';
+import { SetupVocabularyScreen } from '../screens/SetupVocabularyScreen';
 import { LogScreen } from '../screens/LogScreen';
+import GameModeSelectionScreen from '../screens/GameModeSelectionScreen';
 
 export type RootStackParams = {
   Home: undefined;
   Setup: undefined;
-  Game: {
+  GameVocabulary: {
     category: string;
     imagesPerRound: number;
     rounds: number;
@@ -21,6 +22,7 @@ export type RootStackParams = {
   };
   Settings: undefined;
   Logs: undefined;
+  ModeSelection: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -36,9 +38,10 @@ export const StackNavigator = () => {
       },
     }}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Setup" component={SetupScreen} />
-      <Stack.Screen name="Game" component={GameScreen} />
+      <Stack.Screen name="Setup" component={SetupVocabularyScreen} />
+      <Stack.Screen name="GameVocabulary" component={GameScreenVocabulary} />
       <Stack.Screen name="GameOver" component={GameOverScreen} />
+      <Stack.Screen name="ModeSelection" component={GameModeSelectionScreen} />
       <Stack.Screen name="Logs" component={LogScreen} />
     </Stack.Navigator>
   );

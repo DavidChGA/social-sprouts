@@ -18,7 +18,7 @@ import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, L
 import { logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
-type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
+type GameScreenVocabularyRouteProp = RouteProp<RootStackParams, 'GameVocabulary'>;
 
 interface Round {
     roundNumber: number;
@@ -26,7 +26,7 @@ interface Round {
     correctImage: any;
 }
 
-export const GameScreen = () => {
+export const GameScreenVocabulary = () => {
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -39,7 +39,7 @@ export const GameScreen = () => {
     const [roundsData, setRoundsData] = useState<any[]>([]);
     const [attempts, setAttempts] = useState(0);
 
-    const route = useRoute<GameScreenRouteProp>();
+    const route = useRoute<GameScreenVocabularyRouteProp>();
     const { category, imagesPerRound, rounds } = route.params;
 
     const {userName, userAge, userGender} = useGlobalStoreUser();
@@ -191,7 +191,7 @@ export const GameScreen = () => {
                 timestamp: new Date().toISOString(),
                 otherInfo: "all the rounds completed"
             };
-            
+
             logger.log(logFin);
 
             navigation.navigate('GameOver', {
