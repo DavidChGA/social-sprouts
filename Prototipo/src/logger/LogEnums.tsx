@@ -10,9 +10,4 @@ enum logTypes {
     Round = "ROUND",
   }
 
-  enum resultTypes {
-    Correctly = "CORRECTLY",
-    Incorrectly = "INCORRECTLY",
-  }
-
-export {logTypes, objectTypes, resultTypes};
+export {logTypes, objectTypes};

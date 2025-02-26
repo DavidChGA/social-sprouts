@@ -14,9 +14,9 @@ import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/game-config.json';
 import logger from '../logger/Logger';
-import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
 import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
-import { logTypes, objectTypes, resultTypes } from '../logger/LogEnums';
+import { logTypes, objectTypes } from '../logger/LogEnums';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
 
@@ -42,7 +42,8 @@ export const GameScreen = () => {
     const route = useRoute<GameScreenRouteProp>();
     const { category, imagesPerRound, rounds } = route.params;
 
-    const {userName} = useGlobalStoreUser();
+    const {userName, userAge, userGender} = useGlobalStoreUser();
+    const userDataV = {userName, userAge, userGender};
 
     useEffect(() => {
         navigation.setOptions({
@@ -62,7 +63,7 @@ export const GameScreen = () => {
         setCorrectImage(round.correctImage);
 
         const logInicioRonda: LogInitializedRound = {
-            player: userName,
+            player: userDataV,
             action: logTypes.Initialized,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -90,13 +91,14 @@ export const GameScreen = () => {
         const roundsArray: Round[] = [];
 
         const logInicio: LogInitializedGame = {
-            player: userName,
+            player: userDataV,
             action: logTypes.Initialized,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
             otherInfo: "",
             rounds: rounds,
-            imagesPerRound: imagesPerRound
+            imagesPerRound: imagesPerRound,
+            category: category
         };
 
         logger.log(logInicio);
@@ -132,18 +134,18 @@ export const GameScreen = () => {
         const isCorrect = name === correctImage.name;
 
         const logTry: LogSelect = {
-            player: userName,
+            player: userDataV,
             action: logTypes.Selected,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
             correctOption: correctImage.name,
-            result: "",
+            result: false,
             selectedOption: name,
             otherInfo: ""
         };
 
         const logTryP: LogProgressed = {
-            player: userName,
+            player: userDataV,
             action: logTypes.Progressed,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -151,12 +153,12 @@ export const GameScreen = () => {
         };
 
         if (isCorrect){
-            logTry.result = resultTypes.Correctly;
+            logTry.result = true;
             logTryP.otherInfo = "go next round"
             logger.log(logTry);
             logger.log(logTryP);
         } else {
-            logTry.result = resultTypes.Incorrectly;
+            logTry.result = false;
             logTryP.otherInfo = "retry round"
             logger.log(logTry);
             logger.log(logTryP);
@@ -183,7 +185,7 @@ export const GameScreen = () => {
         } else {
 
             const logFin: LogCompleted = {
-                player: userName,
+                player: userDataV,
                 action: logTypes.Completed,
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),

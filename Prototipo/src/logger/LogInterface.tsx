@@ -1,7 +1,8 @@
-import logTypes from "./LogTypesEnum"
+import { Genders } from "../globalState/useGlobalStoreUser";
+import { logTypes } from "./LogEnums";
 
 interface Log {
-    player: string;
+    player: userData;
     action: logTypes;
     object: string;
     timestamp: string;
@@ -9,6 +10,7 @@ interface Log {
   }
 
 interface LogInitializedGame extends Log {
+    category: string;
     rounds: number;
     imagesPerRound: number;
 }
@@ -27,9 +29,15 @@ interface LogProgressed extends Log {
 }
 
 interface LogSelect extends Log {
-  result: string;
+  result: boolean;
   selectedOption: string;
   correctOption: string;
+}
+
+interface userData{
+    userName: string;
+    userAge: number;
+    userGender: Genders;
 }
 
 export {Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect};

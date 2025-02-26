@@ -10,7 +10,7 @@ import type { RootStackParams } from '../routes/StackNavigator';
 import { SettingsButton } from '../components/SettingsButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import logger from '../logger/Logger';
-import useGlobalStoreUser from '../globalState/useGlobalStoreUser';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 export const HomeScreen = () => {
 
