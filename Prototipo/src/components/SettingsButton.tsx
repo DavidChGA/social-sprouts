@@ -18,6 +18,7 @@ export const SettingsButton = ({ onPress }: Props) => {
                 style={{
                     width: 50, // Ajusta el ancho de la imagen
                     height: 50, // Ajusta la altura de la imagen
+                    margin: 30,
                 }}
             />
         </Pressable>
