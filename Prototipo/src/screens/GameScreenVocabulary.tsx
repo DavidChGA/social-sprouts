@@ -12,7 +12,7 @@ import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-
 import { ImageButton } from '../components/ImageButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
-import gameConfig from '../assets/game-config.json';
+import gameConfig from '../assets/vocabulary-config.json';
 import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';

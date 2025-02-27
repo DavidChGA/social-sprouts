@@ -73,7 +73,7 @@ def main():
         print(f"Buscando y descargando pictogramas para '{keyword}'...")
         download_pictograms_and_generate_files(keyword, img_folder, args.language, categories_data, ts_image_map)
     
-    json_file_path = os.path.join(assets_folder, "game-config.json")
+    json_file_path = os.path.join(assets_folder, "vocabulary-config.json")
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump({"categorias": categories_data, "defaultConfig": {"imagesToShow": 3, "rounds": 3}}, json_file, ensure_ascii=False, indent=4)
     print(f"Archivo JSON generado: {json_file_path}")

@@ -1,0 +1,24 @@
+{
+    "secuencias": {
+        "Lavado de manos": [
+            {
+                "id": 1,
+                "name": "BOCADILLO"
+            },
+            {
+                "id": 2,
+                "name": "CEREALES"
+            }
+        ],
+        "Rutina diaria": [
+            {
+                "id": 1,
+                "name": "BOCADILLO"
+            },
+            {
+                "id": 2,
+                "name": "CEREALES"
+            }
+        ]
+    }
+}
