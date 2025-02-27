@@ -113,7 +113,6 @@ export const SetupVocabularyScreen = () => {
         disable={!selectedImages}
       />
 
-      {/* Botón para iniciar el juego */}
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
     </View>
   );

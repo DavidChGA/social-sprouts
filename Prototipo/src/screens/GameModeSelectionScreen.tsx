@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { RootStackParams } from '../routes/StackNavigator';
 import { PrimaryButton } from '../components/PrimaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
-import { View, StyleSheet, Text } from 'react-native';
+import { View } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { SettingsButton } from '../components/SettingsButton';
 

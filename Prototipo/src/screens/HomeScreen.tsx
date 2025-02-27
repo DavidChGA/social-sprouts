@@ -7,8 +7,6 @@ import { globalStyles } from '../theme/theme';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
-import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
-import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 export const HomeScreen = () => {
 
@@ -38,6 +36,17 @@ export const HomeScreen = () => {
           onPress={() => navigation.navigate('Logs')}>
           <Image
             source={require('../assets/img/informacion.png')}
+            style={{
+              width: 50,
+              height: 50,
+            }}
+          />
+        </Pressable>
+
+        <Pressable
+          onPress={() => navigation.navigate('UserConfig')}>
+          <Image
+            source={require('../assets/img/usuario.png')}
             style={{
               width: 50,
               height: 50,
