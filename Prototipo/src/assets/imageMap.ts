@@ -62,6 +62,11 @@ const imageMap: Record<string, any> = {
   "BILLETE": require("../assets/img/transporte/billete.png"),
 
   //SEQUENCES
+  "ABRIR EL GRIFO": require("../assets/img/secuencias/lavadoManos/lavadoManos1"),
+  "ECHAR EL JABÓN": require("../assets/img/secuencias/lavadoManos/lavadoManos2"),
+  "ENJABONAR LAS MANOS": require("../assets/img/secuencias/lavadoManos/lavadoManos3"),
+  "LAVAR LAS MANOS": require("../assets/img/secuencias/lavadoManos/lavadoManos4"),
+  "SECAR LAS MANOS": require("../assets/img/secuencias/lavadoManos/lavadoManos5"),
 };
 
 export default imageMap;
