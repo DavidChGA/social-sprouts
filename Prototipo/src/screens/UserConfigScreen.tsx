@@ -30,6 +30,8 @@ export const UserConfigScreen = () => {
   return (
     <View style={globalStyles.container}>
 
+    <Text style={{paddingVertical: 10}}> Loggeado actualmente como: {userName}, {userAge}, {userGender} </Text>
+
       {/* Name */}
       <TextInput
         style={styles.dropdown}
@@ -53,7 +55,6 @@ export const UserConfigScreen = () => {
         labelField="label"
         valueField="value"
         placeholder="Selecciona un género"
-        value={userGender}
         onChange={(item) => setUserGender(item.value)}
         style={styles.dropdown}
         placeholderStyle={styles.placeholder}

@@ -3,11 +3,23 @@
         "Lavado de manos": [
             {
                 "id": 1,
-                "name": "BOCADILLO"
+                "name": "ABRIR EL GRIFO"
             },
             {
                 "id": 2,
-                "name": "CEREALES"
+                "name": "ECHAR EL JABÓN"
+            },
+            {
+                "id": 3,
+                "name": "ENJABONAR LAS MANOS"
+            },
+            {
+                "id": 4,
+                "name": "LAVAR LAS MANOS"
+            },
+            {
+                "id": 5,
+                "name": "SECAR LAS MANOS"
             }
         ],
         "Rutina diaria": [
