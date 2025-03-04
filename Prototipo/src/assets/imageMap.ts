@@ -56,10 +56,8 @@ const imageMap: Record<string, any> = {
   "COCHE": require("../assets/img/transporte/coche.png"),
   "AUTOCARAVANA": require("../assets/img/transporte/autocaravana.png"),
   "MOTOCICLETA": require("../assets/img/transporte/motocicleta.png"),
-  "AUTOBÚS": require("../assets/img/transporte/autobús.png"),
   "METRO": require("../assets/img/transporte/metro.png"),
   "BICICLETA": require("../assets/img/transporte/bicicleta.png"),
-  "FURGONETA": require("../assets/img/transporte/furgoneta.png"),
   "CONDUCIR": require("../assets/img/transporte/conducir.png"),
   "BILLETE": require("../assets/img/transporte/billete.png"),
 };

@@ -12,13 +12,13 @@ import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-
 import { ImageButton } from '../components/ImageButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
-import gameConfig from '../assets/game-config.json';
+import gameConfig from '../assets/vocabulary-config.json';
 import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
-import { logTypes, objectTypes } from '../logger/LogEnums';
+import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
-type GameScreenRouteProp = RouteProp<RootStackParams, 'Game'>;
+type GameScreenVocabularyRouteProp = RouteProp<RootStackParams, 'GameVocabulary'>;
 
 interface Round {
     roundNumber: number;
@@ -26,7 +26,7 @@ interface Round {
     correctImage: any;
 }
 
-export const GameScreen = () => {
+export const GameScreenVocabulary = () => {
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -39,7 +39,7 @@ export const GameScreen = () => {
     const [roundsData, setRoundsData] = useState<any[]>([]);
     const [attempts, setAttempts] = useState(0);
 
-    const route = useRoute<GameScreenRouteProp>();
+    const route = useRoute<GameScreenVocabularyRouteProp>();
     const { category, imagesPerRound, rounds } = route.params;
 
     const {userName, userAge, userGender} = useGlobalStoreUser();
@@ -98,7 +98,8 @@ export const GameScreen = () => {
             otherInfo: "",
             rounds: rounds,
             imagesPerRound: imagesPerRound,
-            category: category
+            category: category,
+            gameType: gameTypes.Vocabulary,
         };
 
         logger.log(logInicio);
@@ -191,7 +192,7 @@ export const GameScreen = () => {
                 timestamp: new Date().toISOString(),
                 otherInfo: "all the rounds completed"
             };
-            
+
             logger.log(logFin);
 
             navigation.navigate('GameOver', {

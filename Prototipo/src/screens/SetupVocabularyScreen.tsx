@@ -4,12 +4,12 @@ import {View, StyleSheet, Text, Alert} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParams} from '../routes/StackNavigator';
-import gameConfig from '../assets/game-config.json';
+import gameConfig from '../assets/vocabulary-config.json';
 import { globalStyles } from '../theme/theme';
 import { SecondaryButton } from '../components/SecondaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 
-export const SetupScreen = () => {
+export const SetupVocabularyScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
   const {selectedCategory, selectedImages, selectedRounds,
     setSelectedCategory, setSelectedImages, setSelectedRounds} = useGlobalStoreSetup();
@@ -50,7 +50,7 @@ export const SetupScreen = () => {
         })) || []
     : [];
 
-  const startGame = () => {
+  const saveConfig = () => {
     if (!selectedCategory || !selectedImages || !selectedRounds) {
       Alert.alert(
         'Error',
@@ -113,8 +113,7 @@ export const SetupScreen = () => {
         disable={!selectedImages}
       />
 
-      {/* Botón para iniciar el juego */}
-      <SecondaryButton onPress={startGame} label="Guardar configuración" />
+      <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
     </View>
   );
 };

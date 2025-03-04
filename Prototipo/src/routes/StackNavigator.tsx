@@ -2,18 +2,26 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import React from 'react';
-import { GameScreen } from '../screens/GameScreen';
+import { GameScreenVocabulary } from '../screens/GameScreenVocabulary';
+import { GameScreenSequence } from '../screens/GameScreenSequence';
 import { GameOverScreen } from '../screens/GameOverScreen';
-import { SetupScreen } from '../screens/SetupScreen';
+import { SetupVocabularyScreen } from '../screens/SetupVocabularyScreen';
+import { SetupSequenceScreen } from '../screens/SetupSequenceScreen';
 import { LogScreen } from '../screens/LogScreen';
+import GameModeSelectionScreen from '../screens/GameModeSelectionScreen';
+import { UserConfigScreen } from '../screens/UserConfigScreen';
 
 export type RootStackParams = {
   Home: undefined;
-  Setup: undefined;
-  Game: {
+  SetupVocabulary: undefined;
+  GameVocabulary: {
     category: string;
     imagesPerRound: number;
     rounds: number;
+  };
+  SetupSequence: undefined;
+  GameSequence: {
+    sequence: string;
   };
   GameOver: {
     attempts: number;
@@ -21,6 +29,8 @@ export type RootStackParams = {
   };
   Settings: undefined;
   Logs: undefined;
+  ModeSelection: undefined;
+  UserConfig: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -36,9 +46,13 @@ export const StackNavigator = () => {
       },
     }}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Setup" component={SetupScreen} />
-      <Stack.Screen name="Game" component={GameScreen} />
+      <Stack.Screen name="SetupVocabulary" component={SetupVocabularyScreen} />
+      <Stack.Screen name="GameVocabulary" component={GameScreenVocabulary} />
+      <Stack.Screen name="SetupSequence" component={SetupSequenceScreen} />
+      {/* <Stack.Screen name="GameSequence" component={GameScreenSequence} /> */}
       <Stack.Screen name="GameOver" component={GameOverScreen} />
+      <Stack.Screen name="ModeSelection" component={GameModeSelectionScreen} />
+      <Stack.Screen name="UserConfig" component={UserConfigScreen} />
       <Stack.Screen name="Logs" component={LogScreen} />
     </Stack.Navigator>
   );

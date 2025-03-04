@@ -1,15 +1,16 @@
 import { Genders } from "../globalState/useGlobalStoreUser";
-import { logTypes } from "./LogEnums";
+import { gameTypes, logTypes, objectTypes } from "./LogEnums";
 
 interface Log {
     player: userData;
     action: logTypes;
-    object: string;
+    object: objectTypes;
     timestamp: string;
     otherInfo: string;
   }
 
 interface LogInitializedGame extends Log {
+    gameType: gameTypes;
     category: string;
     rounds: number;
     imagesPerRound: number;
