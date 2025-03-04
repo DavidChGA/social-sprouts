@@ -3,17 +3,20 @@ import os
 import json
 import argparse
 
+#Argumentos de la petición a la API
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Descargar pictogramas de ARASAAC y generar archivos JSON y TS.")
+    parser = argparse.ArgumentParser()
     parser.add_argument("keywords", nargs="+", help="Lista de palabras clave para buscar pictogramas")
     parser.add_argument("--language", default="es", help="Idioma para la búsqueda (por defecto: 'es')")
-    parser.add_argument("--output-folder", default="img", help="Carpeta de salida para las imágenes")
     return parser.parse_args()
 
 def download_pictograms_and_generate_files(keyword, img_folder, language, categories_data, ts_image_map):
     keyword_folder = os.path.join(img_folder, keyword)
+
+    #Genera carpeta concreta para la categoria/palabra clave
     os.makedirs(keyword_folder, exist_ok=True)
 
+    #Se busca cada palabra clave en la API de ARASAAC.
     search_url = f"https://api.arasaac.org/api/pictograms/{language}/search/{keyword}"
     response = requests.get(search_url)
     
@@ -23,6 +26,7 @@ def download_pictograms_and_generate_files(keyword, img_folder, language, catego
 
     data = response.json()
 
+    #Se descargan los primeros 20 pictogramas no genéricos y considerados parte del vocabulario básico y se almacenan en la carpeta de salida.
     filtered_pictograms = [
         p for p in data
         if "tags" in p and isinstance(p["tags"], list) and "core vocabulary" in p["tags"]
@@ -60,10 +64,11 @@ def download_pictograms_and_generate_files(keyword, img_folder, language, catego
 def main():
     args = parse_arguments()
     script_directory = os.path.dirname(os.path.abspath(__file__))  
-    project_directory = os.path.abspath(os.path.join(script_directory, ".."))  # Subir un nivel
+    project_directory = os.path.abspath(os.path.join(script_directory, ".."))
     assets_folder = os.path.join(project_directory, "src", "assets")  
-    img_folder = os.path.join(assets_folder, "img")  # Carpeta donde se guardarán las imágenes
+    img_folder = os.path.join(assets_folder, "img")
 
+    #Genera la carpeta de imagenes si esta no existe
     os.makedirs(img_folder, exist_ok=True)
 
     categories_data = {}
@@ -73,11 +78,13 @@ def main():
         print(f"Buscando y descargando pictogramas para '{keyword}'...")
         download_pictograms_and_generate_files(keyword, img_folder, args.language, categories_data, ts_image_map)
     
+    #Archivo vocabulary-config.json con la información de las categorías y pictogramas.
     json_file_path = os.path.join(assets_folder, "vocabulary-config.json")
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump({"categorias": categories_data, "defaultConfig": {"imagesToShow": 3, "rounds": 3}}, json_file, ensure_ascii=False, indent=4)
     print(f"Archivo JSON generado: {json_file_path}")
 
+    #Archivo imageMap.ts con la correspondencia entre pictogramas y su ubicación en el proyecto
     ts_file_path = os.path.join(assets_folder, "imageMap.ts")
     with open(ts_file_path, "w", encoding="utf-8") as ts_file:
         ts_content = 'const imageMap: Record<string, any> = {\n'
