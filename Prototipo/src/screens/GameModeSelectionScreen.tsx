@@ -10,7 +10,7 @@ import { SettingsButton } from '../components/SettingsButton';
 
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { selectedCategory, selectedImages, selectedRounds } =
+  const { selectedCategory, selectedImages, selectedRounds, selectedSequence } =
     useGlobalStoreSetup();
 
   useEffect(() => {
@@ -36,8 +36,12 @@ function GameModeSelectionScreen() {
       </View>
 
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <PrimaryButton
-          onPress={() => console.log('Aquí va la GameScreenSequence')}
+      <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameSequence', {
+              sequence: selectedSequence,
+            })
+          }
           label="Secuencia"
         />
         <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />

@@ -3,13 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/HomeScreen';
 import React from 'react';
 import { GameScreenVocabulary } from '../screens/GameScreenVocabulary';
-import { GameScreenSequence } from '../screens/GameScreenSequence';
 import { GameOverScreen } from '../screens/GameOverScreen';
 import { SetupVocabularyScreen } from '../screens/SetupVocabularyScreen';
 import { SetupSequenceScreen } from '../screens/SetupSequenceScreen';
 import { LogScreen } from '../screens/LogScreen';
 import GameModeSelectionScreen from '../screens/GameModeSelectionScreen';
 import { UserConfigScreen } from '../screens/UserConfigScreen';
+import GameScreenSequencePreview from '../screens/GameScreenSequencePreview';
 
 export type RootStackParams = {
   Home: undefined;
@@ -49,7 +49,7 @@ export const StackNavigator = () => {
       <Stack.Screen name="SetupVocabulary" component={SetupVocabularyScreen} />
       <Stack.Screen name="GameVocabulary" component={GameScreenVocabulary} />
       <Stack.Screen name="SetupSequence" component={SetupSequenceScreen} />
-      {/* <Stack.Screen name="GameSequence" component={GameScreenSequence} /> */}
+      <Stack.Screen name="GameSequence" component={GameScreenSequencePreview} />
       <Stack.Screen name="GameOver" component={GameOverScreen} />
       <Stack.Screen name="ModeSelection" component={GameModeSelectionScreen} />
       <Stack.Screen name="UserConfig" component={UserConfigScreen} />
