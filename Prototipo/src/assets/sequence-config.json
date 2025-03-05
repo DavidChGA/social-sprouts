@@ -21,16 +21,6 @@
                 "id": 5,
                 "name": "SECAR LAS MANOS"
             }
-        ],
-        "Rutina diaria": [
-            {
-                "id": 1,
-                "name": "BOCADILLO"
-            },
-            {
-                "id": 2,
-                "name": "CEREALES"
-            }
         ]
     }
 }
