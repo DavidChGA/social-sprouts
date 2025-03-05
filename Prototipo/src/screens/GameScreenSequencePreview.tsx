@@ -56,14 +56,15 @@ export const GameScreenSequencePreview = () => {
                             style={{ width: 100, height: 100 }}
                             resizeMode="contain"
                         />
+                        <Text> {item.name} </Text>
                     </View>
                 ))}
             </View>
 
-            <PrimaryButton
+            {/* <PrimaryButton
                 onPress={() => console.log("WIP")}
-                label="Continuar"
-            />
+                label="WIP"
+            /> */}
         </View>
     )
 
