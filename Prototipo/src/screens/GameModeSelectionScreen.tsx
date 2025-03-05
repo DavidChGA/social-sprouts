@@ -7,10 +7,11 @@ import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import { View } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { SettingsButton } from '../components/SettingsButton';
+import {Text} from 'react-native'
 
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { selectedCategory, selectedImages, selectedRounds, selectedSequence } =
+  const { selectedVocabularyConfig, selectedSequenceConfig, defaultVocabularyConfig, defaultSequenceConfig } =
     useGlobalStoreSetup();
 
   useEffect(() => {
@@ -19,15 +20,20 @@ function GameModeSelectionScreen() {
     });
   });
 
+  // Si no hay configuración seleccionada, usamos la por defecto
+  const activeVocabularyConfig = selectedVocabularyConfig || defaultVocabularyConfig;
+  const activeSequenceConfig = selectedSequenceConfig || defaultSequenceConfig;
+
   return (
     <View style={[globalStyles.container]}>
+      {/* VOCABULARIO */}
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <PrimaryButton
           onPress={() =>
             navigation.navigate('GameVocabulary', {
-              category: selectedCategory,
-              imagesPerRound: parseInt(selectedImages, 10),
-              rounds: parseInt(selectedRounds, 10),
+              category: activeVocabularyConfig.category,
+              imagesPerRound: parseInt(activeVocabularyConfig.images, 10),
+              rounds: parseInt(activeVocabularyConfig.rounds, 10),
             })
           }
           label="Vocabulario"
@@ -35,17 +41,27 @@ function GameModeSelectionScreen() {
         <SettingsButton onPress={() => navigation.navigate('SetupVocabulary')} />
       </View>
 
+      <Text style={{ textAlign: 'center', marginVertical: 10 }}>
+        Configuración actual: {activeVocabularyConfig.alias} (por defecto)
+      </Text>
+
+      {/* SECUENCIAS */}
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <PrimaryButton
           onPress={() =>
             navigation.navigate('GameSequence', {
-              sequence: selectedSequence,
+              sequence: activeSequenceConfig.sequence,
             })
           }
           label="Secuencia"
         />
         <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
       </View>
+
+      <Text style={{ textAlign: 'center', marginVertical: 10 }}>
+        Configuración actual: {activeSequenceConfig.alias} (por defecto)
+      </Text>
+
     </View>
   );
 }
