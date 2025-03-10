@@ -5,7 +5,7 @@ import argparse
 
 #Argumentos de la petición a la API
 def parse_arguments():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Descarga de imágenes y generación automática de ficheros de configuración para minijuego de Vocabulario")
     parser.add_argument("keywords", nargs="+", help="Lista de palabras clave para buscar pictogramas")
     parser.add_argument("--language", default="es", help="Idioma para la búsqueda (por defecto: 'es')")
     return parser.parse_args()
