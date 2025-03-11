@@ -210,21 +210,19 @@ export const GameScreenVocabulary = () => {
         }
     };
 
+    let clickSound = correctImage?.name ? new Sound(soundMap[correctImage.name], Sound.MAIN_BUNDLE, (error) => {
+        if (error) {
+            console.log('Error al cargar el sonido:', error);
+        }
+    }) : undefined;
+
     const playSound = () => {
-        if (correctImage?.name) {
-            const soundFile = soundMap[correctImage.name]; // Obtener el archivo de soundMap
-            if (soundFile) {
-                const soundInstance = new Sound(soundFile, Sound.MAIN_BUNDLE, (error) => {
-                    if (!error) {
-                        soundInstance.play((success) => {
-                            if (!success) {
-                              console.log('Error al reproducir el sonido');
-                            }
-                          }); // Reproducir y liberar memoria
-                    }
-                });
-                setSound(soundInstance);
-            }
+        if (clickSound) {
+            clickSound.play((success) => {
+                if (!success) {
+                    console.log('Error al reproducir el sonido');
+                }
+            });
         }
     };
 

@@ -5,18 +5,10 @@ import React, { useEffect } from 'react';
 import { RootStackParams } from '../routes/StackNavigator';
 import { PrimaryButton } from '../components/PrimaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { SettingsButton } from '../components/SettingsButton';
-import {Text} from 'react-native';
-import Sound from 'react-native-sound';
-
-// Cargar el sonido desde la carpeta assets
-const clickSound = new Sound(require('../assets/sounds/animal/perro.mp3'), Sound.MAIN_BUNDLE, (error) => {
-  if (error) {
-    console.log('Error al cargar el sonido:', error);
-  }
-});
+import { Text } from 'react-native';
 
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -33,15 +25,6 @@ function GameModeSelectionScreen() {
   const activeVocabularyConfig = selectedVocabularyConfig || defaultVocabularyConfig;
   const activeSequenceConfig = selectedSequenceConfig || defaultSequenceConfig;
 
-    // Función para reproducir el sonido
-    const playSound = () => {
-      clickSound.play((success) => {
-        if (!success) {
-          console.log('Error al reproducir el sonido');
-        }
-      });
-    };
-
   return (
     <View style={[globalStyles.container]}>
       {/* VOCABULARIO */}
@@ -57,9 +40,6 @@ function GameModeSelectionScreen() {
           label="Vocabulario"
         />
         <SettingsButton onPress={() => navigation.navigate('SetupVocabulary')} />
-        <TouchableOpacity style={styles.soundButton} onPress={playSound}>
-          <Text style={styles.soundButtonText}>Sonido</Text>
-        </TouchableOpacity>
       </View>
 
       <Text style={{ textAlign: 'center', marginVertical: 10 }}>
@@ -68,7 +48,7 @@ function GameModeSelectionScreen() {
 
       {/* SECUENCIAS */}
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <PrimaryButton
+        <PrimaryButton
           onPress={() =>
             navigation.navigate('GameSequencePreview', {
               sequence: activeSequenceConfig.sequence,
