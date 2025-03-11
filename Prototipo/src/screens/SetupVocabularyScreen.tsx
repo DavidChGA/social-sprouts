@@ -78,6 +78,13 @@ export const SetupVocabularyScreen = () => {
       return;
     }
 
+    // Verificar si ya existe una configuración con el mismo alias
+  const aliasExists = vocabularyConfigs.some(config => config.alias === alias);
+  if (aliasExists) {
+    Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
+    return;
+  }
+
     const newConfig = {
       alias,
       category,
@@ -99,7 +106,7 @@ export const SetupVocabularyScreen = () => {
   ];
 
   return (
-    <View style={[globalStyles.container, styles.container]}>
+    <View style={[globalStyles.container]}>
       <Text style={globalStyles.title}>Configurar el Juego</Text>
 
       {/* Contenedor dividido en dos columnas */}

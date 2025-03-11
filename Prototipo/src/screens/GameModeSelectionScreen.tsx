@@ -42,7 +42,7 @@ function GameModeSelectionScreen() {
       </View>
 
       <Text style={{ textAlign: 'center', marginVertical: 10 }}>
-        Configuración actual: {activeVocabularyConfig.alias} (por defecto)
+        Configuración actual: {activeVocabularyConfig.alias}
       </Text>
 
       {/* SECUENCIAS */}
@@ -59,7 +59,7 @@ function GameModeSelectionScreen() {
       </View>
 
       <Text style={{ textAlign: 'center', marginVertical: 10 }}>
-        Configuración actual: {activeSequenceConfig.alias} (por defecto)
+        Configuración actual: {activeSequenceConfig.alias}
       </Text>
 
     </View>
