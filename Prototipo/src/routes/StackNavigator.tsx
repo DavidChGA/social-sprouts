@@ -10,6 +10,7 @@ import { LogScreen } from '../screens/LogScreen';
 import GameModeSelectionScreen from '../screens/GameModeSelectionScreen';
 import { UserConfigScreen } from '../screens/UserConfigScreen';
 import GameScreenSequencePreview from '../screens/GameScreenSequencePreview';
+import { GameScreenSequence } from '../screens/GameScreenSequence';
 
 export type RootStackParams = {
   Home: undefined;
@@ -21,6 +22,9 @@ export type RootStackParams = {
   };
   SetupSequence: undefined;
   GameSequence: {
+    sequence: string;
+  };
+  GameSequencePreview: {
     sequence: string;
   };
   GameOver: {
@@ -49,7 +53,8 @@ export const StackNavigator = () => {
       <Stack.Screen name="SetupVocabulary" component={SetupVocabularyScreen} />
       <Stack.Screen name="GameVocabulary" component={GameScreenVocabulary} />
       <Stack.Screen name="SetupSequence" component={SetupSequenceScreen} />
-      <Stack.Screen name="GameSequence" component={GameScreenSequencePreview} />
+      <Stack.Screen name="GameSequence" component={GameScreenSequence} />
+      <Stack.Screen name="GameSequencePreview" component={GameScreenSequencePreview} />
       <Stack.Screen name="GameOver" component={GameOverScreen} />
       <Stack.Screen name="ModeSelection" component={GameModeSelectionScreen} />
       <Stack.Screen name="UserConfig" component={UserConfigScreen} />

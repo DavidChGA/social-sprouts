@@ -56,15 +56,19 @@ export const GameScreenSequencePreview = () => {
                             style={{ width: 100, height: 100 }}
                             resizeMode="contain"
                         />
-                        <Text> {item.name} </Text>
+                        <Text style={{ textAlign: 'center'}}> {item.name} </Text>
                     </View>
                 ))}
             </View>
 
-            {/* <PrimaryButton
-                onPress={() => console.log("WIP")}
-                label="WIP"
-            /> */}
+            <PrimaryButton
+                onPress={() =>
+                    navigation.navigate('GameSequence', {
+                      sequence: sequence,
+                    })
+                  }
+                label="Continuar"
+            />
         </View>
     )
 
