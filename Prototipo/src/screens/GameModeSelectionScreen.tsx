@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { RootStackParams } from '../routes/StackNavigator';
@@ -11,7 +12,7 @@ import {Text} from 'react-native';
 import Sound from 'react-native-sound';
 
 // Cargar el sonido desde la carpeta assets
-const clickSound = new Sound(require('../assets/sounds/perro.mp3'), Sound.MAIN_BUNDLE, (error) => {
+const clickSound = new Sound(require('../assets/sounds/animal/perro.mp3'), Sound.MAIN_BUNDLE, (error) => {
   if (error) {
     console.log('Error al cargar el sonido:', error);
   }

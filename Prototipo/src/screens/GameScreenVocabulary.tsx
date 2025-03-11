@@ -142,7 +142,7 @@ export const GameScreenVocabulary = () => {
             correctOption: correctImage.name,
             result: false,
             selectedOption: name,
-            otherInfo: ""
+            otherInfo: "",
         };
 
         const logTryP: LogProgressed = {
@@ -150,17 +150,17 @@ export const GameScreenVocabulary = () => {
             action: logTypes.Progressed,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
-            otherInfo: ""
+            otherInfo: "",
         };
 
         if (isCorrect){
             logTry.result = true;
-            logTryP.otherInfo = "go next round"
+            logTryP.otherInfo = "go next round";
             logger.log(logTry);
             logger.log(logTryP);
         } else {
             logTry.result = false;
-            logTryP.otherInfo = "retry round"
+            logTryP.otherInfo = "retry round";
             logger.log(logTry);
             logger.log(logTryP);
         }
@@ -190,7 +190,7 @@ export const GameScreenVocabulary = () => {
                 action: logTypes.Completed,
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
-                otherInfo: "all the rounds completed"
+                otherInfo: "all the rounds completed",
             };
 
             logger.log(logFin);

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Alert, TextInput, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, Alert, TextInput} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
@@ -200,10 +200,10 @@ export const SetupVocabularyScreen = () => {
           />
 
         </View>
-        
+
       </View>
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
-        
+
     </View>
   );
 };

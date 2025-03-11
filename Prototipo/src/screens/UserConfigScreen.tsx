@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
