@@ -28,7 +28,7 @@ export const ImageButtonSequence = ({ onPress, image }: Props) => {
             onPress={handlePress}
             disabled={isDisabled}
             style={[
-                globalStyles.imageButton,
+                globalStyles.imageButtonSequence,
             ]}
         >
             <Image

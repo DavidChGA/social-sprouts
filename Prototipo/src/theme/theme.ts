@@ -10,6 +10,7 @@ export const globalColors = {
     danger: 'red',
     dark: 'black',
     light: 'white',
+    gray: 'gray',
 
     background: '#bed98c',
 };
@@ -48,6 +49,14 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 5,
         width: '60%',
+        height: '100%',
+    },
+
+    imageButtonSequence: {
+        backgroundColor: globalColors.gray,
+        borderRadius: 10,
+        borderWidth: 2,
+        width: '80%',
         height: '100%',
     },
 

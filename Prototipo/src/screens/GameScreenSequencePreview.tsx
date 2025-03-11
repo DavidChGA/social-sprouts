@@ -13,6 +13,7 @@ import type { RootStackParams } from '../routes/StackNavigator';
 import gameConfig from '../assets/sequence-config.json';
 import imageMapSequences from '../assets/imageMapSequences';
 import { PrimaryButton } from '../components/PrimaryButton';
+import { SecondaryButton } from '../components/SecondaryButton';
 
 type GameScreenSequenceRouteProp = RouteProp<RootStackParams, 'GameSequence'>;
 
@@ -50,10 +51,10 @@ export const GameScreenSequencePreview = () => {
 
             <View style={gameStyles.imageContainer}>
                 {currentImages.map((item, index) => (
-                    <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
+                    <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '15%', height: '100%' }}>
                         <Image
                             source={imageMapSequences[item.name]}
-                            style={{ width: 100, height: 100 }}
+                            style={globalStyles.imageButtonSequence}
                             resizeMode="contain"
                         />
                         <Text style={{ textAlign: 'center'}}> {item.name} </Text>
@@ -61,7 +62,7 @@ export const GameScreenSequencePreview = () => {
                 ))}
             </View>
 
-            <PrimaryButton
+            <SecondaryButton
                 onPress={() =>
                     navigation.navigate('GameSequence', {
                       sequence: sequence,
@@ -88,10 +89,14 @@ const gameStyles = StyleSheet.create({
     },
 
     imageContainer: {
-        flex: 0.3,
+        flex: 0.5,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: '5%',
+        marginTop: '5%',
     },
+
 });
+
+

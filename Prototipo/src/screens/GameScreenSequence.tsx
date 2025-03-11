@@ -119,7 +119,7 @@ export const GameScreenSequence = () => {
 
             <View style={gameStyles.imageContainer}>
                 {currentImages.map((item, index) => (
-                    <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
+                    <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '15%', height: '100%' }}>
                         <ImageButtonSequence
                             onPress={() => handleImagePress(item.id, item.name)}
                             image={item.name}
