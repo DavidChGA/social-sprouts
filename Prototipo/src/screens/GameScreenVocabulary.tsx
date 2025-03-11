@@ -6,13 +6,16 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { globalColors, globalStyles } from '../theme/theme';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ImageButton } from '../components/ImageButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/vocabulary-config.json';
+import Sound from 'react-native-sound';
+import soundMap from '../assets/soundMap';
+
 import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
@@ -35,6 +38,7 @@ export const GameScreenVocabulary = () => {
     const [currentRound, setCurrentRound] = useState(1);
     const [currentImages, setCurrentImages] = useState<any[]>([]); // Imágenes de la ronda actual
     const [correctImage, setCorrectImage] = useState<any | null>(null); // Imagen correcta de la ronda
+    const [sound, setSound] = useState<Sound | null>(null);
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
     const [attempts, setAttempts] = useState(0);
@@ -42,8 +46,8 @@ export const GameScreenVocabulary = () => {
     const route = useRoute<GameScreenVocabularyRouteProp>();
     const { category, imagesPerRound, rounds } = route.params;
 
-    const {userName, userAge, userGender} = useGlobalStoreUser();
-    const userDataV = {userName, userAge, userGender};
+    const { userName, userAge, userGender } = useGlobalStoreUser();
+    const userDataV = { userName, userAge, userGender };
 
     useEffect(() => {
         navigation.setOptions({
@@ -153,7 +157,7 @@ export const GameScreenVocabulary = () => {
             otherInfo: "",
         };
 
-        if (isCorrect){
+        if (isCorrect) {
             logTry.result = true;
             logTryP.otherInfo = "go next round";
             logger.log(logTry);
@@ -202,6 +206,24 @@ export const GameScreenVocabulary = () => {
         }
     };
 
+    const playSound = () => {
+        if (correctImage?.name) {
+            const soundFile = soundMap[correctImage.name]; // Obtener el archivo de soundMap
+            if (soundFile) {
+                const soundInstance = new Sound(soundFile, Sound.MAIN_BUNDLE, (error) => {
+                    if (!error) {
+                        soundInstance.play((success) => {
+                            if (!success) {
+                              console.log('Error al reproducir el sonido');
+                            }
+                          }); // Reproducir y liberar memoria
+                    }
+                });
+                setSound(soundInstance);
+            }
+        }
+    };
+
     return (
         <View style={[globalStyles.container]}>
             <View style={gameStyles.textContainer}>
@@ -224,6 +246,9 @@ export const GameScreenVocabulary = () => {
 
             <View style={gameStyles.textContainer}>
                 <Text style={{ ...globalStyles.title, ...gameStyles.answer }}>{correctImage?.name}</Text>
+                <TouchableOpacity onPress={playSound} style={gameStyles.soundButton}>
+                    <Text>Sonido</Text>
+                </TouchableOpacity>
             </View>
 
             <AnswerModal
@@ -253,5 +278,8 @@ const gameStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: '5%',
+    },
+    soundButton: {
+        padding: 10,
     },
 });

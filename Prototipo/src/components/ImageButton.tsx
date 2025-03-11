@@ -11,7 +11,6 @@ interface Props {
 
 export const ImageButton = ({ onPress, image }: Props) => {
     const imageSource = imageMap[image];
-
     return (
         <Pressable
             onPress={() => onPress()}
