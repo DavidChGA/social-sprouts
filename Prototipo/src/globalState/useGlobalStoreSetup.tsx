@@ -1,19 +1,26 @@
 /* eslint-disable prettier/prettier */
 import { create } from 'zustand';
 
-interface VocabularyConfig {
+interface Session {
+  modules: Config[];
+}
+
+interface Config {
   alias: string;
+}
+
+interface VocabularyConfig extends Config {
   category: string;
   images: string;
   rounds: string;
 }
 
-interface SequenceConfig {
-  alias: string;
+interface SequenceConfig extends Config {
   sequence: string;
 }
 
 interface SetupState {
+  session: Session;
   vocabularyConfigs: VocabularyConfig[];
   sequenceConfigs: SequenceConfig[];
 
@@ -37,6 +44,7 @@ interface SetupState {
 }
 
 const useGlobalStoreSetup = create<SetupState>((set, get) => ({
+  session: {modules: []},
   vocabularyConfigs: [],
   sequenceConfigs: [],
   selectedVocabularyConfig: null,

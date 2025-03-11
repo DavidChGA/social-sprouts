@@ -39,6 +39,7 @@ export const HomeScreen = () => {
             />
           </Pressable>
         </View>
+
         <View style={homeStyles.buttonColumn}>
           <PrimaryButton
             onPress={() => navigation.navigate('ModeSelection')}

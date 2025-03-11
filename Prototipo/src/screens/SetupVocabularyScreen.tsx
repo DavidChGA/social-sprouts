@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Alert, TextInput} from 'react-native';
+import { View, StyleSheet, Text, Alert, TextInput } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
@@ -79,11 +79,11 @@ export const SetupVocabularyScreen = () => {
     }
 
     // Verificar si ya existe una configuración con el mismo alias
-  const aliasExists = vocabularyConfigs.some(config => config.alias === alias);
-  if (aliasExists) {
-    Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
-    return;
-  }
+    const aliasExists = vocabularyConfigs.some(config => config.alias === alias);
+    if (aliasExists) {
+      Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
+      return;
+    }
 
     const newConfig = {
       alias,
@@ -254,11 +254,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
   },
 });
-
-
-
-
-
-
-
-
