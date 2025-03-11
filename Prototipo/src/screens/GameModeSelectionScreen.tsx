@@ -49,7 +49,7 @@ function GameModeSelectionScreen() {
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <PrimaryButton
           onPress={() =>
-            navigation.navigate('GameSequence', {
+            navigation.navigate('GameSequencePreview', {
               sequence: activeSequenceConfig.sequence,
             })
           }
