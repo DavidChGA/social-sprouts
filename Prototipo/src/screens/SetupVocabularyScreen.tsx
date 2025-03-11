@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Alert, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Alert, TextInput, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
@@ -99,113 +99,159 @@ export const SetupVocabularyScreen = () => {
   ];
 
   return (
-    <View style={globalStyles.container}>
+    <View style={[globalStyles.container, styles.container]}>
       <Text style={globalStyles.title}>Configurar el Juego</Text>
 
-      {/* Lista de configuraciones */}
-      <Text style={styles.label}>
-        Tus configuraciones:
-      </Text>
-      <Dropdown
-        data={configListData}
-        labelField="label"
-        valueField="value"
-        placeholder="Selecciona una configuración"
-        value={activeConfig.alias}
-        onChange={(item) => {
-         if (item.value === 'Nueva configuración') {
-            setAlias('');
-            setCategory('');
-            setImages('');
-            setRounds('');
-          } else {
-            setAlias(item.config!.alias);
-            setCategory(item.config!.category);
-            setImages(item.config!.images);
-            setRounds(item.config!.rounds);
-            selectVocabularyConfig(item.config!.alias);
-          }
-        }}
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholder}
-        selectedTextStyle={styles.selectedText}
-      />
+      {/* Contenedor dividido en dos columnas */}
+      <View style={styles.row}>
+        {/* Columna 1 - Configuraciones y botón */}
+        <View style={styles.column}>
+          {/* Lista de configuraciones */}
+          <Text style={styles.label}>
+            Tus configuraciones:
+          </Text>
+          <Dropdown
+            data={configListData}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecciona una configuración"
+            value={activeConfig.alias}
+            onChange={(item) => {
+              if (item.value === 'Nueva configuración') {
+                setAlias('');
+                setCategory('');
+                setImages('');
+                setRounds('');
+              } else {
+                setAlias(item.config!.alias);
+                setCategory(item.config!.category);
+                setImages(item.config!.images);
+                setRounds(item.config!.rounds);
+                selectVocabularyConfig(item.config!.alias);
+              }
+            }}
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedText}
+          />
+          <Text style={styles.label}>Alias para la configuración:</Text>
+          <TextInput
+            style={styles.input}
+            value={alias !== defaultVocabularyConfig.alias ? alias : ''}
+            onChangeText={setAlias}
+            placeholder="Nombre de la configuración"
+          />
 
-      {/* Formulario para crear/editar configuración */}
-      {/* Input para el alias */}
-      <Text style={styles.label}>Alias para la configuración:</Text>
-      <TextInput
-        style={styles.input}
-        value={alias != defaultVocabularyConfig.alias ? alias : ''}
-        onChangeText={setAlias}
-        placeholder="Nombre de la configuración"
-      />
+        </View>
 
-      {/* Selección de categoría */}
-      <Text style={styles.label}>Selecciona una categoría:</Text>
-      <Dropdown
-        data={categories}
-        labelField="label"
-        valueField="value"
-        placeholder="Selecciona una categoría"
-        value={category}
-        onChange={(item) => setCategory(item.value)}
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholder}
-        selectedTextStyle={styles.selectedText}
-      />
+        {/* Columna 2 - Categoría, imágenes y rondas */}
+        <View style={styles.column}>
+          <Text style={styles.label}>Selecciona una categoría:</Text>
+          <Dropdown
+            data={categories}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecciona una categoría"
+            value={category}
+            onChange={(item) => setCategory(item.value)}
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedText}
+          />
 
-      
+          {/* Aquí puedes agregar selectores para imágenes y rondas si los necesitas */}
+          {/* Selección de número de imágenes */}
+          <Text style={styles.label}>Número de imágenes por ronda:</Text>
+          <Dropdown
+            data={imageOptions}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecciona el número de imágenes"
+            value={images}
+            onChange={item => {
+              setImages(item.value);
+              setRounds('');
+            }}
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedText}
+          />
 
+          {/* Selección de rondas */}
+          <Text style={styles.label}>Número de rondas (selecciona primero el nº de imágenes):</Text>
+          <Dropdown
+            data={roundOptions}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecciona el número de rondas"
+            value={rounds}
+            onChange={item => setRounds(item.value)}
+            style={[styles.dropdown, !images && styles.disabledDropdown]}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedText}
+            disable={!images}
+          />
+
+        </View>
+        
+      </View>
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
+        
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Espaciado entre columnas
+  },
+  column: {
+    margin: 50,
+    justifyContent: 'center',
+    width: '30%',
+  },
   label: {
-    fontSize: 25,
-    marginVertical: 10,
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  input: {
+    height: 50,
+    width: '100%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    fontSize: 18,
+    backgroundColor: 'white',
   },
   dropdown: {
-    height: '10%',
-    width: '40%',
+    height: 50,
+    width: '100%',
     backgroundColor: 'white',
     borderRadius: 5,
     marginBottom: 20,
     paddingHorizontal: 10,
+    fontSize: 18,
   },
   placeholder: {
-    fontSize: 20,
+    fontSize: 18,
     color: 'gray',
   },
   selectedText: {
-    fontSize: 20,
+    fontSize: 18,
     color: 'black',
   },
   disabledDropdown: {
     backgroundColor: 'gray',
   },
-  input: {
-    height: 50,
-    width: '80%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 20,
-  },
-  configList: {
-    width: '90%',
-    alignSelf: 'center',
-    marginBottom: 20,
-  },
-  configItem: {
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-  },
-  configItemText: {
-    fontSize: 20,
-  }
 });
+
+
+
+
+
+
+
+

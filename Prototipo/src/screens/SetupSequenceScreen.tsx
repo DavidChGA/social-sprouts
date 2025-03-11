@@ -63,7 +63,7 @@ export const SetupSequenceScreen = () => {
 
       <Text style={styles.label}>Alias para la configuración:</Text>
       <TextInput
-        style={styles.input}
+        style={styles.dropdown}
         value={alias}
         onChangeText={setAlias}
         placeholder="Nombre de la configuración"
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     paddingHorizontal: 10,
+    fontSize: 20,
   },
   placeholder: {
     fontSize: 20,

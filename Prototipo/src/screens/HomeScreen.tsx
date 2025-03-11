@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Pressable } from 'react-native';
@@ -25,35 +24,36 @@ export const HomeScreen = () => {
         style={globalStyles.logo}
         resizeMode="contain"
       />
-
-      <PrimaryButton
-        onPress={() => navigation.navigate('ModeSelection')}
-        label="Jugar"
-      />
-
-      <View style={homeStyles.buttonContainer}>
-        <Pressable
-          onPress={() => navigation.navigate('Logs')}>
-          <Image
-            source={require('../assets/img/informacion.png')}
-            style={{
-              width: 50,
-              height: 50,
-            }}
+      <View style={homeStyles.buttonRow}>
+        <View style={homeStyles.buttonColumn}>
+          <PrimaryButton
+            onPress={() => console.log('Aquí va la Partida')}
+            label="Modo partida"
           />
-        </Pressable>
 
-        <Pressable
-          onPress={() => navigation.navigate('UserConfig')}>
-          <Image
-            source={require('../assets/img/usuario.png')}
-            style={{
-              width: 50,
-              height: 50,
-            }}
+          <Pressable
+            onPress={() => navigation.navigate('UserConfig')}>
+            <Image
+              source={require('../assets/img/usuario.png')}
+              style={homeStyles.icon}
+            />
+          </Pressable>
+        </View>
+        <View style={homeStyles.buttonColumn}>
+          <PrimaryButton
+            onPress={() => navigation.navigate('ModeSelection')}
+            label="Modo minijuegos"
           />
-        </Pressable>
 
+          <Pressable
+            onPress={() => navigation.navigate('Logs')}>
+            <Image
+              source={require('../assets/img/informacion.png')}
+              style={homeStyles.icon}
+            />
+          </Pressable>
+
+        </View>
       </View>
     </View>
   );
@@ -63,10 +63,23 @@ const homeStyles = StyleSheet.create({
   container: {
     flexDirection: 'column',
   },
-  buttonContainer: {
+
+  buttonRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Espaciado entre los botones
-    alignItems: 'center',  // Alineación vertical en el centro
-    padding: 2
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    bottom: 10,
+  },
+
+  buttonColumn: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+
+  icon: {
+    marginTop: 40,
+    width: 50,
+    height: 50,
   },
 });

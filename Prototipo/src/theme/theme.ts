@@ -20,13 +20,11 @@ export const globalStyles = StyleSheet.create({
         backgroundColor: globalColors.background,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 20,
     },
 
     logo:{
         width: '60%',
         height: '60%',
-        bottom: 30,
     },
 
     title: {
@@ -42,7 +40,7 @@ export const globalStyles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 4,
         padding: 10,
-        marginVertical: 20,
+        margin: 20,
     },
 
     imageButton: {
@@ -61,13 +59,13 @@ export const globalStyles = StyleSheet.create({
 
     PButtonText: {
         color: globalColors.light,
-        fontSize: 50,
+        fontSize: 40,
         alignSelf: 'center',
     },
 
     SButtonText: {
         color: globalColors.light,
-        fontSize: 30,
+        fontSize: 25,
         alignSelf: 'center',
     },
 });

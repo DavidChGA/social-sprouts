@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, Alert, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput } from 'react-native';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { SecondaryButton } from '../components/SecondaryButton';
@@ -20,7 +21,7 @@ export const UserConfigScreen = () => {
 
   const genderOptions = Object.entries(Genders).map(([key, value]) => ({
     label: key,
-    value: value
+    value: value,
   }));
 
   const saveConfig = () => {
@@ -30,7 +31,7 @@ export const UserConfigScreen = () => {
   return (
     <View style={globalStyles.container}>
 
-    <Text style={{paddingVertical: 10}}> Loggeado actualmente como: {userName}, {userAge}, {userGender} </Text>
+      <Text style={{ margin: 30, fontSize: 20 }}> Loggeado actualmente como: {userName}, {userAge}, {userGender} </Text>
 
       {/* Name */}
       <TextInput
@@ -44,7 +45,7 @@ export const UserConfigScreen = () => {
         style={styles.dropdown}
         placeholder="Escribir edad"
         placeholderTextColor="gray"
-        onChangeText={(age) => setUserAge(parseInt(age))}
+        onChangeText={(age) => setUserAge(parseInt(age, 10))}
         keyboardType="numeric"
         maxLength={2}
       />
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     paddingHorizontal: 10,
+    fontSize:20,
   },
   placeholder: {
     fontSize: 20,
@@ -89,5 +91,5 @@ const styles = StyleSheet.create({
   },
   disabledDropdown: {
     backgroundColor: 'gray',
-  }
+  },
 });
