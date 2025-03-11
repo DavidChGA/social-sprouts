@@ -17,7 +17,7 @@ import Sound from 'react-native-sound';
 import soundMap from '../assets/soundMap';
 
 import logger from '../logger/Logger';
-import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
+import { LogCompleted, LogInitializedRound, LogInitializedVocabulary, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
@@ -74,6 +74,7 @@ export const GameScreenVocabulary = () => {
             correctOption: round.correctImage.name,
             allOptions: [],
             otherInfo: "",
+            gameType: gameTypes.Vocabulary
         };
 
         // Resetear visibilidad del texto para las imágenes actuales
@@ -94,7 +95,7 @@ export const GameScreenVocabulary = () => {
         const shuffledImages = shuffleArray(gameConfig.categorias[category]);
         const roundsArray: Round[] = [];
 
-        const logInicio: LogInitializedGame = {
+        const logInicio: LogInitializedVocabulary = {
             player: userDataV,
             action: logTypes.Initialized,
             object: objectTypes.Game,
@@ -147,6 +148,7 @@ export const GameScreenVocabulary = () => {
             result: false,
             selectedOption: name,
             otherInfo: "",
+            gameType: gameTypes.Vocabulary
         };
 
         const logTryP: LogProgressed = {
@@ -155,6 +157,7 @@ export const GameScreenVocabulary = () => {
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
             otherInfo: "",
+            gameType: gameTypes.Vocabulary
         };
 
         if (isCorrect) {
@@ -195,6 +198,7 @@ export const GameScreenVocabulary = () => {
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
                 otherInfo: "all the rounds completed",
+                gameType: gameTypes.Vocabulary
             };
 
             logger.log(logFin);

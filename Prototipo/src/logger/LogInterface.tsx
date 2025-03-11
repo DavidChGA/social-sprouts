@@ -7,13 +7,20 @@ interface Log {
     object: objectTypes;
     timestamp: string;
     otherInfo: string;
+    gameType: gameTypes;
   }
 
 interface LogInitializedGame extends Log {
-    gameType: gameTypes;
     category: string;
-    rounds: number;
-    imagesPerRound: number;
+}
+
+interface LogInitializedVocabulary extends LogInitializedGame {
+  rounds: number;
+  imagesPerRound: number;
+}
+
+interface LogInitializedSequence extends LogInitializedGame {
+  allOptions: string[];
 }
 
 interface LogInitializedRound extends Log {
@@ -41,4 +48,4 @@ interface userData{
     userGender: Genders;
 }
 
-export {Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect};
+export {Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect, LogInitializedVocabulary, LogInitializedSequence};

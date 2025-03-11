@@ -10,11 +10,14 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import gameConfig from '../assets/sequence-config.json';
-import { PrimaryButton } from '../components/PrimaryButton';
 import React from 'react';
-import { globalColors, globalStyles } from '../theme/theme';
+import { globalStyles } from '../theme/theme';
 import { AnswerModal } from '../components/AnswerModal';
 import { ImageButtonSequence } from '../components/ImageButtonSequence';
+import { LogCompleted, LogInitializedSequence, LogSelect } from '../logger/LogInterface';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
+import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
+import logger from '../logger/Logger';
 
 type GameScreenSequenceRouteProp = RouteProp<RootStackParams, 'GameSequence'>;
 
@@ -43,6 +46,9 @@ export const GameScreenSequence = () => {
     const [modalImage, setModalImage] = useState('');
     const [nextId, setNextId] = useState(1);
 
+    const { userName, userAge, userGender } = useGlobalStoreUser();
+    const userDataV = { userName, userAge, userGender };
+
     useEffect(() => {
         navigation.setOptions({
             headerShown: false,
@@ -52,6 +58,17 @@ export const GameScreenSequence = () => {
 
     const initializeGame = () => {
         const imagesSequence = gameConfig.secuencias[sequence];
+
+        const logInicio: LogInitializedSequence = {
+            player: userDataV,
+            action: logTypes.Initialized,
+            object: objectTypes.Game,
+            timestamp: new Date().toISOString(),
+            otherInfo: "",
+            category: sequence,
+            gameType: gameTypes.Sequence,
+            allOptions: []
+        };
 
         const roundImages = imagesSequence.map((image, index) => ({
             id: index + 1,
@@ -65,7 +82,10 @@ export const GameScreenSequence = () => {
 
         roundImages.forEach((img: any) => {
             initialVisibleTexts[img.name] = false;
+            logInicio.allOptions.push(img.name);
         });
+
+        logger.log(logInicio);
 
         setVisibleTexts(initialVisibleTexts);
     }
@@ -85,6 +105,20 @@ export const GameScreenSequence = () => {
         setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = id === nextId;
 
+        const logTry: LogSelect = {
+            player: userDataV,
+            action: logTypes.Selected,
+            object: objectTypes.Round,
+            timestamp: new Date().toISOString(),
+            correctOption: gameConfig.secuencias[sequence][nextId - 1].name,
+            result: isCorrect,
+            selectedOption: name,
+            otherInfo: "",
+            gameType: gameTypes.Sequence
+        };
+
+        logger.log(logTry);
+
         setModalMessage(isCorrect ? `¡Correcto!` : `¡Incorrecto!`);
         setModalImage(isCorrect ? require('../assets/img/answer/bien.png') : require('../assets/img/answer/mal.png'));
         setIsModalVisible(true);
@@ -101,6 +135,17 @@ export const GameScreenSequence = () => {
         //Compruebo final de secuencia
         if (nextId >= currentImages.length) {
             await wait(1000);
+
+            const logFin: LogCompleted = {
+                player: userDataV,
+                action: logTypes.Completed,
+                object: objectTypes.Game,
+                timestamp: new Date().toISOString(),
+                otherInfo: "sequence completed",
+                gameType: gameTypes.Sequence
+            };
+
+            logger.log(logFin);
 
             navigation.navigate('GameOver', {
                 attempts: attempts + 1,
