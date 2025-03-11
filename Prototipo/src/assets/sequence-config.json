@@ -21,6 +21,32 @@
                 "id": 5,
                 "name": "SECAR LAS MANOS"
             }
+        ],
+        "Rutina del desayuno": [
+            {
+                "id": 1,
+                "name": "LAVAR LAS MANOS"
+            },
+            {
+                "id": 2,
+                "name": "SECAR LAS MANOS"
+            },
+            {
+                "id": 3,
+                "name": "SACAR EL DESAYUNO"
+            },
+            {
+                "id": 4,
+                "name": "DESAYUNAR"
+            },
+            {
+                "id": 5,
+                "name": "GUARDAR EL DESAYUNO"
+            },
+            {
+                "id": 6,
+                "name": "IR AL PATIO"
+            }
         ]
     }
 }
