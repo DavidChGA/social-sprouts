@@ -6,7 +6,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, Pressable, Dimensions } from 'react-native';
 import { globalColors, globalStyles } from '../theme/theme';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ImageButton } from '../components/ImageButton';
@@ -20,6 +20,8 @@ import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedRound, LogInitializedVocabulary, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
+
+const { height } = Dimensions.get('window');
 
 type GameScreenVocabularyRouteProp = RouteProp<RootStackParams, 'GameVocabulary'>;
 
@@ -38,7 +40,6 @@ export const GameScreenVocabulary = () => {
     const [currentRound, setCurrentRound] = useState(1);
     const [currentImages, setCurrentImages] = useState<any[]>([]); // Imágenes de la ronda actual
     const [correctImage, setCorrectImage] = useState<any | null>(null); // Imagen correcta de la ronda
-    const [sound, setSound] = useState<Sound | null>(null);
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
     const [attempts, setAttempts] = useState(0);
@@ -74,7 +75,7 @@ export const GameScreenVocabulary = () => {
             correctOption: round.correctImage.name,
             allOptions: [],
             otherInfo: "",
-            gameType: gameTypes.Vocabulary
+            gameType: gameTypes.Vocabulary,
         };
 
         // Resetear visibilidad del texto para las imágenes actuales
@@ -148,7 +149,7 @@ export const GameScreenVocabulary = () => {
             result: false,
             selectedOption: name,
             otherInfo: "",
-            gameType: gameTypes.Vocabulary
+            gameType: gameTypes.Vocabulary,
         };
 
         const logTryP: LogProgressed = {
@@ -157,7 +158,7 @@ export const GameScreenVocabulary = () => {
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
             otherInfo: "",
-            gameType: gameTypes.Vocabulary
+            gameType: gameTypes.Vocabulary,
         };
 
         if (isCorrect) {
@@ -198,7 +199,7 @@ export const GameScreenVocabulary = () => {
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
                 otherInfo: "all the rounds completed",
-                gameType: gameTypes.Vocabulary
+                gameType: gameTypes.Vocabulary,
             };
 
             logger.log(logFin);
@@ -248,9 +249,12 @@ export const GameScreenVocabulary = () => {
 
             <View style={gameStyles.textContainer}>
                 <Text style={{ ...globalStyles.title, ...gameStyles.answer }}>{correctImage?.name}</Text>
-                <TouchableOpacity onPress={playSound} style={gameStyles.soundButton}>
-                    <Text>Sonido</Text>
-                </TouchableOpacity>
+                <Pressable onPress={playSound} style={gameStyles.soundButton}>
+                    <Image
+                    source={require('../assets/img/sound.png')}
+                    style={gameStyles.icon}
+                    />
+                </Pressable>
             </View>
 
             <AnswerModal
@@ -283,5 +287,10 @@ const gameStyles = StyleSheet.create({
     },
     soundButton: {
         padding: 10,
+
+    },
+    icon:{
+        width: height * 0.1,
+        height: height * 0.1,
     },
 });
