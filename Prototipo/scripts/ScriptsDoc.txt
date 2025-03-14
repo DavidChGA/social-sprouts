@@ -1,4 +1,4 @@
-- Descarga de imágenes y generación automática de ficheros de configuración para minijuego de Vocabulario (config-img.py) - 
+- Descarga de imágenes y sonidos y generación automática de ficheros de configuración para minijuego de Vocabulario (config-Vocabulary.py) - 
 
 El script permite descargar pictogramas desde la API de ARASAAC en función de palabras clave proporcionadas por el usuario. Los pictogramas se guardarán en una carpeta 
 (la cual a su vez tras la ejecución contendrá en directorios separadas cada conjunto de imágenes por palabra clave) y se generan archivos JSON y TypeScript con información 
