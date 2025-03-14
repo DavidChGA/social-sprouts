@@ -275,7 +275,7 @@ const gameStyles = StyleSheet.create({
     },
 
     answer: {
-        fontSize: 80,
+        fontSize: height * 0.1,
     },
 
     imageContainer: {
@@ -286,11 +286,11 @@ const gameStyles = StyleSheet.create({
         marginBottom: '5%',
     },
     soundButton: {
-        padding: 10,
+        padding: (height * 0.05) / 10,
 
     },
     icon:{
-        width: height * 0.1,
-        height: height * 0.1,
+        width: height * 0.08,
+        height: height * 0.08,
     },
 });
