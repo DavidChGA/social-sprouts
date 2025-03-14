@@ -1,10 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image, Pressable, Dimensions } from 'react-native';
 import { globalColors, globalStyles } from '../theme/theme';
@@ -252,12 +249,12 @@ export const GameScreenVocabulary = () => {
                                 image={item.name}
                                 style={{
                                     borderColor: borderColor, // Color según selección
-                                    borderWidth: borderColor !== 'black' ? 15 : 4,
-                                    borderRadius: 10,
+                                    borderWidth: borderColor !== 'black' ? height * 0.015 : height * 0.005,
+                                    borderRadius: height * 0.025,
                                 }}
                             />
                             {visibleTexts[item.name] && (
-                                <Text style={{ fontSize: 30, color: globalColors.dark }}>{item.name}</Text>
+                                <Text style={{ fontSize: height * 0.035, color: globalColors.dark }}>{item.name}</Text>
                             )}
                         </View>
                     );
