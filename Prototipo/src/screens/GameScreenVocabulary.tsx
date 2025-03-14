@@ -41,6 +41,7 @@ export const GameScreenVocabulary = () => {
     const [currentImages, setCurrentImages] = useState<any[]>([]); // Imágenes de la ronda actual
     const [correctImage, setCorrectImage] = useState<any | null>(null); // Imagen correcta de la ronda
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
+    const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
     const [attempts, setAttempts] = useState(0);
 
@@ -173,6 +174,11 @@ export const GameScreenVocabulary = () => {
             logger.log(logTryP);
         }
 
+        setImageBorders((prevBorders) => ({
+            ...prevBorders,
+            [name]: isCorrect ? 'forestgreen' : 'red', // Verde si es correcta, rojo si es incorrecta
+        }));
+
         setModalMessage(isCorrect ? `¡Correcto! Seleccionaste ${name}` : `¡Incorrecto! Seleccionaste ${name}`);
         setModalImage(isCorrect ? require('../assets/img/answer/bien.png') : require('../assets/img/answer/mal.png'));
         setIsModalVisible(true);
@@ -181,7 +187,10 @@ export const GameScreenVocabulary = () => {
         setTimeout(() => {
             setIsModalVisible(false);
             if (isCorrect) {
-                handleNextRound();
+                setTimeout(() => {
+                    handleNextRound();
+                }, 1500);
+
             }
         }, 1500);
     };
@@ -234,25 +243,33 @@ export const GameScreenVocabulary = () => {
             </View>
 
             <View style={gameStyles.imageContainer}>
-                {currentImages.map((item, index) => (
-                    <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
-                        <ImageButton
-                            onPress={() => !visibleTexts[item.name] ? handleImagePress(item.name) : undefined}
-                            image={item.name}
-                        />
-                        {visibleTexts[item.name] && (
-                            <Text style={{ fontSize: 30, color: globalColors.dark }}>{item.name}</Text>
-                        )}
-                    </View>
-                ))}
+                {currentImages.map((item, index) => {
+                    const borderColor = imageBorders[item.name] || 'black';
+                    return (
+                        <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
+                            <ImageButton
+                                onPress={() => !visibleTexts[item.name] ? handleImagePress(item.name) : undefined}
+                                image={item.name}
+                                style={{
+                                    borderColor: borderColor, // Color según selección
+                                    borderWidth: borderColor !== 'black' ? 15 : 4,
+                                    borderRadius: 10,
+                                }}
+                            />
+                            {visibleTexts[item.name] && (
+                                <Text style={{ fontSize: 30, color: globalColors.dark }}>{item.name}</Text>
+                            )}
+                        </View>
+                    );
+                })}
             </View>
 
             <View style={gameStyles.textContainer}>
                 <Text style={{ ...globalStyles.title, ...gameStyles.answer }}>{correctImage?.name}</Text>
                 <Pressable onPress={playSound} style={gameStyles.soundButton}>
                     <Image
-                    source={require('../assets/img/sound.png')}
-                    style={gameStyles.icon}
+                        source={require('../assets/img/sound.png')}
+                        style={gameStyles.icon}
                     />
                 </Pressable>
             </View>
@@ -289,7 +306,7 @@ const gameStyles = StyleSheet.create({
         padding: (height * 0.05) / 10,
 
     },
-    icon:{
+    icon: {
         width: height * 0.08,
         height: height * 0.08,
     },
