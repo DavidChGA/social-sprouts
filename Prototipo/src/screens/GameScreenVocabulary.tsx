@@ -133,6 +133,23 @@ export const GameScreenVocabulary = () => {
         }));
     };
 
+    let correctSound = new Sound(require('../assets/sounds/answer/correct.mp3'), Sound.MAIN_BUNDLE, (error) => {
+        if (error) {console.log("Error al cargar el sonido correcto:", error);}
+    });
+
+    let incorrectSound = new Sound(require('../assets/sounds/answer/incorrect.mp3'), Sound.MAIN_BUNDLE, (error) => {
+        if (error) {console.log("Error al cargar el sonido incorrecto:", error);}
+    });
+
+    const playSound = (isCorrect: boolean) => {
+        const soundToPlay = isCorrect ? correctSound : incorrectSound;
+        soundToPlay.play((success) => {
+            if (!success) {
+                console.log("Error al reproducir el sonido");
+            }
+        });
+    };
+
     // Manejar la selección de una imagen
     const handleImagePress = (name: string) => {
         setAttempts((prevAttempts) => prevAttempts + 1);
@@ -170,6 +187,8 @@ export const GameScreenVocabulary = () => {
             logger.log(logTry);
             logger.log(logTryP);
         }
+
+        playSound(isCorrect);
 
         setImageBorders((prevBorders) => ({
             ...prevBorders,
@@ -217,15 +236,15 @@ export const GameScreenVocabulary = () => {
         }
     };
 
-    let clickSound = correctImage?.name ? new Sound(soundMap[correctImage.name], Sound.MAIN_BUNDLE, (error) => {
+    let clickAnswerSound = correctImage?.name ? new Sound(soundMap[correctImage.name], Sound.MAIN_BUNDLE, (error) => {
         if (error) {
             console.log('Error al cargar el sonido:', error);
         }
     }) : undefined;
 
-    const playSound = () => {
-        if (clickSound) {
-            clickSound.play((success) => {
+    const playAnswerSound = () => {
+        if (clickAnswerSound) {
+            clickAnswerSound.play((success) => {
                 if (!success) {
                     console.log('Error al reproducir el sonido');
                 }
@@ -263,7 +282,7 @@ export const GameScreenVocabulary = () => {
 
             <View style={gameStyles.textContainer}>
                 <Text style={{ ...globalStyles.title, ...gameStyles.answer }}>{correctImage?.name}</Text>
-                <Pressable onPress={playSound} style={gameStyles.soundButton}>
+                <Pressable onPress={playAnswerSound} style={gameStyles.soundButton}>
                     <Image
                         source={require('../assets/img/sound.png')}
                         style={gameStyles.icon}
