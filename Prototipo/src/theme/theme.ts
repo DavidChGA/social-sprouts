@@ -36,11 +36,21 @@ export const globalStyles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    subtitle: {
+        color: globalColors.gray,
+        fontSize: 35,
+        alignSelf: 'center',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginTop: 20,
+    },
+
+
     button: {
         backgroundColor: globalColors.primary,
         borderRadius: 10,
         borderWidth: 4,
-        padding: 10,
+        padding:10,
         margin: 20,
     },
 

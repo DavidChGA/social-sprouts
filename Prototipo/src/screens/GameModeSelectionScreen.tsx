@@ -27,7 +27,45 @@ function GameModeSelectionScreen() {
 
   return (
     <View style={[globalStyles.container]}>
+      <View style={styles.textContainer}>
+        <Text style={globalStyles.title}>SELECCIONA UN MINIJUEGO</Text>
+      </View>
       {/* VOCABULARIO */}
+
+      <Text style={globalStyles.subtitle}>VOCABULARIO</Text>
+
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameVocabulary', {
+              category: activeVocabularyConfig.category,
+              imagesPerRound: 3,
+              rounds: 3,
+            })
+          }
+          label="Vocabulario I"
+        />
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameVocabulary', {
+              category: activeVocabularyConfig.category,
+              imagesPerRound: 3,
+              rounds: 5,
+            })
+          }
+          label="Vocabulario II"
+        />
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameVocabulary', {
+              category: activeVocabularyConfig.category,
+              imagesPerRound: 5,
+              rounds: 4,
+            })
+          }
+          label="Vocabulario III"
+        />
+      </View>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <PrimaryButton
           onPress={() =>
@@ -37,32 +75,51 @@ function GameModeSelectionScreen() {
               rounds: parseInt(activeVocabularyConfig.rounds, 10),
             })
           }
-          label="Vocabulario"
+          label="Vocabulario Extra"
         />
         <SettingsButton onPress={() => navigation.navigate('SetupVocabulary')} />
       </View>
-
       <Text style={{ textAlign: 'center', marginVertical: 10 }}>
         Configuración actual: {activeVocabularyConfig.alias}
       </Text>
 
-      {/* SECUENCIAS */}
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <PrimaryButton
-          onPress={() =>
-            navigation.navigate('GameSequencePreview', {
-              sequence: activeSequenceConfig.sequence,
-            })
-          }
-          label="Secuencia"
-        />
-        <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        {/* SECUENCIAS */}
+        <View style={{ flexDirection: 'column', alignItems: 'center', flex: 0.4}}>
+          <Text style={globalStyles.subtitle}>SECUENCIA</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <PrimaryButton
+              onPress={() =>
+                navigation.navigate('GameSequencePreview', {
+                  sequence: activeSequenceConfig.sequence,
+                })
+              }
+              label="Secuencia"
+            />
+            <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
+          </View>
+          <Text style={{ textAlign: 'center', marginVertical: 10 }}>
+            Configuración actual: {activeSequenceConfig.alias}
+          </Text>
+        </View>
+
+        {/* EMOCIONES */}
+        <View style={{ flexDirection: 'column', alignItems: 'center', flex: 0.4}}>
+          <Text style={globalStyles.subtitle}>EMOCIONES</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <PrimaryButton
+              onPress={() =>
+                console.log('Aquí va el juego de emociones')
+              }
+              label="Emociones"
+            />
+            <SettingsButton onPress={() => console.log('Aquí va la config Emociones')} />
+          </View>
+          <Text style={{ textAlign: 'center', marginVertical: 10 }}>
+            Configuración actual: -
+          </Text>
+        </View>
       </View>
-
-      <Text style={{ textAlign: 'center', marginVertical: 10 }}>
-        Configuración actual: {activeSequenceConfig.alias}
-      </Text>
-
     </View>
   );
 }
@@ -77,6 +134,9 @@ const styles = StyleSheet.create({
   soundButtonText: {
     color: 'white',
     fontSize: 16,
+  },
+  textContainer: {
+    flex: 0.4,
   },
 });
 
