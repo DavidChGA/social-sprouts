@@ -2,17 +2,20 @@ enum logTypes {
     Initialized = "INITIALIZED",
     Completed = "COMPLETED",
     Progressed = "PROGRESSED",
-    Selected = "SELECTED"
+    Selected = "SELECTED",
+    Creation = "CREATION"
   }
 
   enum objectTypes {
     Game = "GAME",
     Round = "ROUND",
+    Player = "PLAYER"
   }
 
   enum gameTypes {
     Vocabulary = "VOCABULARY",
     Sequence = "SEQUENCE",
+    Emotions = "EMOTIONS"
   }
 
 export {logTypes, objectTypes, gameTypes};

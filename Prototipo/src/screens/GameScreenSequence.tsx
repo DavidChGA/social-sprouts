@@ -46,8 +46,7 @@ export const GameScreenSequence = () => {
     const [modalImage, setModalImage] = useState('');
     const [nextId, setNextId] = useState(1);
 
-    const { userName, userAge, userGender } = useGlobalStoreUser();
-    const userDataV = { userName, userAge, userGender };
+    const { userId } = useGlobalStoreUser();
 
     useEffect(() => {
         navigation.setOptions({
@@ -60,7 +59,7 @@ export const GameScreenSequence = () => {
         const imagesSequence = gameConfig.secuencias[sequence];
 
         const logInicio: LogInitializedSequence = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Initialized,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -73,6 +72,7 @@ export const GameScreenSequence = () => {
         const roundImages = imagesSequence.map((image, index) => ({
             id: index + 1,
             name: image.name,
+            imgName: image.imgName
         }));
 
         const suffleImages = shuffleArray(roundImages);
@@ -106,7 +106,7 @@ export const GameScreenSequence = () => {
         const isCorrect = id === nextId;
 
         const logTry: LogSelect = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Selected,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -137,7 +137,7 @@ export const GameScreenSequence = () => {
             await wait(1000);
 
             const logFin: LogCompleted = {
-                player: userDataV,
+                playerId: userId,
                 action: logTypes.Completed,
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
@@ -167,7 +167,7 @@ export const GameScreenSequence = () => {
                     <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '15%', height: '100%' }}>
                         <ImageButtonSequence
                             onPress={() => handleImagePress(item.id, item.name)}
-                            image={item.name}
+                            image={item.imgName}
                         />
                         {visibleTexts[item.name] && (
                             <Text style={{ textAlign: 'center'}}>{item.name}</Text>

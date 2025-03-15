@@ -36,8 +36,10 @@ export const GameScreenSequencePreview = () => {
     const initializeGame = () => {
         const imagesSequence = gameConfig.secuencias[sequence];
 
-        const roundImages = imagesSequence.map(image => ({
+        const roundImages = imagesSequence.map((image, index) => ({
+            id: index + 1,
             name: image.name,
+            imgName: image.imgName
         }));
 
         setCurrentImages(roundImages);
@@ -53,7 +55,7 @@ export const GameScreenSequencePreview = () => {
                 {currentImages.map((item, index) => (
                     <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '15%', height: '100%' }}>
                         <Image
-                            source={imageMapSequences[item.name]}
+                            source={imageMapSequences[item.imgName]}
                             style={globalStyles.imageButtonSequence}
                             resizeMode="contain"
                         />

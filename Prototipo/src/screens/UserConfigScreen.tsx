@@ -8,11 +8,16 @@ import { SecondaryButton } from '../components/SecondaryButton';
 import { Genders, useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import { Dropdown } from 'react-native-element-dropdown';
 import { globalStyles } from '../theme/theme';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
+import { LogChangePlayer, userData } from '../logger/LogInterface';
+import logger from '../logger/Logger';
+import { logTypes, objectTypes } from '../logger/LogEnums';
 
 export const UserConfigScreen = () => {
 
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { userName, userAge, userGender, setUserName, setUserAge, setUserGender } = useGlobalStoreUser();
+  const { userName, userAge, userGender, userId, setUserName, setUserAge, setUserGender, setUserId, getUserAge, getUserGender, getUserId, getUserName } = useGlobalStoreUser();
 
   useEffect(() => {
     navigation.setOptions({
@@ -26,13 +31,33 @@ export const UserConfigScreen = () => {
   }));
 
   const saveConfig = () => {
+    const uniqueId = uuidv4();
+    setUserId(uniqueId);
+
+    const userDataV: userData= {
+      userName: getUserName(),
+      userAge: getUserAge(),
+      userGender: getUserGender(),
+      userId: getUserId()
+    };
+
+    const logCreation: LogChangePlayer = {
+      player: userDataV,
+      action: logTypes.Creation,
+      object: objectTypes.Player,
+      timestamp: new Date().toISOString(),
+      otherInfo: ''
+    }
+
+    logger.log(logCreation);
+
     navigation.goBack();
   };
 
   return (
     <View style={globalStyles.container}>
 
-      <Text style={{ margin: 30, fontSize: 20 }}> Loggeado actualmente como: {userName}, {userAge}, {userGender} </Text>
+      <Text style={{ margin: 30, fontSize: 20 }}> Loggeado actualmente como: {userName}, {userAge}, {userGender}, {userId} </Text>
 
       {/* Name */}
       <TextInput

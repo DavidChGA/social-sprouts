@@ -45,8 +45,7 @@ export const GameScreenVocabulary = () => {
     const route = useRoute<GameScreenVocabularyRouteProp>();
     const { category, imagesPerRound, rounds } = route.params;
 
-    const { userName, userAge, userGender } = useGlobalStoreUser();
-    const userDataV = { userName, userAge, userGender };
+    const { userId } = useGlobalStoreUser();
 
     useEffect(() => {
         navigation.setOptions({
@@ -66,7 +65,7 @@ export const GameScreenVocabulary = () => {
         setCorrectImage(round.correctImage);
 
         const logInicioRonda: LogInitializedRound = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Initialized,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -95,7 +94,7 @@ export const GameScreenVocabulary = () => {
         const roundsArray: Round[] = [];
 
         const logInicio: LogInitializedVocabulary = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Initialized,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -156,7 +155,7 @@ export const GameScreenVocabulary = () => {
         const isCorrect = name === correctImage.name;
 
         const logTry: LogSelect = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Selected,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -168,7 +167,7 @@ export const GameScreenVocabulary = () => {
         };
 
         const logTryP: LogProgressed = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Progressed,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -219,7 +218,7 @@ export const GameScreenVocabulary = () => {
         } else {
 
             const logFin: LogCompleted = {
-                player: userDataV,
+                playerId: userId,
                 action: logTypes.Completed,
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
