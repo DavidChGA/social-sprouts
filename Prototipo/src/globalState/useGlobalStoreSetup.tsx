@@ -50,7 +50,7 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
   selectedVocabularyConfig: null,
   selectedSequenceConfig: null,
 
-  defaultVocabularyConfig: { alias: 'Predeterminado', category: 'Animal', images: '3', rounds: '2' },
+  defaultVocabularyConfig: { alias: 'Predeterminado', category: 'Animal', images: '3', rounds: '3' },
   defaultSequenceConfig: { alias: 'Predeterminado', sequence: 'Lavado de manos' },
 
   // VOCABULARIO

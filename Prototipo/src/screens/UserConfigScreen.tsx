@@ -34,11 +34,11 @@ export const UserConfigScreen = () => {
     const uniqueId = uuidv4();
     setUserId(uniqueId);
 
-    const userDataV: userData= {
+    const userDataV: userData = {
       userName: getUserName(),
       userAge: getUserAge(),
       userGender: getUserGender(),
-      userId: getUserId()
+      userId: getUserId(),
     };
 
     const logCreation: LogChangePlayer = {
@@ -46,8 +46,8 @@ export const UserConfigScreen = () => {
       action: logTypes.Creation,
       object: objectTypes.Player,
       timestamp: new Date().toISOString(),
-      otherInfo: ''
-    }
+      otherInfo: '',
+    };
 
     logger.log(logCreation);
 
@@ -82,6 +82,7 @@ export const UserConfigScreen = () => {
         labelField="label"
         valueField="value"
         placeholder="Selecciona un género"
+        value={userGender}
         onChange={(item) => setUserGender(item.value)}
         style={styles.dropdown}
         placeholderStyle={styles.placeholder}
