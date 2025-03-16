@@ -18,6 +18,7 @@ import { LogCompleted, LogInitializedSequence, LogSelect } from '../logger/LogIn
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import logger from '../logger/Logger';
+import Sound from 'react-native-sound';
 
 const { height } = Dimensions.get('window');
 
@@ -93,6 +94,23 @@ export const GameScreenSequence = () => {
 
     const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+    let correctSound = new Sound(require('../assets/sounds/answer/correct.mp3'), Sound.MAIN_BUNDLE, (error) => {
+        if (error) {console.log("Error al cargar el sonido correcto:", error);}
+    });
+
+    let incorrectSound = new Sound(require('../assets/sounds/answer/incorrect.mp3'), Sound.MAIN_BUNDLE, (error) => {
+        if (error) {console.log("Error al cargar el sonido incorrecto:", error);}
+    });
+
+    const playSound = (isCorrect: boolean) => {
+        const soundToPlay = isCorrect ? correctSound : incorrectSound;
+        soundToPlay.play((success) => {
+            if (!success) {
+                console.log("Error al reproducir el sonido");
+            }
+        });
+    };
+
     // Manejar la selección de una imagen
     const handleImagePress = async (id: number, name: string) => {
 
@@ -116,6 +134,8 @@ export const GameScreenSequence = () => {
         setModalMessage(isCorrect ? `¡Correcto!` : `¡Incorrecto!`);
         setModalImage(isCorrect ? require('../assets/img/answer/bien.png') : require('../assets/img/answer/mal.png'));
         setIsModalVisible(true);
+
+        playSound(isCorrect);
 
         setTimeout(() => {
             setIsModalVisible(false);
