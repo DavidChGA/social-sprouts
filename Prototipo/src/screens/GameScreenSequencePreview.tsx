@@ -1,10 +1,7 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable quotes */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
+
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { globalStyles } from '../theme/theme';
@@ -39,11 +36,11 @@ export const GameScreenSequencePreview = () => {
         const roundImages = imagesSequence.map((image, index) => ({
             id: index + 1,
             name: image.name,
-            imgName: image.imgName
+            imgName: image.imgName,
         }));
 
         setCurrentImages(roundImages);
-    }
+    };
 
     return (
         <View style={[globalStyles.container]}>
@@ -73,21 +70,17 @@ export const GameScreenSequencePreview = () => {
                 label="Continuar"
             />
         </View>
-    )
+    );
 
-}
+};
 
-export default GameScreenSequencePreview
+export default GameScreenSequencePreview;
 
 const gameStyles = StyleSheet.create({
     textContainer: {
         flex: 0.3,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-
-    answer: {
-        fontSize: 80,
     },
 
     imageContainer: {
