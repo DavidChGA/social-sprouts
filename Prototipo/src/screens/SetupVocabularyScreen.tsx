@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Alert, TextInput } from 'react-native';
+import { View, StyleSheet, Text, Alert, TextInput, Dimensions } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
@@ -8,6 +8,8 @@ import gameConfig from '../assets/vocabulary-config.json';
 import { globalStyles } from '../theme/theme';
 import { SecondaryButton } from '../components/SecondaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+
+const { height } = Dimensions.get('window');
 
 export const SetupVocabularyScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -107,7 +109,7 @@ export const SetupVocabularyScreen = () => {
 
   return (
     <View style={[globalStyles.container]}>
-      <Text style={globalStyles.title}>Configurar el Juego</Text>
+      <Text style={globalStyles.title}>Configurar Vocabulario</Text>
 
       {/* Contenedor dividido en dos columnas */}
       <View style={styles.row}>
@@ -213,42 +215,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between', // Espaciado entre columnas
   },
-  column: {
-    margin: 50,
-    justifyContent: 'center',
-    width: '30%',
-  },
   label: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  input: {
-    height: 50,
-    width: '100%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 18,
-    backgroundColor: 'white',
+    fontSize: height * 0.03,
+    marginVertical: height * 0.025,
   },
   dropdown: {
-    height: 50,
-    width: '100%',
+    height: height * 0.06,
     backgroundColor: 'white',
-    borderRadius: 5,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 18,
+    borderRadius: 8,
+    marginBottom: height * 0.025,
+    paddingHorizontal: height * 0.025,
+    fontSize: height * 0.025,
   },
   placeholder: {
-    fontSize: 18,
+    fontSize: height * 0.025,
     color: 'gray',
   },
   selectedText: {
-    fontSize: 18,
+    fontSize: height * 0.025,
     color: 'black',
+  },
+  input: {
+    height: height * 0.08,
+    borderRadius: 5,
+    marginBottom: height * 0.025,
+    paddingHorizontal: height * 0.025,
+    fontSize: height * 0.025,
+    backgroundColor: 'white',
+  },
+  column: {
+    margin: height * 0.05,
+    justifyContent: 'center',
+    width: '30%',
   },
   disabledDropdown: {
     backgroundColor: 'gray',

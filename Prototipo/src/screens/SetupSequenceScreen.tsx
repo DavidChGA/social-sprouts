@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Alert, TextInput } from 'react-native';
+import { View, StyleSheet, Text, Alert, TextInput, Dimensions } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
@@ -8,6 +8,8 @@ import gameConfig from '../assets/sequence-config.json';
 import { globalStyles } from '../theme/theme';
 import { SecondaryButton } from '../components/SecondaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+
+const { height } = Dimensions.get('window');
 
 export const SetupSequenceScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -61,64 +63,65 @@ export const SetupSequenceScreen = () => {
     <View style={globalStyles.container}>
       <Text style={globalStyles.title}>Configurar Secuencia</Text>
 
-      <Text style={styles.label}>Alias para la configuración:</Text>
-      <TextInput
-        style={styles.dropdown}
-        value={alias}
-        onChangeText={setAlias}
-        placeholder="Nombre de la configuración"
-      />
+      <View style={styles.column}>
+        <Text style={styles.label}>Alias para la configuración:</Text>
+        <TextInput
+          style={styles.input}
+          value={alias}
+          onChangeText={setAlias}
+          placeholder="Nombre de la configuración"
+        />
 
-      <Text style={styles.label}>Selecciona una secuencia:</Text>
-      <Dropdown
-        data={sequences}
-        labelField="label"
-        valueField="value"
-        placeholder="Selecciona una secuencia"
-        value={sequence}
-        onChange={(item) => setSequence(item.value)}
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholder}
-        selectedTextStyle={styles.selectedText}
-      />
-
+        <Text style={styles.label}>Selecciona una secuencia:</Text>
+        <Dropdown
+          data={sequences}
+          labelField="label"
+          valueField="value"
+          placeholder="Selecciona una secuencia"
+          value={sequence}
+          onChange={(item) => setSequence(item.value)}
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholder}
+          selectedTextStyle={styles.selectedText}
+        />
+      </View>
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 25,
-    marginVertical: 10,
+    fontSize: height * 0.03,
+    marginVertical: height * 0.025,
   },
   dropdown: {
-    height: '10%',
-    width: '40%',
+    height: height * 0.06,
     backgroundColor: 'white',
-    borderRadius: 5,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 20,
+    borderRadius: 8,
+    marginBottom: height * 0.025,
+    paddingHorizontal: height * 0.025,
+    fontSize: height * 0.025,
   },
   placeholder: {
-    fontSize: 20,
+    fontSize: height * 0.025,
     color: 'gray',
   },
   selectedText: {
-    fontSize: 20,
+    fontSize: height * 0.025,
     color: 'black',
   },
-  disabledDropdown: {
-    backgroundColor: 'gray',
-  },
   input: {
-    height: 50,
-    width: '80%',
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 20,
+    height: height * 0.08,
+    borderRadius: 5,
+    marginBottom: height * 0.025,
+    paddingHorizontal: height * 0.025,
+    fontSize: height * 0.025,
+    backgroundColor: 'white',
+  },
+  column: {
+    margin: height * 0.05,
+    justifyContent: 'center',
   },
 });
