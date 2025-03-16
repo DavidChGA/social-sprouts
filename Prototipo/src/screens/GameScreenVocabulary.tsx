@@ -35,6 +35,7 @@ export const GameScreenVocabulary = () => {
     const [modalMessage, setModalMessage] = useState('');
     const [modalImage, setModalImage] = useState('');
     const [currentRound, setCurrentRound] = useState(1);
+    const [roundCompleted, setRoundCompleted] = useState(false);
     const [currentImages, setCurrentImages] = useState<any[]>([]); // Imágenes de la ronda actual
     const [correctImage, setCorrectImage] = useState<any | null>(null); // Imagen correcta de la ronda
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
@@ -63,6 +64,7 @@ export const GameScreenVocabulary = () => {
     const loadNextRound = (round: any) => {
         setCurrentImages(round.images);
         setCorrectImage(round.correctImage);
+        setRoundCompleted(false);
 
         const logInicioRonda: LogInitializedRound = {
             playerId: userId,
@@ -180,6 +182,7 @@ export const GameScreenVocabulary = () => {
             logTryP.otherInfo = "go next round";
             logger.log(logTry);
             logger.log(logTryP);
+            setRoundCompleted(true);
         } else {
             logTry.result = false;
             logTryP.otherInfo = "retry round";
@@ -263,7 +266,7 @@ export const GameScreenVocabulary = () => {
                     return (
                         <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
                             <ImageButton
-                                onPress={() => !visibleTexts[item.name] ? handleImagePress(item.name) : undefined}
+                                onPress={() => (!visibleTexts[item.name] && !roundCompleted) ? handleImagePress(item.name) : undefined}
                                 image={item.name}
                                 style={{
                                     borderColor: borderColor, // Color según selección
