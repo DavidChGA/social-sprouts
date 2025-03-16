@@ -7,9 +7,10 @@ import imageMapSequences from '../assets/imageMapSequences';
 interface Props {
     onPress: () => void;
     image: any;
+    style?: object;
 }
 
-export const ImageButtonSequence = ({ onPress, image }: Props) => {
+export const ImageButtonSequence = ({ onPress, image, style }: Props) => {
     const [isDisabled, setIsDisabled] = useState(false);
     const imageSource = imageMapSequences[image];
 
@@ -27,9 +28,7 @@ export const ImageButtonSequence = ({ onPress, image }: Props) => {
         <Pressable
             onPress={handlePress}
             disabled={isDisabled}
-            style={[
-                globalStyles.imageButtonSequence,
-            ]}
+            style={[globalStyles.imageButtonSequence, style]}
         >
             <Image
                 source={imageSource}

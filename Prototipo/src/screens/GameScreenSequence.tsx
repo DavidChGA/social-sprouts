@@ -6,7 +6,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, Pressable, Dimensions } from 'react-native';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import gameConfig from '../assets/sequence-config.json';
@@ -18,6 +18,8 @@ import { LogCompleted, LogInitializedSequence, LogSelect } from '../logger/LogIn
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import logger from '../logger/Logger';
+
+const { height } = Dimensions.get('window');
 
 type GameScreenSequenceRouteProp = RouteProp<RootStackParams, 'GameSequence'>;
 
@@ -41,9 +43,9 @@ export const GameScreenSequence = () => {
     const [currentImages, setCurrentImages] = useState<any[]>([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-    const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
     const [attempts, setAttempts] = useState(0);
     const [modalImage, setModalImage] = useState('');
+    const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [nextId, setNextId] = useState(1);
 
     const { userId } = useGlobalStoreUser();
@@ -87,14 +89,6 @@ export const GameScreenSequence = () => {
 
         logger.log(logInicio);
 
-        setVisibleTexts(initialVisibleTexts);
-    };
-
-    const toggleVisibility = (key) => {
-        setVisibleTexts((prevState) => ({
-            ...prevState,
-            [key]: true,
-        }));
     };
 
     const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -129,7 +123,10 @@ export const GameScreenSequence = () => {
 
         if (isCorrect) {
             setNextId(nextId + 1);
-            toggleVisibility(name);
+            setImageBorders((prevBorders) => ({
+                ...prevBorders,
+                [name]: 'forestgreen', // Verde si es correcta, rojo si es incorrecta
+            }));
         }
 
         //Compruebo final de secuencia
@@ -163,17 +160,23 @@ export const GameScreenSequence = () => {
             </View>
 
             <View style={gameStyles.imageContainer}>
-                {currentImages.map((item, index) => (
-                    <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '15%', height: '100%' }}>
-                        <ImageButtonSequence
-                            onPress={() => handleImagePress(item.id, item.name)}
-                            image={item.imgName}
-                        />
-                        {visibleTexts[item.name] && (
-                            <Text style={{ textAlign: 'center'}}>{item.name}</Text>
-                        )}
-                    </View>
-                ))}
+                {currentImages.map((item, index) => {
+                    const borderColor = imageBorders[item.name] || 'black';
+                    return (
+                        <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '15%', height: '100%' }}>
+                            <ImageButtonSequence
+                                onPress={() => handleImagePress(item.id, item.name)}
+                                image={item.imgName}
+                                style={{
+                                    borderColor: borderColor, // Color según selección
+                                    borderWidth: borderColor !== 'black' ? height * 0.015 : height * 0.005,
+                                    borderRadius: height * 0.025,
+                                }}
+                            />
+                            <Text style={{ textAlign: 'center' }}>{item.name}</Text>
+                        </View>
+                    );
+                })}
             </View>
 
             <AnswerModal
