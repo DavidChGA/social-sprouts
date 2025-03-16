@@ -1,11 +1,13 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, Pressable } from 'react-native';
+import { View, Image, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
+
+const { height } = Dimensions.get('window');
 
 export const HomeScreen = () => {
 
@@ -69,8 +71,7 @@ const homeStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    bottom: 10,
+    bottom: height * 0.01,
   },
 
   buttonColumn: {
@@ -79,8 +80,8 @@ const homeStyles = StyleSheet.create({
   },
 
   icon: {
-    marginTop: 40,
-    width: 50,
-    height: 50,
+    marginTop: height * 0.05,
+    width: height * 0.06,
+    height: height * 0.06,
   },
 });
