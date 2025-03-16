@@ -24,7 +24,12 @@ const imageMapSequences: Record<string, any> = {
     "ESPERO CHICO": require("../assets/img/secuencias/preparadeParaContarAlgo/esperarChico.png"),
     "ESPERO CHICA": require("../assets/img/secuencias/preparadeParaContarAlgo/esperarChica.png"),
     "ESCUCHO TU PREGUNTA Y RESPONDO CHICO": require("../assets/img/secuencias/preparadeParaContarAlgo/responderChico.png"),
-    "ESCUCHO TU PREGUNTA Y RESPONDO CHICA": require("../assets/img/secuencias/preparadeParaContarAlgo/responderChica.png")
+    "ESCUCHO TU PREGUNTA Y RESPONDO CHICA": require("../assets/img/secuencias/preparadeParaContarAlgo/responderChica.png"),
+    //SALIDA DEL AULA
+    "PONERSE ABRIGO": require("../assets/img/secuencias/salidaAula/salidaAula1.png"),
+    "COGER MOCHILA": require("../assets/img/secuencias/salidaAula/salidaAula2.png"),
+    "BAJAR ESCALERA": require("../assets/img/secuencias/salidaAula/salidaAula3.png"),
+    "CASA": require("../assets/img/secuencias/salidaAula/salidaAula4.png"),
 };
 
 export default imageMapSequences;

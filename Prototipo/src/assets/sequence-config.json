@@ -146,6 +146,28 @@
                 "name": "ESCUCHO TU PREGUNTA Y RESPONDO",
                 "imgName": "ESCUCHO TU PREGUNTA Y RESPONDO CHICA"
             }
+        ],
+        "Salida del aula": [
+            {
+                "id": 1,
+                "name": "NOS PONEMOS EL ABRIGO",
+                "imgName": "PONERSE ABRIGO"
+            },
+            {
+                "id": 2,
+                "name": "COGEMOS LA MOCHILA",
+                "imgName": "COGER MOCHILA"
+            },
+            {
+                "id": 3,
+                "name": "BAJAMOS DEL AULA",
+                "imgName": "BAJAR ESCALERA"
+            },
+            {
+                "id": 4,
+                "name": "CASA",
+                "imgName": "CASA"
+            }
         ]
     }
 }
