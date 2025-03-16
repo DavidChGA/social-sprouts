@@ -66,13 +66,13 @@ export const GameScreenSequence = () => {
             otherInfo: "",
             category: sequence,
             gameType: gameTypes.Sequence,
-            allOptions: []
+            allOptions: [],
         };
 
         const roundImages = imagesSequence.map((image, index) => ({
             id: index + 1,
             name: image.name,
-            imgName: image.imgName
+            imgName: image.imgName,
         }));
 
         const suffleImages = shuffleArray(roundImages);
@@ -88,7 +88,7 @@ export const GameScreenSequence = () => {
         logger.log(logInicio);
 
         setVisibleTexts(initialVisibleTexts);
-    }
+    };
 
     const toggleVisibility = (key) => {
         setVisibleTexts((prevState) => ({
@@ -114,7 +114,7 @@ export const GameScreenSequence = () => {
             result: isCorrect,
             selectedOption: name,
             otherInfo: "",
-            gameType: gameTypes.Sequence
+            gameType: gameTypes.Sequence,
         };
 
         logger.log(logTry);
@@ -142,7 +142,7 @@ export const GameScreenSequence = () => {
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
                 otherInfo: "sequence completed",
-                gameType: gameTypes.Sequence
+                gameType: gameTypes.Sequence,
             };
 
             logger.log(logFin);
@@ -193,10 +193,6 @@ const gameStyles = StyleSheet.create({
         flex: 0.3,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-
-    answer: {
-        fontSize: 80,
     },
 
     imageContainer: {
