@@ -1,8 +1,12 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import logger from '../logger/Logger';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
+
+const { height } = Dimensions.get('window');
 
 export const LogScreen = () => {
   const [logs, setLogs] = useState<string>('');
@@ -30,9 +34,21 @@ export const LogScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: '#fff' },
-  logContainer: { marginTop: 20, padding: 10, backgroundColor: '#eee', borderRadius: 10 },
-  logText: { fontSize: 14, color: '#333' },
+  container: {
+    flex: 1,
+    padding: height * 0.05,
+    backgroundColor: 'white',
+  },
+  logContainer: {
+    marginTop: height * 0.01,
+    padding: height * 0.025,
+    backgroundColor: '#eee',
+    borderRadius: height * 0.01,
+  },
+  logText: {
+    fontSize: height * 0.02,
+    color: '#333',
+  },
 });
 
 export default LogScreen;
