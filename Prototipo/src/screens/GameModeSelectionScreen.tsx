@@ -5,10 +5,12 @@ import React, { useEffect } from 'react';
 import { RootStackParams } from '../routes/StackNavigator';
 import { PrimaryButton } from '../components/PrimaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { SettingsButton } from '../components/SettingsButton';
 import { Text } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -34,7 +36,7 @@ function GameModeSelectionScreen() {
 
       <Text style={globalStyles.subtitle}>VOCABULARIO</Text>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={styles.fila}>
         <PrimaryButton
           onPress={() =>
             navigation.navigate('GameVocabulary', {
@@ -66,7 +68,7 @@ function GameModeSelectionScreen() {
           label="Vocabulario III"
         />
       </View>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={styles.fila}>
         <PrimaryButton
           onPress={() =>
             navigation.navigate('GameVocabulary', {
@@ -79,15 +81,15 @@ function GameModeSelectionScreen() {
         />
         <SettingsButton onPress={() => navigation.navigate('SetupVocabulary')} />
       </View>
-      <Text style={{ textAlign: 'center', marginVertical: 10 }}>
+      <Text style={styles.configText}>
         Configuración actual: {activeVocabularyConfig.alias}
       </Text>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         {/* SECUENCIAS */}
-        <View style={{ flexDirection: 'column', alignItems: 'center', flex: 0.4}}>
+        <View style={styles.section}>
           <Text style={globalStyles.subtitle}>SECUENCIA</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.fila}>
             <PrimaryButton
               onPress={() =>
                 navigation.navigate('GameSequencePreview', {
@@ -98,15 +100,15 @@ function GameModeSelectionScreen() {
             />
             <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
           </View>
-          <Text style={{ textAlign: 'center', marginVertical: 10 }}>
+          <Text style={styles.configText}>
             Configuración actual: {activeSequenceConfig.alias}
           </Text>
         </View>
 
         {/* EMOCIONES */}
-        <View style={{ flexDirection: 'column', alignItems: 'center', flex: 0.4}}>
+        <View style={styles.section}>
           <Text style={globalStyles.subtitle}>EMOCIONES</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.fila}>
             <PrimaryButton
               onPress={() =>
                 console.log('Aquí va el juego de emociones')
@@ -115,7 +117,7 @@ function GameModeSelectionScreen() {
             />
             <SettingsButton onPress={() => console.log('Aquí va la config Emociones')} />
           </View>
-          <Text style={{ textAlign: 'center', marginVertical: 10 }}>
+          <Text style={styles.configText}>
             Configuración actual: -
           </Text>
         </View>
@@ -125,19 +127,23 @@ function GameModeSelectionScreen() {
 }
 
 const styles = StyleSheet.create({
-  soundButton: {
-    backgroundColor: 'black',
-    padding: 10,
-    borderRadius: 8,
-    marginLeft: 10,
-  },
-  soundButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
   textContainer: {
     flex: 0.4,
   },
+  configText: {
+    textAlign: 'center',
+    marginVertical: height * 0.01,
+  },
+  section: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    flex: 0.4,
+  },
+  fila: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
 });
 
 export default GameModeSelectionScreen;
