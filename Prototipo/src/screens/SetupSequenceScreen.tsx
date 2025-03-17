@@ -70,6 +70,7 @@ export const SetupSequenceScreen = () => {
           value={alias}
           onChangeText={setAlias}
           placeholder="Nombre de la configuración"
+          placeholderTextColor="gray"
         />
 
         <Text style={styles.label}>Selecciona una secuencia:</Text>
