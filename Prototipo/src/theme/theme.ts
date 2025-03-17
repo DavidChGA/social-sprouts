@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 export const globalColors = {
     primary: 'purple',
@@ -30,7 +32,7 @@ export const globalStyles = StyleSheet.create({
 
     title: {
         color: globalColors.light,
-        fontSize: 50,
+        fontSize: height * 0.065,
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
@@ -38,26 +40,26 @@ export const globalStyles = StyleSheet.create({
 
     subtitle: {
         color: globalColors.gray,
-        fontSize: 35,
+        fontSize: height * 0.05,
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
-        marginTop: 20,
+        marginTop: '2%',
     },
 
 
     button: {
         backgroundColor: globalColors.primary,
         borderRadius: 10,
-        borderWidth: 4,
-        padding:10,
-        margin: 20,
+        borderWidth: height * 0.005,
+        padding: height * 0.01,
+        margin: '2%',
     },
 
     imageButton: {
         backgroundColor: globalColors.light,
         borderRadius: 10,
-        borderWidth: 5,
+        borderWidth: height * 0.005,
         width: '60%',
         height: '100%',
     },
@@ -65,7 +67,7 @@ export const globalStyles = StyleSheet.create({
     imageButtonSequence: {
         backgroundColor: globalColors.gray,
         borderRadius: 10,
-        borderWidth: 2,
+        borderWidth: height * 0.005,
         width: '80%',
         height: '100%',
     },
@@ -78,13 +80,13 @@ export const globalStyles = StyleSheet.create({
 
     PButtonText: {
         color: globalColors.light,
-        fontSize: 40,
+        fontSize: height * 0.05,
         alignSelf: 'center',
     },
 
     SButtonText: {
         color: globalColors.light,
-        fontSize: 25,
+        fontSize: height * 0.035,
         alignSelf: 'center',
     },
 });

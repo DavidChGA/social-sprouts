@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.01,
     padding: height * 0.025,
     backgroundColor: '#eee',
-    borderRadius: height * 0.01,
+    borderRadius: 10,
   },
   logText: {
     fontSize: height * 0.02,

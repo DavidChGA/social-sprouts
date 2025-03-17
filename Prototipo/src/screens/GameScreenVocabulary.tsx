@@ -271,7 +271,7 @@ export const GameScreenVocabulary = () => {
                                 style={{
                                     borderColor: borderColor, // Color según selección
                                     borderWidth: borderColor !== 'black' ? height * 0.015 : height * 0.005,
-                                    borderRadius: height * 0.025,
+                                    borderRadius: 10,
                                 }}
                             />
                             {visibleTexts[item.name] && (
