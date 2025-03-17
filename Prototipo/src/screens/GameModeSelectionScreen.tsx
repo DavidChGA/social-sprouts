@@ -29,9 +29,7 @@ function GameModeSelectionScreen() {
 
   return (
     <View style={[globalStyles.container]}>
-      <View style={styles.textContainer}>
-        <Text style={globalStyles.title}>SELECCIONA UN MINIJUEGO</Text>
-      </View>
+      <Text style={globalStyles.title}>SELECCIONA UN MINIJUEGO</Text>
       {/* VOCABULARIO */}
 
       <Text style={globalStyles.subtitle}>VOCABULARIO</Text>
@@ -127,9 +125,6 @@ function GameModeSelectionScreen() {
 }
 
 const styles = StyleSheet.create({
-  textContainer: {
-    flex: 0.4,
-  },
   configText: {
     textAlign: 'center',
     marginVertical: '1%',

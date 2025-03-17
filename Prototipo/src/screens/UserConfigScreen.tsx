@@ -67,6 +67,7 @@ export const UserConfigScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="Escribir nombre"
+          placeholderTextColor="gray"
           onChangeText={setUserName}
         />
 
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    height: '15%',
+    height: '17%',
     borderRadius: 5,
     marginBottom: '10%',
     paddingHorizontal: '6%',

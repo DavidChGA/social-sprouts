@@ -149,6 +149,7 @@ export const SetupVocabularyScreen = () => {
             value={alias !== defaultVocabularyConfig.alias ? alias : ''}
             onChangeText={setAlias}
             placeholder="Nombre de la configuración"
+            placeholderTextColor="gray"
           />
 
         </View>
@@ -166,6 +167,7 @@ export const SetupVocabularyScreen = () => {
             style={styles.dropdown}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
+            itemTextStyle={styles.selectedText}
           />
 
           {/* Aquí puedes agregar selectores para imágenes y rondas si los necesitas */}
@@ -184,6 +186,7 @@ export const SetupVocabularyScreen = () => {
             style={styles.dropdown}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
+            itemTextStyle={styles.selectedText}
           />
 
           {/* Selección de rondas */}
@@ -198,6 +201,7 @@ export const SetupVocabularyScreen = () => {
             style={[styles.dropdown, !images && styles.disabledDropdown]}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
+            itemTextStyle={styles.selectedText}
             disable={!images}
           />
 
