@@ -71,7 +71,7 @@ const homeStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    bottom: height * 0.01,
+    bottom: '1%',
   },
 
   buttonColumn: {
@@ -80,7 +80,7 @@ const homeStyles = StyleSheet.create({
   },
 
   icon: {
-    marginTop: height * 0.05,
+    marginTop: '15%',
     width: height * 0.06,
     height: height * 0.06,
   },

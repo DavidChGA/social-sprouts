@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   configText: {
     textAlign: 'center',
-    marginVertical: height * 0.01,
+    marginVertical: '1%',
   },
   section: {
     flexDirection: 'column',

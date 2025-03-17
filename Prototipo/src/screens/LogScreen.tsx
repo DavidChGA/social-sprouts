@@ -36,12 +36,12 @@ export const LogScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: height * 0.05,
+    padding: '3%',
     backgroundColor: 'white',
   },
   logContainer: {
-    marginTop: height * 0.01,
-    padding: height * 0.025,
+    marginVertical: '1%',
+    padding: '3%',
     backgroundColor: '#eee',
     borderRadius: 10,
   },

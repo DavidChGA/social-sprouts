@@ -321,7 +321,7 @@ const gameStyles = StyleSheet.create({
         marginBottom: '5%',
     },
     soundButton: {
-        padding: (height * 0.05) / 10,
+        padding: '1%',
 
     },
     icon: {

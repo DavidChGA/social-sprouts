@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, TextInput, Dimensions } from 'react-native';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
@@ -100,16 +99,12 @@ export const UserConfigScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: height * 0.03,
-    marginVertical: height * 0.025,
-  },
   dropdown: {
-    height: height * 0.06,
+    height: '15%',
     backgroundColor: 'white',
     borderRadius: 8,
-    marginBottom: height * 0.025,
-    paddingHorizontal: height * 0.025,
+    marginBottom: '1%',
+    paddingHorizontal: '5%',
     fontSize: height * 0.025,
   },
   placeholder: {
@@ -121,24 +116,20 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    height: height * 0.08,
+    height: '15%',
     borderRadius: 5,
-    marginBottom: height * 0.025,
-    paddingHorizontal: height * 0.025,
+    marginBottom: '10%',
+    paddingHorizontal: '6%',
     fontSize: height * 0.025,
     backgroundColor: 'white',
   },
-  disabledDropdown: {
-    backgroundColor: 'gray',
+  column: {
+    margin: '1%',
+    justifyContent: 'center',
+    width: '30%',
   },
   configText: {
     textAlign: 'center',
-    marginVertical: '2%',
-    fontSize: height * 0.02,
-  },
-  column: {
-    margin: height * 0.05,
-    justifyContent: 'center',
-    width: '30%',
+    marginVertical: '1%',
   },
 });

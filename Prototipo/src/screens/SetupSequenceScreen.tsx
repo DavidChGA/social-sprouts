@@ -94,14 +94,14 @@ export const SetupSequenceScreen = () => {
 const styles = StyleSheet.create({
   label: {
     fontSize: height * 0.03,
-    marginVertical: height * 0.025,
+    marginVertical: '2%',
   },
   dropdown: {
-    height: height * 0.06,
+    height: '15%',
     backgroundColor: 'white',
     borderRadius: 8,
-    marginBottom: height * 0.025,
-    paddingHorizontal: height * 0.025,
+    marginBottom: '1%',
+    paddingHorizontal: '2%',
     fontSize: height * 0.025,
   },
   placeholder: {
@@ -113,15 +113,15 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    height: height * 0.08,
+    height: '15%',
     borderRadius: 5,
-    marginBottom: height * 0.025,
-    paddingHorizontal: height * 0.025,
+    marginBottom: '1%',
+    paddingHorizontal: '6%',
     fontSize: height * 0.025,
     backgroundColor: 'white',
   },
   column: {
-    margin: height * 0.05,
+    margin: '1%',
     justifyContent: 'center',
   },
 });
