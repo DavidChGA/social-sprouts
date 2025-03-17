@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Dimensions } from 'react-native';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { SecondaryButton } from '../components/SecondaryButton';
@@ -13,6 +13,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { LogChangePlayer, userData } from '../logger/LogInterface';
 import logger from '../logger/Logger';
 import { logTypes, objectTypes } from '../logger/LogEnums';
+
+const { height } = Dimensions.get('window');
 
 export const UserConfigScreen = () => {
 
@@ -57,38 +59,41 @@ export const UserConfigScreen = () => {
   return (
     <View style={globalStyles.container}>
 
-      <Text style={{ margin: 30, fontSize: 20 }}> Loggeado actualmente como: {userName}, {userAge}, {userGender}, {userId} </Text>
+      <Text style={globalStyles.title}>Configurar Usuario</Text>
 
-      {/* Name */}
-      <TextInput
-        style={styles.dropdown}
-        placeholder="Escribir nombre"
-        onChangeText={setUserName}
-      />
+      <Text style={styles.configText}> Loggeado actualmente como: {userName}, {userAge}, {userGender}, {userId} </Text>
 
-      {/* Age */}
-      <TextInput
-        style={styles.dropdown}
-        placeholder="Escribir edad"
-        placeholderTextColor="gray"
-        onChangeText={(age) => setUserAge(parseInt(age, 10))}
-        keyboardType="numeric"
-        maxLength={2}
-      />
+      <View style={styles.column}>
+        {/* Name */}
+        <TextInput
+          style={styles.input}
+          placeholder="Escribir nombre"
+          onChangeText={setUserName}
+        />
 
-      {/* Gender */}
-      <Dropdown
-        data={genderOptions}
-        labelField="label"
-        valueField="value"
-        placeholder="Selecciona un género"
-        value={userGender}
-        onChange={(item) => setUserGender(item.value)}
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholder}
-        selectedTextStyle={styles.selectedText}
-      />
+        {/* Age */}
+        <TextInput
+          style={styles.input}
+          placeholder="Escribir edad"
+          placeholderTextColor="gray"
+          onChangeText={(age) => setUserAge(parseInt(age, 10))}
+          keyboardType="numeric"
+          maxLength={2}
+        />
 
+        {/* Gender */}
+        <Dropdown
+          data={genderOptions}
+          labelField="label"
+          valueField="value"
+          placeholder="Selecciona un género"
+          value={userGender}
+          onChange={(item) => setUserGender(item.value)}
+          style={styles.dropdown}
+          placeholderStyle={styles.placeholder}
+          selectedTextStyle={styles.selectedText}
+        />
+      </View>
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
     </View>
   );
@@ -96,27 +101,44 @@ export const UserConfigScreen = () => {
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 25,
-    marginVertical: 10,
+    fontSize: height * 0.03,
+    marginVertical: height * 0.025,
   },
   dropdown: {
-    height: '10%',
-    width: '40%',
+    height: height * 0.06,
     backgroundColor: 'white',
-    borderRadius: 5,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize:20,
+    borderRadius: 8,
+    marginBottom: height * 0.025,
+    paddingHorizontal: height * 0.025,
+    fontSize: height * 0.025,
   },
   placeholder: {
-    fontSize: 20,
+    fontSize: height * 0.025,
     color: 'gray',
   },
   selectedText: {
-    fontSize: 20,
+    fontSize: height * 0.025,
     color: 'black',
+  },
+  input: {
+    height: height * 0.08,
+    borderRadius: 5,
+    marginBottom: height * 0.025,
+    paddingHorizontal: height * 0.025,
+    fontSize: height * 0.025,
+    backgroundColor: 'white',
   },
   disabledDropdown: {
     backgroundColor: 'gray',
+  },
+  configText: {
+    textAlign: 'center',
+    marginVertical: '2%',
+    fontSize: height * 0.02,
+  },
+  column: {
+    margin: height * 0.05,
+    justifyContent: 'center',
+    width: '30%',
   },
 });
