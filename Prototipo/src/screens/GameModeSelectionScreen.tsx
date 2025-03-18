@@ -113,7 +113,7 @@ function GameModeSelectionScreen() {
               }
               label="Emociones"
             />
-            <SettingsButton onPress={() => console.log('Aquí va la config Emociones')} />
+            <SettingsButton onPress={() => navigation.navigate('SetupEmotions')} />
           </View>
           <Text style={styles.configText}>
             Configuración actual: -

@@ -28,8 +28,8 @@ export const SetupVocabularyScreen = () => {
   const [category, setCategory] = useState(
     selectedVocabularyConfig?.category || defaultVocabularyConfig.category
   );
-  const [images, setImages] = useState(
-    selectedVocabularyConfig?.images || defaultVocabularyConfig.images
+  const [imagesPerRound, setImages] = useState(
+    selectedVocabularyConfig?.imagesPerRound || defaultVocabularyConfig.imagesPerRound
   );
   const [rounds, setRounds] = useState(
     selectedVocabularyConfig?.rounds || defaultVocabularyConfig.rounds
@@ -43,10 +43,10 @@ export const SetupVocabularyScreen = () => {
 
   // Opciones válidas de imágenes y rondas
   const options = [
-    { images: 3, rounds: [1, 3, 5] },
-    { images: 4, rounds: [1, 3, 5] },
-    { images: 5, rounds: [1, 2, 4] },
-    { images: 6, rounds: [1, 2, 3] },
+    { imagesPerRound: 3, rounds: [1, 3, 5] },
+    { imagesPerRound: 4, rounds: [1, 3, 5] },
+    { imagesPerRound: 5, rounds: [1, 2, 4] },
+    { imagesPerRound: 6, rounds: [1, 2, 3] },
   ];
 
   // Categorías: se generan a partir del JSON de configuración
@@ -57,14 +57,14 @@ export const SetupVocabularyScreen = () => {
 
   // Opciones de imágenes (convertimos a string)
   const imageOptions = options.map(option => ({
-    label: `${option.images} imágenes`,
-    value: option.images.toString(),
+    label: `${option.imagesPerRound} imágenes`,
+    value: option.imagesPerRound.toString(),
   }));
 
   // Opciones de rondas (convertimos a string)
-  const roundOptions = images
+  const roundOptions = imagesPerRound
     ? options
-      .find(option => option.images.toString() === images)
+      .find(option => option.imagesPerRound.toString() === imagesPerRound)
       ?.rounds.map(round => ({
         label: `${round} ronda(s)`,
         value: round.toString(),
@@ -72,7 +72,7 @@ export const SetupVocabularyScreen = () => {
     : [];
 
   const saveConfig = () => {
-    if (!alias || !category || !images || !rounds) {
+    if (!alias || !category || !imagesPerRound || !rounds) {
       Alert.alert(
         'Error',
         'Por favor selecciona todos los campos antes de continuar.'
@@ -90,7 +90,7 @@ export const SetupVocabularyScreen = () => {
     const newConfig = {
       alias,
       category,
-      images,
+      imagesPerRound,
       rounds,
     };
 
@@ -134,7 +134,7 @@ export const SetupVocabularyScreen = () => {
               } else {
                 setAlias(item.config!.alias);
                 setCategory(item.config!.category);
-                setImages(item.config!.images);
+                setImages(item.config!.imagesPerRound);
                 setRounds(item.config!.rounds);
                 selectVocabularyConfig(item.config!.alias);
               }
@@ -178,7 +178,7 @@ export const SetupVocabularyScreen = () => {
             labelField="label"
             valueField="value"
             placeholder="Selecciona el número de imágenes"
-            value={images}
+            value={imagesPerRound}
             onChange={item => {
               setImages(item.value);
               setRounds('');
@@ -198,11 +198,11 @@ export const SetupVocabularyScreen = () => {
             placeholder="Selecciona el número de rondas"
             value={rounds}
             onChange={item => setRounds(item.value)}
-            style={[styles.dropdown, !images && styles.disabledDropdown]}
+            style={[styles.dropdown, !imagesPerRound && styles.disabledDropdown]}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
             itemTextStyle={styles.selectedText}
-            disable={!images}
+            disable={!imagesPerRound}
           />
 
         </View>

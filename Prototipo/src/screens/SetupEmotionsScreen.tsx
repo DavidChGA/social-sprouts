@@ -25,7 +25,7 @@ export const SetupEmotionsScreen = () => {
   const [alias, setAlias] = useState(
     selectedEmotionsConfig?.alias || defaultEmotionsConfig.alias
   );
-  const [category, setCategory] = useState(
+  const [emotion, setEmotion] = useState(
     selectedEmotionsConfig?.emotion || defaultEmotionsConfig.emotion
   );
   const [images, setImages] = useState(
@@ -33,6 +33,9 @@ export const SetupEmotionsScreen = () => {
   );
   const [rounds, setRounds] = useState(
     selectedEmotionsConfig?.rounds || defaultEmotionsConfig.rounds
+  );
+  const [correctsPerRound, setCorrectsPerRound] = useState(
+    selectedEmotionsConfig?.correctsPerRound || defaultEmotionsConfig.correctsPerRound
   );
 
   useEffect(() => {
@@ -42,17 +45,18 @@ export const SetupEmotionsScreen = () => {
   }, [navigation]);
 
   // Opciones válidas de imágenes y rondas
+  //TODO
   const options = [
-    { images: 3, rounds: [1, 3, 5] },
-    { images: 4, rounds: [1, 3, 5] },
-    { images: 5, rounds: [1, 2, 4] },
-    { images: 6, rounds: [1, 2, 3] },
+    { images: 3, rounds: [1], correctsPerRound: [1, 2] },
+    { images: 4, rounds: [1], correctsPerRound: [1, 2, 3] },
+    { images: 5, rounds: [1], correctsPerRound: [1, 2, 3, 4] },
+    { images: 6, rounds: [1], correctsPerRound: [1, 2, 3, 4, 5] },
   ];
 
-  // Categorías: se generan a partir del JSON de configuración
-  const categories = Object.keys(gameConfig.emociones).map((cat) => ({
-    label: cat,
-    value: cat,
+  // Emocións: se generan a partir del JSON de configuración
+  const emociones = Object.keys(gameConfig.emociones).map((emo) => ({
+    label: emo,
+    value: emo,
   }));
 
   // Opciones de imágenes (convertimos a string)
@@ -60,6 +64,16 @@ export const SetupEmotionsScreen = () => {
     label: `${option.images} imágenes`,
     value: option.images.toString(),
   }));
+
+  // Opciones de imágenes correctas (convertimos a string)
+  const imageCorrectOptions = images
+  ? options
+    .find(option => option.images.toString() === images)
+    ?.correctsPerRound.map(corrects => ({
+      label: `${corrects} imágenes correctas`,
+      value: corrects.toString(),
+    })) || []
+  : [];
 
   // Opciones de rondas (convertimos a string)
   const roundOptions = images
@@ -72,7 +86,7 @@ export const SetupEmotionsScreen = () => {
     : [];
 
   const saveConfig = () => {
-    if (!alias || !category || !images || !rounds) {
+    if (!alias || !emotion || !images || !rounds) {
       Alert.alert(
         'Error',
         'Por favor selecciona todos los campos antes de continuar.'
@@ -92,7 +106,11 @@ export const SetupEmotionsScreen = () => {
       emotion,
       images,
       rounds,
+      correctsPerRound
     };
+
+    console.log(newConfig);
+    
 
     addEmotionsConfig(newConfig);
     selectEmotionsConfig(alias);
@@ -128,12 +146,12 @@ export const SetupEmotionsScreen = () => {
             onChange={(item) => {
               if (item.value === 'Nueva configuración') {
                 setAlias('');
-                setCategory('');
+                setEmotion('');
                 setImages('');
                 setRounds('');
               } else {
                 setAlias(item.config!.alias);
-                setCategory(item.config!.emotion);
+                setEmotion(item.config!.emotion);
                 setImages(item.config!.images);
                 setRounds(item.config!.rounds);
                 selectEmotionsConfig(item.config!.alias);
@@ -154,16 +172,16 @@ export const SetupEmotionsScreen = () => {
 
         </View>
 
-        {/* Columna 2 - Categoría, imágenes y rondas */}
+        {/* Columna 2 - Emoción, imágenes y rondas */}
         <View style={styles.column}>
-          <Text style={styles.label}>Selecciona una categoría:</Text>
+          <Text style={styles.label}>Selecciona una emoción:</Text>
           <Dropdown
-            data={categories}
+            data={emociones}
             labelField="label"
             valueField="value"
-            placeholder="Selecciona una categoría"
-            value={category}
-            onChange={(item) => setCategory(item.value)}
+            placeholder="Selecciona una emocion"
+            value={emotion}
+            onChange={(item) => setEmotion(item.value)}
             style={styles.dropdown}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
@@ -187,6 +205,22 @@ export const SetupEmotionsScreen = () => {
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
             itemTextStyle={styles.selectedText}
+          />
+
+          {/* Selección de imágenes correctas por ronda */}
+          <Text style={styles.label}>Número de imágenes correctas por ronda:</Text>
+          <Dropdown
+            data={imageCorrectOptions}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecciona el número de correctas"
+            value={correctsPerRound}
+            onChange={item => setCorrectsPerRound(item.value)}
+            style={[styles.dropdown, !images && styles.disabledDropdown]}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedText}
+            itemTextStyle={styles.selectedText}
+            disable={!images}
           />
 
           {/* Selección de rondas */}

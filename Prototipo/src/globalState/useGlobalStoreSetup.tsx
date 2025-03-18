@@ -25,6 +25,7 @@ interface EmotionsConfig extends Config {
   emotion: string;
   images: string;
   rounds: string;
+  correctsPerRound: string;
 }
 
 interface SetupState {
@@ -77,7 +78,7 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
 
   defaultVocabularyConfig: { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' },
   defaultSequenceConfig: { alias: 'Predeterminado', sequence: 'Lavado de manos' },
-  defaultEmotionsConfig: { alias: 'Predeterminado', emotion: 'Alegria', images: '', rounds: '' },
+  defaultEmotionsConfig: { alias: 'Predeterminado', emotion: 'Alegria', images: '', rounds: '', correctsPerRound: '' },
 
   isInSession: false,
   session: {
