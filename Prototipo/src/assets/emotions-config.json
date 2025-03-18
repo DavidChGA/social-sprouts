@@ -1,0 +1,11 @@
+{
+    "emociones": {
+        "Alegria": [
+            {
+                "id": 1,
+                "name": "ALEGRIA",
+                "imgName": "FELICIDADPICTOGRAMA"
+            }
+        ]
+    }
+}
