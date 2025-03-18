@@ -17,6 +17,7 @@ import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedRound, LogInitializedVocabulary, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
+import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 
 const { height } = Dimensions.get('window');
 
@@ -31,6 +32,8 @@ interface Round {
 export const GameScreenVocabulary = () => {
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
+    const { isInSession } = useGlobalStoreSetup(state => state);
+    const { nextModule } = useGlobalStoreSetup(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [modalImage, setModalImage] = useState('');
@@ -71,7 +74,7 @@ export const GameScreenVocabulary = () => {
             action: logTypes.Initialized,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
-            correctOption: round.correctImage.name,
+            correctOption: round.correctImage?.name,
             allOptions: [],
             otherInfo: "",
             gameType: gameTypes.Vocabulary,
@@ -135,11 +138,11 @@ export const GameScreenVocabulary = () => {
     };
 
     let correctSound = new Sound(require('../assets/sounds/answer/correct.mp3'), Sound.MAIN_BUNDLE, (error) => {
-        if (error) {console.log("Error al cargar el sonido correcto:", error);}
+        if (error) { console.log("Error al cargar el sonido correcto:", error); }
     });
 
     let incorrectSound = new Sound(require('../assets/sounds/answer/incorrect.mp3'), Sound.MAIN_BUNDLE, (error) => {
-        if (error) {console.log("Error al cargar el sonido incorrecto:", error);}
+        if (error) { console.log("Error al cargar el sonido incorrecto:", error); }
     });
 
     const playSound = (isCorrect: boolean) => {
@@ -230,11 +233,14 @@ export const GameScreenVocabulary = () => {
             };
 
             logger.log(logFin);
-
-            navigation.navigate('GameOver', {
-                attempts: attempts + 1,
-                roundsPlayed: rounds,
-            });
+            if (isInSession) {
+                nextModule(navigation.navigate);
+            } else {
+                navigation.navigate('GameOver', {
+                    attempts: attempts + 1,
+                    roundsPlayed: rounds,
+                });
+            }
         }
     };
 

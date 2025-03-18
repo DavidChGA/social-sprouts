@@ -1,8 +1,10 @@
 /* eslint-disable prettier/prettier */
+import { NavigationProp } from '@react-navigation/native';
 import { create } from 'zustand';
+import { RootStackParams } from '../routes/StackNavigator';
 
 interface Session {
-  modules: Config[];
+  modules: (VocabularyConfig | SequenceConfig | EmotionsConfig)[];
 }
 
 interface Config {
@@ -11,7 +13,7 @@ interface Config {
 
 interface VocabularyConfig extends Config {
   category: string;
-  images: string;
+  imagesPerRound: string;
   rounds: string;
 }
 
@@ -27,6 +29,11 @@ interface EmotionsConfig extends Config {
 
 interface SetupState {
   session: Session;
+  isInSession: Boolean, 
+  currentModuleIndex: number;
+  nextModule: (navigate: NavigationProp<RootStackParams>['navigate']) => void;
+  setIsInSession: (value: boolean) => void;
+
   vocabularyConfigs: VocabularyConfig[];
   sequenceConfigs: SequenceConfig[];
   emotionsConfigs: EmotionsConfig[];
@@ -56,11 +63,10 @@ interface SetupState {
   updateEmotionsConfig: (alias: string, config: Partial<EmotionsConfig>) => void;
   removeEmotionsConfig: (alias: string) => void;
   selectEmotionsConfig: (alias: string) => void; //select
+  
 }
 
 const useGlobalStoreSetup = create<SetupState>((set, get) => ({
-  session: { modules: [] },
-
   vocabularyConfigs: [],
   sequenceConfigs: [],
   emotionsConfigs: [],
@@ -69,9 +75,49 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
   selectedSequenceConfig: null,
   selectedEmotionsConfig: null,
 
-  defaultVocabularyConfig: { alias: 'Predeterminado', category: 'Animal', images: '3', rounds: '3' },
+  defaultVocabularyConfig: { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' },
   defaultSequenceConfig: { alias: 'Predeterminado', sequence: 'Lavado de manos' },
   defaultEmotionsConfig: { alias: 'Predeterminado', emotion: 'Alegria', images: '', rounds: '' },
+
+  isInSession: false,
+  session: {
+    modules: [
+      { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' } as VocabularyConfig,
+      { alias: 'Predeterminado', sequence: 'Lavado de manos' } as SequenceConfig,
+      //{ alias: 'Predeterminado', emotion: 'Alegria', images: '', rounds: '' } as EmotionsConfig
+    ]
+  },
+  currentModuleIndex: -1,
+  
+
+  nextModule: (navigate) => {
+    set((state) => {
+      const nextIndex = state.currentModuleIndex + 1;
+      if (nextIndex < state.session.modules.length) {
+        const nextModule = state.session.modules[nextIndex];
+
+        if ('category' in nextModule) 
+          navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
+        else if ('sequence' in nextModule) 
+          navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']); 
+        /*else if ('emotion' in nextModule) 
+          console.log('emociones')
+          //navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
+        */
+
+        return { currentModuleIndex: nextIndex };
+      } else {
+        //Falta
+        navigate('GameOver', {
+            attempts: state.session.modules.length,
+            roundsPlayed: state.session.modules.length,
+        });
+        return { currentModuleIndex: -1 }; 
+      }
+    });
+  },
+
+  setIsInSession: (value: boolean) => set({ isInSession: value }),
 
   // VOCABULARIO
   addVocabularyConfig: (config) =>

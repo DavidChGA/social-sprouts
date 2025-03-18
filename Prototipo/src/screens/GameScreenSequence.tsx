@@ -19,6 +19,7 @@ import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import logger from '../logger/Logger';
 import Sound from 'react-native-sound';
+import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 
 const { height } = Dimensions.get('window');
 
@@ -35,9 +36,10 @@ const shuffleArray = (array: any[]) => {
 };
 
 export const GameScreenSequence = () => {
-
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
-
+    const { isInSession } = useGlobalStoreSetup(state => state);
+    const { nextModule } = useGlobalStoreSetup(state => state);
+    
     const route = useRoute<GameScreenSequenceRouteProp>();
     const { sequence } = route.params;
 
@@ -164,10 +166,15 @@ export const GameScreenSequence = () => {
 
             logger.log(logFin);
 
-            navigation.navigate('GameOver', {
-                attempts: attempts + 1,
-                roundsPlayed: 1,
-            });
+            if (isInSession) {
+                nextModule(navigation.navigate);
+            } else {
+                navigation.navigate('GameOver', {
+                    attempts: attempts + 1,
+                    roundsPlayed: 1,
+                });
+            }
+            
         }
 
         return isCorrect;

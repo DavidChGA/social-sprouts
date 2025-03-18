@@ -71,7 +71,7 @@ function GameModeSelectionScreen() {
           onPress={() =>
             navigation.navigate('GameVocabulary', {
               category: activeVocabularyConfig.category,
-              imagesPerRound: parseInt(activeVocabularyConfig.images, 10),
+              imagesPerRound: parseInt(activeVocabularyConfig.imagesPerRound, 10),
               rounds: parseInt(activeVocabularyConfig.rounds, 10),
             })
           }
