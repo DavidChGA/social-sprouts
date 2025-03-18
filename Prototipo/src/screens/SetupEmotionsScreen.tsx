@@ -109,9 +109,6 @@ export const SetupEmotionsScreen = () => {
       correctsPerRound
     };
 
-    console.log(newConfig);
-    
-
     addEmotionsConfig(newConfig);
     selectEmotionsConfig(alias);
     navigation.goBack();
@@ -149,11 +146,13 @@ export const SetupEmotionsScreen = () => {
                 setEmotion('');
                 setImages('');
                 setRounds('');
+                setCorrectsPerRound('');
               } else {
                 setAlias(item.config!.alias);
                 setEmotion(item.config!.emotion);
                 setImages(item.config!.images);
                 setRounds(item.config!.rounds);
+                setCorrectsPerRound(item.config!.correctsPerRound);
                 selectEmotionsConfig(item.config!.alias);
               }
             }}
@@ -200,6 +199,7 @@ export const SetupEmotionsScreen = () => {
             onChange={item => {
               setImages(item.value);
               setRounds('');
+              setCorrectsPerRound('');
             }}
             style={styles.dropdown}
             placeholderStyle={styles.placeholder}
