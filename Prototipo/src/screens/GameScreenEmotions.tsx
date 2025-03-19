@@ -76,8 +76,8 @@ export const GameScreenEmotions = () => {
         const initialImageBorders: Record<string, string> = {};
 
         round.images.forEach((img: any) => {
-            initialVisibleTexts[img.name] = false;
-            initialImageBorders[img.name] = 'black';
+            initialVisibleTexts[img.imgName] = false;
+            initialImageBorders[img.imgName] = 'black';
         });
 
         setVisibleTexts(initialVisibleTexts);
@@ -161,13 +161,13 @@ export const GameScreenEmotions = () => {
 
         setImageBorders((prevBorders) => ({
             ...prevBorders,
-            [item.name]: isCorrect ? 'forestgreen' : 'red',
+            [item.imgName]: isCorrect ? 'forestgreen' : 'red',
         }));
 
         setModalMessage(isCorrect ? `¡Correcto! Seleccionaste ${item.name}` : `¡Incorrecto! Seleccionaste ${item.name}`);
         setModalImage(isCorrect ? require('../assets/img/answer/bien.png') : require('../assets/img/answer/mal.png'));
         setIsModalVisible(true);
-        toggleVisibility(item.name);
+        toggleVisibility(item.imgName);
 
         if (isCorrect) {
             // Agregar a la lista de imágenes correctas seleccionadas
@@ -222,7 +222,7 @@ export const GameScreenEmotions = () => {
 
             <View style={gameStyles.imageContainer}>
                 {currentImages.map((item, index) => {
-                    const borderColor = imageBorders[item.name] || 'black';
+                    const borderColor = imageBorders[item.imgName] || 'black';
                     return (
                         <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
                             <ImageButtonEmotion
@@ -234,7 +234,7 @@ export const GameScreenEmotions = () => {
                                     borderRadius: 10,
                                 }}
                             />
-                            {visibleTexts[item.name] && (
+                            {visibleTexts[item.imgName] && (
                                 <Text style={{ fontSize: height * 0.035, color: globalColors.dark }}>{item.name}</Text>
                             )}
                         </View>

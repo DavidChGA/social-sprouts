@@ -183,7 +183,7 @@ export const GameScreenSequence = () => {
     return (
         <View style={[globalStyles.container]}>
             <View style={gameStyles.textContainer}>
-                <Text>SELECCIONA LOS PICTOGRAMAS EN EL ORDEN APRENDIDO</Text>
+                <Text style={globalStyles.title}>SELECCIONA LOS PICTOGRAMAS EN EL ORDEN APRENDIDO</Text>
             </View>
 
             <View style={gameStyles.imageContainer}>
