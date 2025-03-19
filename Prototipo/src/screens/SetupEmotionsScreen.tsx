@@ -49,8 +49,7 @@ export const SetupEmotionsScreen = () => {
   const options = [
     { images: 3, rounds: [1, 3, 5], correctsPerRound: [1, 2] },
     { images: 4, rounds: [1], correctsPerRound: [1, 2, 3] },
-    { images: 5, rounds: [1], correctsPerRound: [1, 2, 3, 4] },
-    { images: 6, rounds: [1], correctsPerRound: [1, 2, 3, 4, 5] },
+    { images: 5, rounds: [1, 2], correctsPerRound: [1, 2, 3, 4] },
   ];
 
   // Emocións: se generan a partir del JSON de configuración

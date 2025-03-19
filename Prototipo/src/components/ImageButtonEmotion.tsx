@@ -15,7 +15,7 @@ export const ImageButtonEmotion = ({ onPress, image, style }: Props) => {
     return (
         <Pressable
             onPress={() => onPress()}
-            style={[globalStyles.imageButton, style]}
+            style={[globalStyles.imageButtonEmotions, style]}
         >
             <Image
                 source={imageSource}

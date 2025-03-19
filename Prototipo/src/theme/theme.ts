@@ -64,6 +64,14 @@ export const globalStyles = StyleSheet.create({
         height: '100%',
     },
 
+    imageButtonEmotions: {
+        backgroundColor: globalColors.light,
+        borderRadius: 10,
+        borderWidth: height * 0.005,
+        width: '90%',
+        height: '100%',
+    },
+
     imageButtonSequence: {
         backgroundColor: globalColors.gray,
         borderRadius: 10,
