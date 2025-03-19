@@ -4,7 +4,162 @@
             {
                 "id": 1,
                 "name": "FELICIDAD",
-                "imgName": "FELICIDADPICTOGRAMA"
+                "imgName": "FELICIDAD1"
+            },
+            {
+                "id": 2,
+                "name": "FELICIDAD",
+                "imgName": "FELICIDAD2"
+            },
+            {
+                "id": 3,
+                "name": "FELICIDAD",
+                "imgName": "FELICIDAD3"
+            },
+            {
+                "id": 4,
+                "name": "FELICIDAD",
+                "imgName": "FELICIDAD4"
+            },
+            {
+                "id": 5,
+                "name": "FELICIDAD",
+                "imgName": "FELICIDAD5"
+            }
+        ],
+        "Confusión": [
+            {
+                "id": 1,
+                "name": "CONFUSION",
+                "imgName": "CONFUSION1"
+            },
+            {
+                "id": 2,
+                "name": "CONFUSION",
+                "imgName": "CONFUSION2"
+            },
+            {
+                "id": 3,
+                "name": "CONFUSION",
+                "imgName": "CONFUSION3"
+            },
+            {
+                "id": 4,
+                "name": "CONFUSION",
+                "imgName": "CONFUSION4"
+            },
+            {
+                "id": 5,
+                "name": "CONFUSION",
+                "imgName": "CONFUSION5"
+            }
+        ],
+        "Enfado": [
+            {
+                "id": 1,
+                "name": "ENFADO",
+                "imgName": "ENFADO1"
+            },
+            {
+                "id": 2,
+                "name": "ENFADO",
+                "imgName": "ENFADO2"
+            },
+            {
+                "id": 3,
+                "name": "ENFADO",
+                "imgName": "ENFADO3"
+            },
+            {
+                "id": 4,
+                "name": "ENFADO",
+                "imgName": "ENFADO4"
+            },
+            {
+                "id": 5,
+                "name": "ENFADO",
+                "imgName": "ENFADO5"
+            }
+        ],
+        "Miedo": [
+            {
+                "id": 1,
+                "name": "MIEDO",
+                "imgName": "MIEDO1"
+            },
+            {
+                "id": 2,
+                "name": "MIEDO",
+                "imgName": "MIEDO2"
+            },
+            {
+                "id": 3,
+                "name": "MIEDO",
+                "imgName": "MIEDO3"
+            },
+            {
+                "id": 4,
+                "name": "MIEDO",
+                "imgName": "MIEDO4"
+            },
+            {
+                "id": 5,
+                "name": "MIEDO",
+                "imgName": "MIEDO5"
+            }
+        ],
+        "Sorpresa": [
+            {
+                "id": 1,
+                "name": "SORPRESA",
+                "imgName": "SORPRESA1"
+            },
+            {
+                "id": 2,
+                "name": "SORPRESA",
+                "imgName": "SORPRESA2"
+            },
+            {
+                "id": 3,
+                "name": "SORPRESA",
+                "imgName": "SORPRESA3"
+            },
+            {
+                "id": 4,
+                "name": "SORPRESA",
+                "imgName": "SORPRESA4"
+            },
+            {
+                "id": 5,
+                "name": "SORPRESA",
+                "imgName": "SORPRESA5"
+            }
+        ],
+        "Tristeza": [
+            {
+                "id": 1,
+                "name": "TRISTEZA",
+                "imgName": "TRISTEZA1"
+            },
+            {
+                "id": 2,
+                "name": "TRISTEZA",
+                "imgName": "TRISTEZA2"
+            },
+            {
+                "id": 3,
+                "name": "TRISTEZA",
+                "imgName": "TRISTEZA3"
+            },
+            {
+                "id": 4,
+                "name": "TRISTEZA",
+                "imgName": "TRISTEZA4"
+            },
+            {
+                "id": 5,
+                "name": "TRISTEZA",
+                "imgName": "TRISTEZA5"
             }
         ]
     }
