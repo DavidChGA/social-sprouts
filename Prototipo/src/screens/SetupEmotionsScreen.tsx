@@ -106,7 +106,7 @@ export const SetupEmotionsScreen = () => {
       emotion,
       images,
       rounds,
-      correctsPerRound
+      correctsPerRound,
     };
 
     addEmotionsConfig(newConfig);
@@ -124,7 +124,7 @@ export const SetupEmotionsScreen = () => {
 
   return (
     <View style={[globalStyles.container]}>
-      <Text style={globalStyles.title}>Configurar Vocabulario</Text>
+      <Text style={globalStyles.title}>Configurar Emociones</Text>
 
       {/* Contenedor dividido en dos columnas */}
       <View style={styles.row}>
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     marginVertical: '2%',
   },
   dropdown: {
-    height: '15%',
+    height: '10%',
     backgroundColor: 'white',
     borderRadius: 8,
     marginBottom: '1%',
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    height: '15%',
+    height: '10%',
     borderRadius: 5,
     marginBottom: '1%',
     paddingHorizontal: '2%',
@@ -282,7 +282,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   column: {
-    marginVertical: '1%',
     marginHorizontal: '5%',
     justifyContent: 'center',
     width: '30%',
