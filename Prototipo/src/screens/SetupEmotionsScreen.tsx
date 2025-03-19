@@ -47,7 +47,7 @@ export const SetupEmotionsScreen = () => {
   // Opciones válidas de imágenes y rondas
   //TODO
   const options = [
-    { images: 3, rounds: [1], correctsPerRound: [1, 2] },
+    { images: 3, rounds: [1, 3, 5], correctsPerRound: [1, 2] },
     { images: 4, rounds: [1], correctsPerRound: [1, 2, 3] },
     { images: 5, rounds: [1], correctsPerRound: [1, 2, 3, 4] },
     { images: 6, rounds: [1], correctsPerRound: [1, 2, 3, 4, 5] },

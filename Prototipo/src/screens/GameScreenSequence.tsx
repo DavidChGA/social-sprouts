@@ -39,7 +39,7 @@ export const GameScreenSequence = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const { isInSession } = useGlobalStoreSetup(state => state);
     const { nextModule } = useGlobalStoreSetup(state => state);
-    
+
     const route = useRoute<GameScreenSequenceRouteProp>();
     const { sequence } = route.params;
 
@@ -80,8 +80,8 @@ export const GameScreenSequence = () => {
             imgName: image.imgName,
         }));
 
-        const suffleImages = shuffleArray(roundImages);
-        setCurrentImages(suffleImages);
+        const shuffleImages = shuffleArray(roundImages);
+        setCurrentImages(shuffleImages);
 
         const initialVisibleTexts: Record<string, boolean> = {};
 
@@ -174,7 +174,7 @@ export const GameScreenSequence = () => {
                     roundsPlayed: 1,
                 });
             }
-            
+
         }
 
         return isCorrect;

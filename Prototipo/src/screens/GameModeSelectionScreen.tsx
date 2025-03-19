@@ -5,16 +5,14 @@ import React, { useEffect } from 'react';
 import { RootStackParams } from '../routes/StackNavigator';
 import { PrimaryButton } from '../components/PrimaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { SettingsButton } from '../components/SettingsButton';
 import { Text } from 'react-native';
 
-const { height } = Dimensions.get('window');
-
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { selectedVocabularyConfig, selectedSequenceConfig, defaultVocabularyConfig, defaultSequenceConfig } =
+  const { selectedVocabularyConfig, selectedSequenceConfig, selectedEmotionsConfig, defaultVocabularyConfig, defaultSequenceConfig, defaultEmotionsConfig } =
     useGlobalStoreSetup();
 
   useEffect(() => {
@@ -26,6 +24,7 @@ function GameModeSelectionScreen() {
   // Si no hay configuración seleccionada, usamos la por defecto
   const activeVocabularyConfig = selectedVocabularyConfig || defaultVocabularyConfig;
   const activeSequenceConfig = selectedSequenceConfig || defaultSequenceConfig;
+  const activeEmotionsConfig = selectedEmotionsConfig || defaultEmotionsConfig;
 
   return (
     <View style={[globalStyles.container]}>
@@ -109,14 +108,19 @@ function GameModeSelectionScreen() {
           <View style={styles.fila}>
             <PrimaryButton
               onPress={() =>
-                console.log('Aquí va el juego de emociones')
+                navigation.navigate('GameEmotions', {
+                  emotion: activeEmotionsConfig.emotion,
+                  imagesPerRound: parseInt(activeEmotionsConfig.images, 10),
+                  correctsPerRound: parseInt(activeEmotionsConfig.correctsPerRound, 10),
+                  rounds: parseInt(activeEmotionsConfig.rounds, 10),
+                })
               }
               label="Emociones"
             />
             <SettingsButton onPress={() => navigation.navigate('SetupEmotions')} />
           </View>
           <Text style={styles.configText}>
-            Configuración actual: -
+            Configuración actual: {activeEmotionsConfig.alias}
           </Text>
         </View>
       </View>

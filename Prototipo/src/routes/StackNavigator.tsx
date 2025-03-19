@@ -12,6 +12,7 @@ import { UserConfigScreen } from '../screens/UserConfigScreen';
 import GameScreenSequencePreview from '../screens/GameScreenSequencePreview';
 import { GameScreenSequence } from '../screens/GameScreenSequence';
 import { SetupEmotionsScreen } from '../screens/SetupEmotionsScreen';
+import { GameScreenEmotions } from '../screens/GameScreenEmotions';
 
 export type RootStackParams = {
   Home: undefined;
@@ -29,6 +30,12 @@ export type RootStackParams = {
     sequence: string;
   };
   SetupEmotions: undefined;
+  GameEmotions: {
+    emotion: string;
+    imagesPerRound: number;
+    correctsPerRound: number;
+    rounds: number;
+  };
   GameOver: {
     attempts: number;
     roundsPlayed: number;
@@ -58,6 +65,7 @@ export const StackNavigator = () => {
       <Stack.Screen name="GameSequence" component={GameScreenSequence} />
       <Stack.Screen name="GameSequencePreview" component={GameScreenSequencePreview} />
       <Stack.Screen name="SetupEmotions" component={SetupEmotionsScreen} />
+      <Stack.Screen name="GameEmotions" component={GameScreenEmotions} />
       <Stack.Screen name="GameOver" component={GameOverScreen} />
       <Stack.Screen name="ModeSelection" component={GameModeSelectionScreen} />
       <Stack.Screen name="UserConfig" component={UserConfigScreen} />

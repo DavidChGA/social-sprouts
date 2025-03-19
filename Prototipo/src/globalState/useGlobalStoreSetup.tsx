@@ -78,14 +78,14 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
 
   defaultVocabularyConfig: { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' },
   defaultSequenceConfig: { alias: 'Predeterminado', sequence: 'Lavado de manos' },
-  defaultEmotionsConfig: { alias: 'Predeterminado', emotion: 'Alegria', images: '', rounds: '', correctsPerRound: '' },
+  defaultEmotionsConfig: { alias: 'Predeterminado', emotion: 'Felicidad', images: '3', rounds: '3', correctsPerRound: '1' },
 
   isInSession: false,
   session: {
     modules: [
       { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' } as VocabularyConfig,
       { alias: 'Predeterminado', sequence: 'Lavado de manos' } as SequenceConfig,
-      //{ alias: 'Predeterminado', emotion: 'Alegria', images: '', rounds: '' } as EmotionsConfig
+      { alias: 'Predeterminado', emotion: 'Felicidad', images: '3', rounds: '3', correctsPerRound: '1' } as EmotionsConfig
     ]
   },
   currentModuleIndex: -1,
