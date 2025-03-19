@@ -11,9 +11,11 @@ import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/emotions-config.json';
 import Sound from 'react-native-sound';
-
+import logger from '../logger/Logger';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+import { LogCompleted, LogInitializedEmotions, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
+import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 
 const { height } = Dimensions.get('window');
 
@@ -71,6 +73,17 @@ export const GameScreenEmotions = () => {
         setSelectedCorrectImages([]);
         setRoundCompleted(false);
 
+        const logInicioRonda: LogInitializedRound = {
+            playerId: userId,
+            action: logTypes.Initialized,
+            object: objectTypes.Round,
+            timestamp: new Date().toISOString(),
+            correctOption: round.correctImage?.name,
+            allOptions: [],
+            otherInfo: "",
+            gameType: gameTypes.Emotions,
+        };
+
         // Resetear visibilidad del texto para las imágenes actuales
         const initialVisibleTexts: Record<string, boolean> = {};
         const initialImageBorders: Record<string, string> = {};
@@ -78,7 +91,10 @@ export const GameScreenEmotions = () => {
         round.images.forEach((img: any) => {
             initialVisibleTexts[img.imgName] = false;
             initialImageBorders[img.imgName] = 'black';
+            logInicioRonda.allOptions.push(img.name);
         });
+
+        logger.log(logInicioRonda);
 
         setVisibleTexts(initialVisibleTexts);
         setImageBorders(initialImageBorders);
@@ -86,6 +102,21 @@ export const GameScreenEmotions = () => {
 
     const initializeGame = () => {
         const roundsArray: Round[] = [];
+
+        const logInicio: LogInitializedEmotions = {
+            playerId: userId,
+            action: logTypes.Initialized,
+            object: objectTypes.Game,
+            timestamp: new Date().toISOString(),
+            otherInfo: "",
+            rounds: rounds,
+            imagesPerRound: imagesPerRound,
+            category: emotion,
+            gameType: gameTypes.Emotions,
+            imagesCorrectsPerRound: correctsPerRound
+        };
+
+        logger.log(logInicio);
 
         // Para cada ronda
         for (let i = 0; i < rounds; i++) {
@@ -198,6 +229,7 @@ export const GameScreenEmotions = () => {
             setCurrentRound((prevRound) => prevRound + 1);
             loadNextRound(roundsData[currentRound]);
         } else {
+
             if (isInSession) {
                 nextModule(navigation.navigate);
             } else {

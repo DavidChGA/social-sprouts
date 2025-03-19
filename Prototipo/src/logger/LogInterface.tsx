@@ -22,6 +22,12 @@ interface LogInitializedVocabulary extends LogInitializedGame {
   imagesPerRound: number;
 }
 
+interface LogInitializedEmotions extends LogInitializedGame {
+  rounds: number;
+  imagesPerRound: number;
+  imagesCorrectsPerRound: number;
+}
+
 interface LogInitializedSequence extends LogInitializedGame {
   allOptions: string[];
 }
@@ -56,4 +62,4 @@ interface userData{
     userId: string
 }
 
-export {Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect, LogInitializedVocabulary, LogInitializedSequence, LogChangePlayer, userData};
+export {Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect, LogInitializedVocabulary, LogInitializedSequence, LogChangePlayer, userData, LogInitializedEmotions};

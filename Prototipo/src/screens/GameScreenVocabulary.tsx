@@ -12,7 +12,6 @@ import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/vocabulary-config.json';
 import Sound from 'react-native-sound';
 import soundMap from '../assets/soundMap';
-
 import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedRound, LogInitializedVocabulary, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
@@ -233,6 +232,7 @@ export const GameScreenVocabulary = () => {
             };
 
             logger.log(logFin);
+
             if (isInSession) {
                 nextModule(navigation.navigate);
             } else {
