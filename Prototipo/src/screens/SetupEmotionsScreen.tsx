@@ -29,7 +29,7 @@ export const SetupEmotionsScreen = () => {
     selectedEmotionsConfig?.emotion || defaultEmotionsConfig.emotion
   );
   const [images, setImages] = useState(
-    selectedEmotionsConfig?.images || defaultEmotionsConfig.images
+    selectedEmotionsConfig?.imagesPerRound || defaultEmotionsConfig.imagesPerRound
   );
   const [rounds, setRounds] = useState(
     selectedEmotionsConfig?.rounds || defaultEmotionsConfig.rounds
@@ -103,7 +103,7 @@ export const SetupEmotionsScreen = () => {
     const newConfig = {
       alias,
       emotion,
-      images,
+      imagesPerRound: images,
       rounds,
       correctsPerRound,
     };
@@ -149,7 +149,7 @@ export const SetupEmotionsScreen = () => {
               } else {
                 setAlias(item.config!.alias);
                 setEmotion(item.config!.emotion);
-                setImages(item.config!.images);
+                setImages(item.config!.imagesPerRound);
                 setRounds(item.config!.rounds);
                 setCorrectsPerRound(item.config!.correctsPerRound);
                 selectEmotionsConfig(item.config!.alias);
