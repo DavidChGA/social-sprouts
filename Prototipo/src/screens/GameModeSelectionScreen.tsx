@@ -4,13 +4,14 @@ import React, { useEffect } from 'react';
 import { RootStackParams } from '../routes/StackNavigator';
 import { PrimaryButton } from '../components/PrimaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { SettingsButton } from '../components/SettingsButton';
+import { Text } from 'react-native';
 
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { selectedCategory, selectedImages, selectedRounds } =
+  const { selectedVocabularyConfig, selectedSequenceConfig, selectedEmotionsConfig, defaultVocabularyConfig, defaultSequenceConfig, defaultEmotionsConfig } =
     useGlobalStoreSetup();
 
   useEffect(() => {
@@ -19,31 +20,141 @@ function GameModeSelectionScreen() {
     });
   });
 
+  // Si no hay configuración seleccionada, usamos la por defecto
+  const activeVocabularyConfig = selectedVocabularyConfig || defaultVocabularyConfig;
+  const activeSequenceConfig = selectedSequenceConfig || defaultSequenceConfig;
+  const activeEmotionsConfig = selectedEmotionsConfig || defaultEmotionsConfig;
+
   return (
     <View style={[globalStyles.container]}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Text style={globalStyles.title}>SELECCIONA UN MINIJUEGO</Text>
+      {/* VOCABULARIO */}
+
+      <Text style={globalStyles.subtitle}>VOCABULARIO</Text>
+
+      <View style={styles.fila}>
         <PrimaryButton
           onPress={() =>
             navigation.navigate('GameVocabulary', {
-              category: selectedCategory,
-              imagesPerRound: parseInt(selectedImages, 10),
-              rounds: parseInt(selectedRounds, 10),
+              category: activeVocabularyConfig.category,
+              imagesPerRound: 3,
+              rounds: 3,
             })
           }
-          label="Vocabulario"
+          label="Nivel I"
+        />
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameVocabulary', {
+              category: activeVocabularyConfig.category,
+              imagesPerRound: 3,
+              rounds: 5,
+            })
+          }
+          label="Nivel II"
+        />
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameVocabulary', {
+              category: activeVocabularyConfig.category,
+              imagesPerRound: 5,
+              rounds: 4,
+            })
+          }
+          label="Nivel III"
+        />
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameVocabulary', {
+              category: activeVocabularyConfig.category,
+              imagesPerRound: parseInt(activeVocabularyConfig.imagesPerRound, 10),
+              rounds: parseInt(activeVocabularyConfig.rounds, 10),
+            })
+          }
+          label="Vocabulario Extra"
         />
         <SettingsButton onPress={() => navigation.navigate('SetupVocabulary')} />
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Text style={styles.configText}>
+        Configuración actual: {activeVocabularyConfig.alias}
+      </Text>
+
+      {/* EMOCIONES */}
+      <Text style={globalStyles.subtitle}>EMOCIONES</Text>
+      <View style={styles.fila}>
+      <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameEmotions', {
+              emotion: activeEmotionsConfig.emotion,
+              imagesPerRound: 3,
+              correctsPerRound: 1,
+              rounds: 3,
+            })
+          }
+          label="Nivel I"
+        />
         <PrimaryButton
-          onPress={() => console.log('Aquí va la GameScreenSequence')}
+          onPress={() =>
+            navigation.navigate('GameEmotions', {
+              emotion: activeEmotionsConfig.emotion,
+              imagesPerRound: 5,
+              correctsPerRound: 2,
+              rounds: 3,
+            })
+          }
+          label="Nivel II"
+        />
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameEmotions', {
+              emotion: activeEmotionsConfig.emotion,
+              imagesPerRound: parseInt(activeEmotionsConfig.imagesPerRound, 10),
+              correctsPerRound: parseInt(activeEmotionsConfig.correctsPerRound, 10),
+              rounds: parseInt(activeEmotionsConfig.rounds, 10),
+            })
+          }
+          label="Emociones Extra"
+        />
+        <SettingsButton onPress={() => navigation.navigate('SetupEmotions')} />
+      </View>
+      <Text style={styles.configText}>
+        Configuración actual: {activeEmotionsConfig.alias}
+      </Text>
+
+      <Text style={globalStyles.subtitle}>SECUENCIA</Text>
+      <View style={styles.fila}>
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameSequencePreview', {
+              sequence: activeSequenceConfig.sequence,
+            })
+          }
           label="Secuencia"
         />
         <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
       </View>
+      <Text style={styles.configText}>
+        Configuración actual: {activeSequenceConfig.alias}
+      </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  configText: {
+    textAlign: 'center',
+  },
+  section: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    flex: 0.4,
+  },
+  fila: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+});
 
 export default GameModeSelectionScreen;

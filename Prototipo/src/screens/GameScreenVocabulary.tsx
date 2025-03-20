@@ -1,12 +1,9 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text, Image, Pressable, Dimensions } from 'react-native';
 import { globalColors, globalStyles } from '../theme/theme';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ImageButton } from '../components/ImageButton';
@@ -14,9 +11,13 @@ import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/vocabulary-config.json';
 import logger from '../logger/Logger';
-import { LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
+import { LogCompleted, LogInitializedRound, LogInitializedVocabulary, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
+import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+import SoundPlayer from '../utils/soundPlayer';
+
+const { height } = Dimensions.get('window');
 
 type GameScreenVocabularyRouteProp = RouteProp<RootStackParams, 'GameVocabulary'>;
 
@@ -29,21 +30,26 @@ interface Round {
 export const GameScreenVocabulary = () => {
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
+    const { isInSession } = useGlobalStoreSetup(state => state);
+    const { nextModule } = useGlobalStoreSetup(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [modalImage, setModalImage] = useState('');
     const [currentRound, setCurrentRound] = useState(1);
+    const [roundCompleted, setRoundCompleted] = useState(false);
     const [currentImages, setCurrentImages] = useState<any[]>([]); // Imágenes de la ronda actual
     const [correctImage, setCorrectImage] = useState<any | null>(null); // Imagen correcta de la ronda
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
+    const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
     const [attempts, setAttempts] = useState(0);
 
     const route = useRoute<GameScreenVocabularyRouteProp>();
-    const { category, imagesPerRound, rounds } = route.params;
+    const category:string = route.params.category;
+    const rounds = parseInt(String(route.params.rounds));
+    const imagesPerRound = parseInt(String(route.params.imagesPerRound));
 
-    const {userName, userAge, userGender} = useGlobalStoreUser();
-    const userDataV = {userName, userAge, userGender};
+    const { userId } = useGlobalStoreUser();
 
     useEffect(() => {
         navigation.setOptions({
@@ -61,15 +67,17 @@ export const GameScreenVocabulary = () => {
     const loadNextRound = (round: any) => {
         setCurrentImages(round.images);
         setCorrectImage(round.correctImage);
+        setRoundCompleted(false);
 
         const logInicioRonda: LogInitializedRound = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Initialized,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
-            correctOption: round.correctImage.name,
+            correctOption: round.correctImage?.name,
             allOptions: [],
             otherInfo: "",
+            gameType: gameTypes.Vocabulary,
         };
 
         // Resetear visibilidad del texto para las imágenes actuales
@@ -90,8 +98,8 @@ export const GameScreenVocabulary = () => {
         const shuffledImages = shuffleArray(gameConfig.categorias[category]);
         const roundsArray: Round[] = [];
 
-        const logInicio: LogInitializedGame = {
-            player: userDataV,
+        const logInicio: LogInitializedVocabulary = {
+            playerId: userId,
             action: logTypes.Initialized,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -121,7 +129,6 @@ export const GameScreenVocabulary = () => {
         loadNextRound(roundsArray[0]);
     };
 
-
     const toggleVisibility = (key) => {
         setVisibleTexts((prevState) => ({
             ...prevState,
@@ -135,35 +142,45 @@ export const GameScreenVocabulary = () => {
         const isCorrect = name === correctImage.name;
 
         const logTry: LogSelect = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Selected,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
             correctOption: correctImage.name,
             result: false,
             selectedOption: name,
-            otherInfo: ""
+            otherInfo: "",
+            gameType: gameTypes.Vocabulary,
         };
 
         const logTryP: LogProgressed = {
-            player: userDataV,
+            playerId: userId,
             action: logTypes.Progressed,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
-            otherInfo: ""
+            otherInfo: "",
+            gameType: gameTypes.Vocabulary,
         };
 
-        if (isCorrect){
+        if (isCorrect) {
             logTry.result = true;
-            logTryP.otherInfo = "go next round"
+            logTryP.otherInfo = "go next round";
             logger.log(logTry);
             logger.log(logTryP);
+            setRoundCompleted(true);
         } else {
             logTry.result = false;
-            logTryP.otherInfo = "retry round"
+            logTryP.otherInfo = "retry round";
             logger.log(logTry);
             logger.log(logTryP);
         }
+
+        SoundPlayer.correctIncorrect(isCorrect);
+
+        setImageBorders((prevBorders) => ({
+            ...prevBorders,
+            [name]: isCorrect ? 'forestgreen' : 'red', // Verde si es correcta, rojo si es incorrecta
+        }));
 
         setModalMessage(isCorrect ? `¡Correcto! Seleccionaste ${name}` : `¡Incorrecto! Seleccionaste ${name}`);
         setModalImage(isCorrect ? require('../assets/img/answer/bien.png') : require('../assets/img/answer/mal.png'));
@@ -173,7 +190,10 @@ export const GameScreenVocabulary = () => {
         setTimeout(() => {
             setIsModalVisible(false);
             if (isCorrect) {
-                handleNextRound();
+                setTimeout(() => {
+                    handleNextRound();
+                }, 1500);
+
             }
         }, 1500);
     };
@@ -186,20 +206,33 @@ export const GameScreenVocabulary = () => {
         } else {
 
             const logFin: LogCompleted = {
-                player: userDataV,
+                playerId: userId,
                 action: logTypes.Completed,
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
-                otherInfo: "all the rounds completed"
+                otherInfo: "all the rounds completed",
+                gameType: gameTypes.Vocabulary,
             };
 
             logger.log(logFin);
 
-            navigation.navigate('GameOver', {
-                attempts: attempts + 1,
-                roundsPlayed: rounds,
-            });
+            if (isInSession) {
+                nextModule(navigation.navigate);
+            } else {
+                navigation.navigate('GameOver', {
+                    attempts: attempts + 1,
+                    roundsPlayed: rounds,
+                });
+            }
         }
+    };
+
+    if (correctImage?.name){
+        SoundPlayer.setSound(correctImage.name);
+    }
+
+    const playAnswerSound = () => {
+        SoundPlayer.playSound();
     };
 
     return (
@@ -209,21 +242,35 @@ export const GameScreenVocabulary = () => {
             </View>
 
             <View style={gameStyles.imageContainer}>
-                {currentImages.map((item, index) => (
-                    <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
-                        <ImageButton
-                            onPress={() => !visibleTexts[item.name] ? handleImagePress(item.name) : undefined}
-                            image={item.name}
-                        />
-                        {visibleTexts[item.name] && (
-                            <Text style={{ fontSize: 30, color: globalColors.dark }}>{item.name}</Text>
-                        )}
-                    </View>
-                ))}
+                {currentImages.map((item, index) => {
+                    const borderColor = imageBorders[item.name] || 'black';
+                    return (
+                        <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
+                            <ImageButton
+                                onPress={() => (!visibleTexts[item.name] && !roundCompleted) ? handleImagePress(item.name) : undefined}
+                                image={item.name}
+                                style={{
+                                    borderColor: borderColor, // Color según selección
+                                    borderWidth: borderColor !== 'black' ? height * 0.015 : height * 0.005,
+                                    borderRadius: 10,
+                                }}
+                            />
+                            {visibleTexts[item.name] && (
+                                <Text style={{ fontSize: height * 0.035, color: globalColors.dark }}>{item.name}</Text>
+                            )}
+                        </View>
+                    );
+                })}
             </View>
 
             <View style={gameStyles.textContainer}>
                 <Text style={{ ...globalStyles.title, ...gameStyles.answer }}>{correctImage?.name}</Text>
+                <Pressable onPress={playAnswerSound} style={gameStyles.soundButton}>
+                    <Image
+                        source={require('../assets/img/sound.png')}
+                        style={gameStyles.icon}
+                    />
+                </Pressable>
             </View>
 
             <AnswerModal
@@ -244,7 +291,7 @@ const gameStyles = StyleSheet.create({
     },
 
     answer: {
-        fontSize: 80,
+        fontSize: height * 0.1,
     },
 
     imageContainer: {
@@ -253,5 +300,13 @@ const gameStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: '5%',
+    },
+    soundButton: {
+        padding: '1%',
+
+    },
+    icon: {
+        width: height * 0.08,
+        height: height * 0.08,
     },
 });

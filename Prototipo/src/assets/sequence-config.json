@@ -3,33 +3,170 @@
         "Lavado de manos": [
             {
                 "id": 1,
-                "name": "ABRIR EL GRIFO"
+                "name": "ABRIR EL GRIFO",
+                "imgName": "ABRIR EL GRIFO"
             },
             {
                 "id": 2,
-                "name": "ECHAR EL JABÓN"
+                "name": "ECHAR EL JABÓN",
+                "imgName": "ECHAR EL JABÓN"
             },
             {
                 "id": 3,
-                "name": "ENJABONAR LAS MANOS"
+                "name": "ENJABONAR LAS MANOS",
+                "imgName": "ENJABONAR LAS MANOS"
             },
             {
                 "id": 4,
-                "name": "LAVAR LAS MANOS"
+                "name": "LAVAR LAS MANOS",
+                "imgName": "LAVAR LAS MANOS"
             },
             {
                 "id": 5,
-                "name": "SECAR LAS MANOS"
+                "name": "SECAR LAS MANOS",
+                "imgName": "SECAR LAS MANOS"
             }
         ],
-        "Rutina diaria": [
+        "Rutina del desayuno": [
             {
                 "id": 1,
-                "name": "BOCADILLO"
+                "name": "LAVAR LAS MANOS",
+                "imgName": "LAVAR LAS MANOS"
             },
             {
                 "id": 2,
-                "name": "CEREALES"
+                "name": "SECAR LAS MANOS",
+                "imgName": "SECAR LAS MANOS"
+            },
+            {
+                "id": 3,
+                "name": "SACAR EL DESAYUNO",
+                "imgName": "SACAR EL DESAYUNO"
+            },
+            {
+                "id": 4,
+                "name": "DESAYUNAR",
+                "imgName": "DESAYUNAR"
+            },
+            {
+                "id": 5,
+                "name": "GUARDAR EL DESAYUNO",
+                "imgName": "GUARDAR EL DESAYUNO"
+            },
+            {
+                "id": 6,
+                "name": "IR AL PATIO",
+                "imgName": "IR AL PATIO"
+            }
+        ],
+        "Preparado para dialogar": [
+            {
+                "id": 1,
+                "name": "ATENTO",
+                "imgName": "ATENTO"
+            },
+            {
+                "id": 2,
+                "name": "TE MIRO A LOS OJOS",
+                "imgName": "TE MIRO A LOS OJOS"
+            },
+            {
+                "id": 3,
+                "name": "ESCUCHO",
+                "imgName": "ESCUCHO CHICO"
+            },
+            {
+                "id": 4,
+                "name": "TE PREGUNTO SOBRE LO QUE ME CUENTAS",
+                "imgName": "TE PREGUNTO SOBRE LO QUE ME CUENTAS CHICO"
+            }
+        ],
+        "Preparada para dialogar": [
+            {
+                "id": 1,
+                "name": "ATENTA",
+                "imgName": "ATENTA"
+            },
+            {
+                "id": 2,
+                "name": "TE MIRO A LOS OJOS",
+                "imgName": "TE MIRO A LOS OJOS"
+            },
+            {
+                "id": 3,
+                "name": "ESCUCHO",
+                "imgName": "ESCUCHO CHICA"
+            },
+            {
+                "id": 4,
+                "name": "TE PREGUNTO SOBRE LO QUE ME CUENTAS",
+                "imgName": "TE PREGUNTO SOBRE LO QUE ME CUENTAS CHICA"
+            }
+        ],
+        "Preparado para contarte algo": [
+            {
+                "id": 1,
+                "name": "TE MIRO A LOS OJOS",
+                "imgName": "TE MIRO A LOS OJOS"
+            },
+            {
+                "id": 2,
+                "name": "HABLO DESPACIO",
+                "imgName": "HABLO DESPACIO CHICO"
+            },
+            {
+                "id": 3,
+                "name": "ESPERO",
+                "imgName": "ESPERO CHICO"
+            },
+            {
+                "id": 4,
+                "name": "ESCUCHO TU PREGUNTA Y RESPONDO",
+                "imgName": "ESCUCHO TU PREGUNTA Y RESPONDO CHICO"
+            }
+        ],
+        "Preparada para contarte algo": [
+            {
+                "id": 1,
+                "name": "TE MIRO A LOS OJOS",
+                "imgName": "TE MIRO A LOS OJOS"
+            },
+            {
+                "id": 2,
+                "name": "HABLO DESPACIO",
+                "imgName": "HABLO DESPACIO CHICA"
+            },
+            {
+                "id": 3,
+                "name": "ESPERO",
+                "imgName": "ESPERO CHICA"
+            },
+            {
+                "id": 4,
+                "name": "ESCUCHO TU PREGUNTA Y RESPONDO",
+                "imgName": "ESCUCHO TU PREGUNTA Y RESPONDO CHICA"
+            }
+        ],
+        "Salida del aula": [
+            {
+                "id": 1,
+                "name": "NOS PONEMOS EL ABRIGO",
+                "imgName": "PONERSE ABRIGO"
+            },
+            {
+                "id": 2,
+                "name": "COGEMOS LA MOCHILA",
+                "imgName": "COGER MOCHILA"
+            },
+            {
+                "id": 3,
+                "name": "BAJAMOS DEL AULA",
+                "imgName": "BAJAR ESCALERA"
+            },
+            {
+                "id": 4,
+                "name": "CASA",
+                "imgName": "CASA"
             }
         ]
     }

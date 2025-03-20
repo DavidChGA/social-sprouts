@@ -7,15 +7,15 @@ import imageMap from '../assets/imageMap';
 interface Props {
     onPress: () => void;
     image: any;
+    style?: object;
 }
 
-export const ImageButton = ({ onPress, image }: Props) => {
+export const ImageButton = ({ onPress, image, style }: Props) => {
     const imageSource = imageMap[image];
-
     return (
         <Pressable
             onPress={() => onPress()}
-            style={globalStyles.imageButton}
+            style={[globalStyles.imageButton, style]}
         >
             <Image
                 source={imageSource}
