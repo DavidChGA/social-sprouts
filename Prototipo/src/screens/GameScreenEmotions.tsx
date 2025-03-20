@@ -182,6 +182,39 @@ export const GameScreenEmotions = () => {
 
         SoundPlayer.correctIncorrect(isCorrect);
 
+        const logTry: LogSelect = {
+            playerId: userId,
+            action: logTypes.Selected,
+            object: objectTypes.Round,
+            timestamp: new Date().toISOString(),
+            correctOption: emotion,
+            result: false,
+            selectedOption: item.name,
+            otherInfo: "",
+            gameType: gameTypes.Emotions,
+        };
+
+        const logTryPInRound: LogProgressed = {
+            playerId: userId,
+            action: logTypes.Progressed,
+            object: objectTypes.Round,
+            timestamp: new Date().toISOString(),
+            otherInfo: "",
+            gameType: gameTypes.Emotions,
+        };
+
+        if (isCorrect) {
+            logTry.result = true;
+            logTryPInRound.otherInfo = "try to find the next img";
+            logger.log(logTry);
+            logger.log(logTryPInRound);
+        } else {
+            logTry.result = false;
+            logTryPInRound.otherInfo = "retry round";
+            logger.log(logTry);
+            logger.log(logTryPInRound);
+        }
+
         setImageBorders((prevBorders) => ({
             ...prevBorders,
             [item.imgName]: isCorrect ? 'forestgreen' : 'red',
@@ -199,7 +232,20 @@ export const GameScreenEmotions = () => {
             // Reducir el contador de correctas restantes
             const updatedSelectedCount = selectedCorrectImages.length + 1;
             if (updatedSelectedCount >= correctsPerRound) {
+
+                const logTryPGame: LogProgressed = {
+                    playerId: userId,
+                    action: logTypes.Progressed,
+                    object: objectTypes.Game,
+                    timestamp: new Date().toISOString(),
+                    otherInfo: "go next round",
+                    gameType: gameTypes.Emotions,
+                };
+
+                logger.log(logTryPGame);
+
                 setRoundCompleted(true);
+
             }
         }
 
@@ -221,6 +267,17 @@ export const GameScreenEmotions = () => {
             setCurrentRound((prevRound) => prevRound + 1);
             loadNextRound(roundsData[currentRound]);
         } else {
+
+            const logFin: LogCompleted = {
+                playerId: userId,
+                action: logTypes.Completed,
+                object: objectTypes.Game,
+                timestamp: new Date().toISOString(),
+                otherInfo: "all the rounds completed",
+                gameType: gameTypes.Emotions,
+            };
+
+            logger.log(logFin);
 
             if (isInSession) {
                 nextModule(navigation.navigate);
