@@ -106,7 +106,7 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
 
         return { currentModuleIndex: nextIndex };
       } else {
-        //Falta
+        state.setIsInSession(false);
         navigate('GameOver', {
           attempts: state.session.modules.length,
           roundsPlayed: state.session.modules.length,
