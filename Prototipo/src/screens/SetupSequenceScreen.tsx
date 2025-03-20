@@ -13,30 +13,49 @@ const { height } = Dimensions.get('window');
 
 export const SetupSequenceScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const {selectedSequence, setSelectedSequence} = useGlobalStoreSetup();
+  const {
+    selectedSequenceConfig,
+    defaultSequenceConfig,
+    addSequenceConfig,
+    selectSequenceConfig,
+  } = useGlobalStoreSetup();
+
+  // Estados locales
+  const [alias, setAlias] = useState(
+    selectedSequenceConfig?.alias || defaultSequenceConfig.alias
+  );
+  const [sequence, setSequence] = useState(
+    selectedSequenceConfig?.sequence || defaultSequenceConfig.sequence
+  );
 
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
-  });
+  }, [navigation]);
 
-  // Secuencias
-  const sequences = Object.keys(gameConfig.secuencias).map(secuencia => ({
+  const sequences = Object.keys(gameConfig.secuencias).map((secuencia) => ({
     label: secuencia,
     value: secuencia,
   }));
 
   const saveConfig = () => {
-    if (!selectedSequence) {
+    if (!alias || !sequence) {
       Alert.alert(
         'Error',
-        'Por favor selecciona todos los campos antes de continuar.',
+        'Por favor selecciona todos los campos antes de continuar.'
       );
       return;
     }
 
-    // Navegar a la pantalla de juego con la configuración seleccionada
+    const newConfig = {
+      alias,
+      sequence,
+    };
+
+    // Guarda la nueva configuración y la selecciona automáticamente
+    addSequenceConfig(newConfig);
+    selectSequenceConfig(alias);
     navigation.goBack();
   };
 

@@ -39,7 +39,7 @@ export const SetupVocabularyScreen = () => {
     navigation.setOptions({
       headerShown: false,
     });
-  });
+  }, [navigation]);
 
   // Opciones válidas de imágenes y rondas
   const options = [
@@ -49,10 +49,10 @@ export const SetupVocabularyScreen = () => {
     { imagesPerRound: 6, rounds: [1, 2, 3] },
   ];
 
-  // Categorías
-  const categories = Object.keys(gameConfig.categorias).map(category => ({
-    label: category,
-    value: category,
+  // Categorías: se generan a partir del JSON de configuración
+  const categories = Object.keys(gameConfig.categorias).map((cat) => ({
+    label: cat,
+    value: cat,
   }));
 
   // Opciones de imágenes (convertimos a string)
@@ -75,7 +75,7 @@ export const SetupVocabularyScreen = () => {
     if (!alias || !category || !imagesPerRound || !rounds) {
       Alert.alert(
         'Error',
-        'Por favor selecciona todos los campos antes de continuar.',
+        'Por favor selecciona todos los campos antes de continuar.'
       );
       return;
     }
@@ -98,6 +98,14 @@ export const SetupVocabularyScreen = () => {
     selectVocabularyConfig(alias);
     navigation.goBack();
   };
+
+  const activeConfig = selectedVocabularyConfig ? selectedVocabularyConfig : defaultVocabularyConfig;
+  const otherConfigs = vocabularyConfigs.filter(config => config.alias !== activeConfig.alias);
+  const configListData = [
+    { label: activeConfig.alias, value: activeConfig.alias, config: activeConfig },
+    ...otherConfigs.map(c => ({ label: c.alias, value: c.alias, config: c })),
+    { label: 'Nueva configuración', value: 'Nueva configuración' },
+  ];
 
   return (
     <View style={[globalStyles.container]}>
