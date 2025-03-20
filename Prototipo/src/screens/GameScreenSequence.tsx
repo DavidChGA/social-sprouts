@@ -1,12 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable prettier/prettier */
+
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Image, Pressable, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import gameConfig from '../assets/sequence-config.json';
