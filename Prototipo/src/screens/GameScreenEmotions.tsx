@@ -10,12 +10,12 @@ import { ImageButtonEmotion } from '../components/ImageButtonEmotion';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/emotions-config.json';
-import Sound from 'react-native-sound';
 import logger from '../logger/Logger';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import { LogCompleted, LogInitializedEmotions, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
+import SoundPlayer from '../utils/soundPlayer';
 
 const { height } = Dimensions.get('window');
 
@@ -171,23 +171,6 @@ export const GameScreenEmotions = () => {
         }));
     };
 
-    let correctSound = new Sound(require('../assets/sounds/answer/correct.mp3'), Sound.MAIN_BUNDLE, (error) => {
-        if (error) { console.log("Error al cargar el sonido correcto:", error); }
-    });
-
-    let incorrectSound = new Sound(require('../assets/sounds/answer/incorrect.mp3'), Sound.MAIN_BUNDLE, (error) => {
-        if (error) { console.log("Error al cargar el sonido incorrecto:", error); }
-    });
-
-    const playSound = (isCorrect: boolean) => {
-        const soundToPlay = isCorrect ? correctSound : incorrectSound;
-        soundToPlay.play((success) => {
-            if (!success) {
-                console.log("Error al reproducir el sonido");
-            }
-        });
-    };
-
     // Manejar la selección de una imagen
     const handleImagePress = (item: any) => {
         setAttempts((prevAttempts) => prevAttempts + 1);
@@ -197,7 +180,7 @@ export const GameScreenEmotions = () => {
         const alreadySelected = selectedCorrectImages.includes(item.imgName);
         const isCorrect = isCorrectImage && !alreadySelected;
 
-        playSound(isCorrect);
+        SoundPlayer.correctIncorrect(isCorrect);
 
         setImageBorders((prevBorders) => ({
             ...prevBorders,

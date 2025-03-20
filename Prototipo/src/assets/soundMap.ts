@@ -1,4 +1,7 @@
 const soundMap: Record<string, any> = {
+  // MISCELANIA
+  'CORRECTO': require('../assets/sounds/answer/correct.mp3'),
+  'INCORRECTO': require('../assets/sounds/answer/incorrect.mp3'),
   // COMIDA
   'BOCADILLO': require('../assets/sounds/comida/bocadillo.mp3'),
   'CEREALES': require('../assets/sounds/comida/cereales.mp3'),

@@ -10,13 +10,12 @@ import { ImageButton } from '../components/ImageButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/vocabulary-config.json';
-import Sound from 'react-native-sound';
-import soundMap from '../assets/soundMap';
 import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedRound, LogInitializedVocabulary, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+import SoundPlayer from '../utils/soundPlayer';
 
 const { height } = Dimensions.get('window');
 
@@ -128,29 +127,11 @@ export const GameScreenVocabulary = () => {
         loadNextRound(roundsArray[0]);
     };
 
-
     const toggleVisibility = (key) => {
         setVisibleTexts((prevState) => ({
             ...prevState,
             [key]: true,
         }));
-    };
-
-    let correctSound = new Sound(require('../assets/sounds/answer/correct.mp3'), Sound.MAIN_BUNDLE, (error) => {
-        if (error) { console.log("Error al cargar el sonido correcto:", error); }
-    });
-
-    let incorrectSound = new Sound(require('../assets/sounds/answer/incorrect.mp3'), Sound.MAIN_BUNDLE, (error) => {
-        if (error) { console.log("Error al cargar el sonido incorrecto:", error); }
-    });
-
-    const playSound = (isCorrect: boolean) => {
-        const soundToPlay = isCorrect ? correctSound : incorrectSound;
-        soundToPlay.play((success) => {
-            if (!success) {
-                console.log("Error al reproducir el sonido");
-            }
-        });
     };
 
     // Manejar la selección de una imagen
@@ -192,7 +173,7 @@ export const GameScreenVocabulary = () => {
             logger.log(logTryP);
         }
 
-        playSound(isCorrect);
+        SoundPlayer.correctIncorrect(isCorrect);
 
         setImageBorders((prevBorders) => ({
             ...prevBorders,
@@ -244,20 +225,12 @@ export const GameScreenVocabulary = () => {
         }
     };
 
-    let clickAnswerSound = correctImage?.name ? new Sound(soundMap[correctImage.name], Sound.MAIN_BUNDLE, (error) => {
-        if (error) {
-            console.log('Error al cargar el sonido:', error);
-        }
-    }) : undefined;
+    if(correctImage?.name){
+        SoundPlayer.setSound(correctImage.name);
+    }
 
     const playAnswerSound = () => {
-        if (clickAnswerSound) {
-            clickAnswerSound.play((success) => {
-                if (!success) {
-                    console.log('Error al reproducir el sonido');
-                }
-            });
-        }
+        SoundPlayer.playSound();
     };
 
     return (
