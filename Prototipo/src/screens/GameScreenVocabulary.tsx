@@ -45,7 +45,9 @@ export const GameScreenVocabulary = () => {
     const [attempts, setAttempts] = useState(0);
 
     const route = useRoute<GameScreenVocabularyRouteProp>();
-    const { category, imagesPerRound, rounds } = route.params;
+    const category:string = route.params.category;
+    const rounds = parseInt(String(route.params.rounds));
+    const imagesPerRound = parseInt(String(route.params.imagesPerRound));
 
     const { userId } = useGlobalStoreUser();
 

@@ -23,7 +23,7 @@ interface SequenceConfig extends Config {
 
 interface EmotionsConfig extends Config {
   emotion: string;
-  images: string;
+  imagesPerRound: string;
   rounds: string;
   correctsPerRound: string;
 }
@@ -78,14 +78,20 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
 
   defaultVocabularyConfig: { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' },
   defaultSequenceConfig: { alias: 'Predeterminado', sequence: 'Lavado de manos' },
-  defaultEmotionsConfig: { alias: 'Predeterminado', emotion: 'Felicidad', images: '3', rounds: '3', correctsPerRound: '1' },
+  defaultEmotionsConfig: { alias: 'Predeterminado', emotion: 'Felicidad',
+    imagesPerRound: '3',
+    correctsPerRound: '1',
+    rounds: '3' },
 
   isInSession: false,
   session: {
     modules: [
       { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' } as VocabularyConfig,
       { alias: 'Predeterminado', sequence: 'Lavado de manos' } as SequenceConfig,
-      { alias: 'Predeterminado', emotion: 'Felicidad', images: '3', rounds: '3', correctsPerRound: '1' } as EmotionsConfig
+      { alias: 'Predeterminado', emotion: 'Felicidad',
+        imagesPerRound: '3',
+        correctsPerRound: '1',
+        rounds: '3' } as EmotionsConfig
     ]
   },
   currentModuleIndex: -1,
@@ -101,10 +107,9 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
           navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
         else if ('sequence' in nextModule) 
           navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']); 
-        /*else if ('emotion' in nextModule) 
-          console.log('emociones')
-          //navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
-        */
+        else if ('emotion' in nextModule) 
+          navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);
+        
 
         return { currentModuleIndex: nextIndex };
       } else {

@@ -32,7 +32,10 @@ export const GameScreenEmotions = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
     const route = useRoute<GameScreenEmotionsRouteProp>();
-    const { emotion, imagesPerRound, correctsPerRound, rounds } = route.params;
+    const emotion = route.params.emotion;
+    const imagesPerRound = parseInt(String(route.params.imagesPerRound));
+    const correctsPerRound = parseInt(String(route.params.correctsPerRound));
+    const rounds = parseInt(String(route.params.rounds));
 
     const { isInSession } = useGlobalStoreSetup(state => state);
     const { nextModule } = useGlobalStoreSetup(state => state);
@@ -130,7 +133,7 @@ export const GameScreenEmotions = () => {
         const shuffledOtherImages = shuffleArray([...allOtherEmotionImages]);
 
         // Índices para seguir qué imágenes hemos usado
-        let emotionImageIndex = 0;
+        let emotionImageIndex:number = 0;
         let otherImageIndex = 0;
 
         // Para cada ronda
