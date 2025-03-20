@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { RootStackParams } from '../routes/StackNavigator';
@@ -110,7 +109,7 @@ function GameModeSelectionScreen() {
           onPress={() =>
             navigation.navigate('GameEmotions', {
               emotion: activeEmotionsConfig.emotion,
-              imagesPerRound: parseInt(activeEmotionsConfig.images, 10),
+              imagesPerRound: parseInt(activeEmotionsConfig.imagesPerRound, 10),
               correctsPerRound: parseInt(activeEmotionsConfig.correctsPerRound, 10),
               rounds: parseInt(activeEmotionsConfig.rounds, 10),
             })
