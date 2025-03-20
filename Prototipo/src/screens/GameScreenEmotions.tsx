@@ -262,6 +262,8 @@ export const GameScreenEmotions = () => {
                 }, 1500);
             }
         }, 1500);
+
+        return isCorrect;
     };
 
     // Manejar el avance de ronda
