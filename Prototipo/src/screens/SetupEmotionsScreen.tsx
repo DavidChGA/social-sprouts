@@ -48,7 +48,7 @@ export const SetupEmotionsScreen = () => {
   //TODO
   const options = [
     { images: 3, rounds: [1, 3, 5], correctsPerRound: [1, 2] },
-    { images: 4, rounds: [1], correctsPerRound: [1, 2, 3] },
+    { images: 4, rounds: [1, 3, 5], correctsPerRound: [1, 2, 3] },
     { images: 5, rounds: [1, 2], correctsPerRound: [1, 2, 3, 4] },
   ];
 

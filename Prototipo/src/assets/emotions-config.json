@@ -25,6 +25,11 @@
                 "id": 5,
                 "name": "FELICIDAD",
                 "imgName": "FELICIDAD5"
+            },
+            {
+                "id": 5,
+                "name": "FELICIDAD",
+                "imgName": "FELICIDAD6"
             }
         ],
         "Confusión": [
@@ -52,6 +57,11 @@
                 "id": 5,
                 "name": "CONFUSION",
                 "imgName": "CONFUSION5"
+            },
+            {
+                "id": 6,
+                "name": "CONFUSION",
+                "imgName": "CONFUSION6"
             }
         ],
         "Enfado": [
@@ -79,6 +89,11 @@
                 "id": 5,
                 "name": "ENFADO",
                 "imgName": "ENFADO5"
+            },
+            {
+                "id": 6,
+                "name": "ENFADO",
+                "imgName": "ENFADO6"
             }
         ],
         "Miedo": [
@@ -106,6 +121,11 @@
                 "id": 5,
                 "name": "MIEDO",
                 "imgName": "MIEDO5"
+            },
+            {
+                "id": 6,
+                "name": "MIEDO",
+                "imgName": "MIEDO6"
             }
         ],
         "Sorpresa": [
@@ -133,6 +153,11 @@
                 "id": 5,
                 "name": "SORPRESA",
                 "imgName": "SORPRESA5"
+            },
+            {
+                "id": 6,
+                "name": "SORPRESA",
+                "imgName": "SORPRESA6"
             }
         ],
         "Tristeza": [
@@ -160,6 +185,11 @@
                 "id": 5,
                 "name": "TRISTEZA",
                 "imgName": "TRISTEZA5"
+            },
+            {
+                "id": 6,
+                "name": "TRISTEZA",
+                "imgName": "TRISTEZA6"
             }
         ]
     }

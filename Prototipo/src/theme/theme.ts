@@ -40,7 +40,7 @@ export const globalStyles = StyleSheet.create({
 
     subtitle: {
         color: globalColors.gray,
-        fontSize: height * 0.05,
+        fontSize: height * 0.04,
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold',

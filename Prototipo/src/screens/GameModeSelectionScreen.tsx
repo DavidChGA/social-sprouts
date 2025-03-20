@@ -42,7 +42,7 @@ function GameModeSelectionScreen() {
               rounds: 3,
             })
           }
-          label="Vocabulario I"
+          label="Nivel I"
         />
         <PrimaryButton
           onPress={() =>
@@ -52,7 +52,7 @@ function GameModeSelectionScreen() {
               rounds: 5,
             })
           }
-          label="Vocabulario II"
+          label="Nivel II"
         />
         <PrimaryButton
           onPress={() =>
@@ -62,10 +62,8 @@ function GameModeSelectionScreen() {
               rounds: 4,
             })
           }
-          label="Vocabulario III"
+          label="Nivel III"
         />
-      </View>
-      <View style={styles.fila}>
         <PrimaryButton
           onPress={() =>
             navigation.navigate('GameVocabulary', {
@@ -78,52 +76,68 @@ function GameModeSelectionScreen() {
         />
         <SettingsButton onPress={() => navigation.navigate('SetupVocabulary')} />
       </View>
+
       <Text style={styles.configText}>
         Configuración actual: {activeVocabularyConfig.alias}
       </Text>
 
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        {/* SECUENCIAS */}
-        <View style={styles.section}>
-          <Text style={globalStyles.subtitle}>SECUENCIA</Text>
-          <View style={styles.fila}>
-            <PrimaryButton
-              onPress={() =>
-                navigation.navigate('GameSequencePreview', {
-                  sequence: activeSequenceConfig.sequence,
-                })
-              }
-              label="Secuencia"
-            />
-            <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
-          </View>
-          <Text style={styles.configText}>
-            Configuración actual: {activeSequenceConfig.alias}
-          </Text>
-        </View>
-
-        {/* EMOCIONES */}
-        <View style={styles.section}>
-          <Text style={globalStyles.subtitle}>EMOCIONES</Text>
-          <View style={styles.fila}>
-            <PrimaryButton
-              onPress={() =>
-                navigation.navigate('GameEmotions', {
-                  emotion: activeEmotionsConfig.emotion,
-                  imagesPerRound: parseInt(activeEmotionsConfig.images, 10),
-                  correctsPerRound: parseInt(activeEmotionsConfig.correctsPerRound, 10),
-                  rounds: parseInt(activeEmotionsConfig.rounds, 10),
-                })
-              }
-              label="Emociones"
-            />
-            <SettingsButton onPress={() => navigation.navigate('SetupEmotions')} />
-          </View>
-          <Text style={styles.configText}>
-            Configuración actual: {activeEmotionsConfig.alias}
-          </Text>
-        </View>
+      {/* EMOCIONES */}
+      <Text style={globalStyles.subtitle}>EMOCIONES</Text>
+      <View style={styles.fila}>
+      <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameEmotions', {
+              emotion: activeEmotionsConfig.emotion,
+              imagesPerRound: 3,
+              correctsPerRound: 1,
+              rounds: 3,
+            })
+          }
+          label="Nivel I"
+        />
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameEmotions', {
+              emotion: activeEmotionsConfig.emotion,
+              imagesPerRound: 5,
+              correctsPerRound: 2,
+              rounds: 3,
+            })
+          }
+          label="Nivel II"
+        />
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameEmotions', {
+              emotion: activeEmotionsConfig.emotion,
+              imagesPerRound: parseInt(activeEmotionsConfig.images, 10),
+              correctsPerRound: parseInt(activeEmotionsConfig.correctsPerRound, 10),
+              rounds: parseInt(activeEmotionsConfig.rounds, 10),
+            })
+          }
+          label="Emociones Extra"
+        />
+        <SettingsButton onPress={() => navigation.navigate('SetupEmotions')} />
       </View>
+      <Text style={styles.configText}>
+        Configuración actual: {activeEmotionsConfig.alias}
+      </Text>
+
+      <Text style={globalStyles.subtitle}>SECUENCIA</Text>
+      <View style={styles.fila}>
+        <PrimaryButton
+          onPress={() =>
+            navigation.navigate('GameSequencePreview', {
+              sequence: activeSequenceConfig.sequence,
+            })
+          }
+          label="Secuencia"
+        />
+        <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
+      </View>
+      <Text style={styles.configText}>
+        Configuración actual: {activeSequenceConfig.alias}
+      </Text>
     </View>
   );
 }
@@ -131,7 +145,6 @@ function GameModeSelectionScreen() {
 const styles = StyleSheet.create({
   configText: {
     textAlign: 'center',
-    marginVertical: '1%',
   },
   section: {
     flexDirection: 'column',

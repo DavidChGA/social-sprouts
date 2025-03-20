@@ -113,32 +113,41 @@ export const GameScreenEmotions = () => {
             imagesPerRound: imagesPerRound,
             category: emotion,
             gameType: gameTypes.Emotions,
-            imagesCorrectsPerRound: correctsPerRound
+            imagesCorrectsPerRound: correctsPerRound,
         };
 
         logger.log(logInicio);
 
+        const emotionImages = [...gameConfig.emociones[emotion]]; // Todas las imágenes de la emoción correcta
+        const shuffledEmotionImages = shuffleArray([...emotionImages]);
+
+
+        const otherEmotions = Object.keys(gameConfig.emociones).filter(e => e !== emotion);
+        let allOtherEmotionImages: any[] = [];
+        for (const otherEmotion of otherEmotions) {
+            allOtherEmotionImages = [...allOtherEmotionImages, ...gameConfig.emociones[otherEmotion]];
+        }
+        const shuffledOtherImages = shuffleArray([...allOtherEmotionImages]);
+
+        // Índices para seguir qué imágenes hemos usado
+        let emotionImageIndex = 0;
+        let otherImageIndex = 0;
+
         // Para cada ronda
         for (let i = 0; i < rounds; i++) {
-            // 1. Obtener todas las imágenes de la emoción seleccionada
-            const emotionImages = [...gameConfig.emociones[emotion]];
 
-            // 2. Seleccionar aleatoriamente correctsPerRound imágenes de la emoción correcta
-            const shuffledEmotionImages = shuffleArray([...emotionImages]);
-            const correctImagesForRound = shuffledEmotionImages.slice(0, correctsPerRound);
+            const correctImagesForRound = shuffledEmotionImages.slice(
+                emotionImageIndex,
+                emotionImageIndex + correctsPerRound
+            );
+            emotionImageIndex += correctsPerRound;
 
-            // 3. Crear un array con todas las emociones excepto la seleccionada
-            const otherEmotions = Object.keys(gameConfig.emociones).filter(e => e !== emotion);
-
-            // 4. Obtener imágenes de otras emociones
-            let otherEmotionImages: any[] = [];
-            for (const otherEmotion of otherEmotions) {
-                otherEmotionImages = [...otherEmotionImages, ...gameConfig.emociones[otherEmotion]];
-            }
-
-            // 5. Seleccionar aleatoriamente imágenes incorrectas (completar hasta imagesPerRound)
-            const shuffledOtherImages = shuffleArray(otherEmotionImages);
-            const incorrectImagesForRound = shuffledOtherImages.slice(0, imagesPerRound - correctsPerRound);
+            // Seleccionar imágenes incorrectas para esta ronda
+            const incorrectImagesForRound = shuffledOtherImages.slice(
+                otherImageIndex,
+                otherImageIndex + (imagesPerRound - correctsPerRound)
+            );
+            otherImageIndex += (imagesPerRound - correctsPerRound);
 
             // 6. Combinar y mezclar todas las imágenes para esta ronda
             const allRoundImages = shuffleArray([...correctImagesForRound, ...incorrectImagesForRound]);
