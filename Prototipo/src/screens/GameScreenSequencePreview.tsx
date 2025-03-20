@@ -3,16 +3,17 @@
 /* eslint-disable react-native/no-inline-styles */
 
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
-import { globalStyles } from '../theme/theme';
+import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
+import { globalColors, globalStyles } from '../theme/theme';
 import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import gameConfig from '../assets/sequence-config.json';
 import imageMapSequences from '../assets/imageMapSequences';
-import { PrimaryButton } from '../components/PrimaryButton';
 import { SecondaryButton } from '../components/SecondaryButton';
 
 type GameScreenSequenceRouteProp = RouteProp<RootStackParams, 'GameSequence'>;
+
+const { height } = Dimensions.get('window');
 
 export const GameScreenSequencePreview = () => {
 
@@ -56,7 +57,7 @@ export const GameScreenSequencePreview = () => {
                             style={globalStyles.imageButtonSequence}
                             resizeMode="contain"
                         />
-                        <Text style={{ textAlign: 'center'}}> {item.name} </Text>
+                        <Text style={{ fontSize: height * 0.025, color: globalColors.dark, textAlign: 'center'}}> {item.name} </Text>
                     </View>
                 ))}
             </View>

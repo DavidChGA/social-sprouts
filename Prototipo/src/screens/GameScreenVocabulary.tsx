@@ -225,7 +225,7 @@ export const GameScreenVocabulary = () => {
         }
     };
 
-    if(correctImage?.name){
+    if (correctImage?.name){
         SoundPlayer.setSound(correctImage.name);
     }
 

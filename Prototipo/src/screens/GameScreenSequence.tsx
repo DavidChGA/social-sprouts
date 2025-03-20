@@ -11,7 +11,7 @@ import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-
 import type { RootStackParams } from '../routes/StackNavigator';
 import gameConfig from '../assets/sequence-config.json';
 import React from 'react';
-import { globalStyles } from '../theme/theme';
+import { globalColors, globalStyles } from '../theme/theme';
 import { AnswerModal } from '../components/AnswerModal';
 import { ImageButtonSequence } from '../components/ImageButtonSequence';
 import { LogCompleted, LogInitializedSequence, LogSelect } from '../logger/LogInterface';
@@ -130,7 +130,7 @@ export const GameScreenSequence = () => {
             setNextId(nextId + 1);
             setImageBorders((prevBorders) => ({
                 ...prevBorders,
-                [name]: 'forestgreen', // Verde si es correcta, rojo si es incorrecta
+                [name]: 'forestgreen', // Verde si es correcta
             }));
         }
 
@@ -183,7 +183,7 @@ export const GameScreenSequence = () => {
                                     borderRadius: 10,
                                 }}
                             />
-                            <Text style={{ textAlign: 'center' }}>{item.name}</Text>
+                            <Text style={{  fontSize: height * 0.025, color: globalColors.dark, textAlign: 'center' }}>{item.name}</Text>
                         </View>
                     );
                 })}
@@ -203,16 +203,17 @@ export const GameScreenSequence = () => {
 
 const gameStyles = StyleSheet.create({
     textContainer: {
-        flex: 0.3,
+        flex: 0.4,
         justifyContent: 'center',
         alignItems: 'center',
     },
 
     imageContainer: {
-        flex: 0.3,
+        flex: 0.5,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: '5%',
+        marginBottom: '10%',
+        marginTop: '5%',
     },
 });
