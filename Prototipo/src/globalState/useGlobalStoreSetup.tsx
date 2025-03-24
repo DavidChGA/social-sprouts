@@ -2,6 +2,9 @@
 import { NavigationProp } from '@react-navigation/native';
 import { create } from 'zustand';
 import { RootStackParams } from '../routes/StackNavigator';
+import { LogCompletedSession } from '../logger/LogInterface';
+import logger from '../logger/Logger';
+import { logTypes, objectTypes } from '../logger/LogEnums';
 
 interface Session {
   modules: (VocabularyConfig | SequenceConfig | EmotionsConfig)[];
@@ -107,6 +110,17 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
         return { currentModuleIndex: nextIndex };
       } else {
         //Falta
+
+        //LOG Final de sesion
+        const logFinSesion: LogCompletedSession = {
+          action: logTypes.Completed,
+          object: objectTypes.Session,
+          timestamp: new Date().toISOString(),
+          otherInfo: ''
+        };
+
+        logger.log(logFinSesion);
+
         navigate('GameOver', {
           attempts: state.session.modules.length,
           roundsPlayed: state.session.modules.length,

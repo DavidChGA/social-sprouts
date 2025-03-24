@@ -56,6 +56,14 @@ interface LogChangePlayer extends Log {
   player: userData;
 }
 
+interface LogInitializedSession extends Log {
+  session: {};
+}
+
+interface LogCompletedSession extends Log {
+  
+}
+
 interface userData {
   userName: string;
   userAge: number;
@@ -64,4 +72,4 @@ interface userData {
   soundActive: boolean;
 }
 
-export { Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect, LogInitializedVocabulary, LogInitializedSequence, LogChangePlayer, userData, LogInitializedEmotions };
+export { Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect, LogInitializedVocabulary, LogInitializedSequence, LogChangePlayer, userData, LogInitializedEmotions, LogInitializedSession, LogCompletedSession };

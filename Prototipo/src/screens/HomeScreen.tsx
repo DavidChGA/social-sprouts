@@ -7,12 +7,15 @@ import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+import logger from '../logger/Logger';
+import { logTypes, objectTypes } from '../logger/LogEnums';
+import { LogInitializedSession } from '../logger/LogInterface';
 
 const { height } = Dimensions.get('window');
 
 export const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { setIsInSession, nextModule } = useGlobalStoreSetup();
+  const { setIsInSession, nextModule, session } = useGlobalStoreSetup();
 
   useEffect(() => {
     navigation.setOptions({
@@ -21,6 +24,17 @@ export const HomeScreen = () => {
   });
 
   const startSession = () => {
+
+    const logInicioSesion: LogInitializedSession = {
+      session: session,
+      action: logTypes.Initialized,
+      object: objectTypes.Session,
+      timestamp: new Date().toISOString(),
+      otherInfo: ''
+    };
+
+    logger.log(logInicioSesion);
+
     setIsInSession(true);
     nextModule(navigation.navigate);
   };
