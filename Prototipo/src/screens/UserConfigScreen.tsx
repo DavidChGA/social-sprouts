@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, TextInput, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { SecondaryButton } from '../components/SecondaryButton';
@@ -38,7 +38,7 @@ export const UserConfigScreen = () => {
     const userDataV: userData = {
       userName: getUserName(),
       userAge: getUserAge(),
-      userGender: getUserGender(),
+      userGender: userGender,
       userId: getUserId(),
       soundActive: getsoundActive(),
     };
@@ -94,7 +94,18 @@ export const UserConfigScreen = () => {
           placeholderStyle={styles.placeholder}
           selectedTextStyle={styles.selectedText}
         />
+
+        <View style={styles.radioContainer}>
+          <TouchableOpacity onPress={() => setsoundActive(!soundActive)} style={styles.radioButton}>
+            <View style={soundActive ? styles.radioSelected : styles.radioUnselected} />
+          </TouchableOpacity>
+          <Text style={styles.radioText}>
+            {soundActive ? "Sonido al jugar Activado" : "Sonido al jugar Desactivado"}
+          </Text>
+        </View>
+
       </View>
+
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
     </View>
   );
@@ -133,5 +144,36 @@ const styles = StyleSheet.create({
   configText: {
     textAlign: 'center',
     marginVertical: '1%',
+  },
+  radioContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: "5%",
+  },
+  radioButton: {
+    width: height * 0.04, // 4% del alto de la pantalla
+    height: height * 0.04,
+    borderRadius: height * 0.02, // Hace que el botón sea circular
+    borderWidth: 2,
+    borderColor: "#007AFF",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: "3%",
+  },
+  radioSelected: {
+    width: height * 0.02, // 2% del alto de la pantalla
+    height: height * 0.02,
+    borderRadius: height * 0.01,
+    backgroundColor: "#007AFF",
+  },
+  radioUnselected: {
+    width: height * 0.02,
+    height: height * 0.02,
+    borderRadius: height * 0.01,
+    backgroundColor: "white",
+  },
+  radioText: {
+    fontSize: height * 0.025,
+    color: "#333",
   },
 });

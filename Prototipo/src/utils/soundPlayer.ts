@@ -1,5 +1,6 @@
 import Sound from "react-native-sound";
 import soundMap from '../assets/soundMap';
+import { useGlobalStoreUser } from "../globalState/useGlobalStoreUser";
 
 class SoundPlayer {
 
@@ -22,7 +23,7 @@ class SoundPlayer {
     }
 
     static playSound() {
-        if (this.sound) {
+        if (this.sound && useGlobalStoreUser.getState().getsoundActive()) {
             this.sound.play((success) => {
                 if (!success) {
                     console.log("Error al reproducir el sonido");
@@ -32,18 +33,20 @@ class SoundPlayer {
     }
 
     static correctIncorrect(isCorrect: boolean) {
-        if (isCorrect) {
-            this.soundCorrect.play((success) => {
-                if (!success) {
-                    console.log("Error al reproducir el sonido");
-                }
-            });
-        } else {
-            this.soundIncorrect.play((success) => {
-                if (!success) {
-                    console.log("Error al reproducir el sonido");
-                }
-            });
+        if (useGlobalStoreUser.getState().getsoundActive()) {
+            if (isCorrect) {
+                this.soundCorrect.play((success) => {
+                    if (!success) {
+                        console.log("Error al reproducir el sonido");
+                    }
+                });
+            } else {
+                this.soundIncorrect.play((success) => {
+                    if (!success) {
+                        console.log("Error al reproducir el sonido");
+                    }
+                });
+            }
         }
     }
 
