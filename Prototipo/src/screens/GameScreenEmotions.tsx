@@ -259,7 +259,6 @@ export const GameScreenEmotions = () => {
 
         setTimeout(() => {
             setIsModalVisible(false);
-
             // Si la ronda está completa, avanzar a la siguiente
             if (isCorrect && selectedCorrectImages.length + 1 >= correctsPerRound) {
                 setTimeout(() => {
@@ -317,7 +316,7 @@ export const GameScreenEmotions = () => {
                     return (
                         <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
                             <ImageButtonEmotion
-                                onPress={() => (!visibleTexts[item.name] && !roundCompleted) ? handleImagePress(item) : undefined}
+                                onPress={() => (!visibleTexts[item.imgName] && !roundCompleted) ? handleImagePress(item) : undefined}
                                 image={item.imgName}
                                 style={{
                                     borderColor: borderColor, // Color según selección
