@@ -18,7 +18,7 @@ const { height } = Dimensions.get('window');
 export const UserConfigScreen = () => {
 
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { userName, userAge, userGender, userId, setUserName, setUserAge, setUserGender, setUserId, getUserAge, getUserGender, getUserId, getUserName } = useGlobalStoreUser();
+  const { userName, userAge, userGender, userId, soundActive, setUserName, setUserAge, setUserGender, setUserId, setsoundActive, getUserAge, getUserGender, getUserId, getUserName, getsoundActive } = useGlobalStoreUser();
 
   useEffect(() => {
     navigation.setOptions({
@@ -40,6 +40,7 @@ export const UserConfigScreen = () => {
       userAge: getUserAge(),
       userGender: getUserGender(),
       userId: getUserId(),
+      soundActive: getsoundActive(),
     };
 
     const logCreation: LogChangePlayer = {
@@ -60,7 +61,7 @@ export const UserConfigScreen = () => {
 
       <Text style={globalStyles.title}>Configurar Usuario</Text>
 
-      <Text style={styles.configText}> Loggeado actualmente como: {userName}, {userAge}, {userGender}, {userId} </Text>
+      <Text style={styles.configText}> Loggeado actualmente como: {userName}, {userAge}, {userGender}, {soundActive}, {userId} </Text>
 
       <View style={styles.column}>
         {/* Name */}
