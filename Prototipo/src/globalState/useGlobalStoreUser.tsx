@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { create } from 'zustand';
 
 enum Genders{
@@ -11,6 +12,7 @@ interface UserState {
   userAge: number,
   userGender: Genders,
   userId: string,
+  soundActive: boolean,
 
   setUserName: (name: string) => void;
   getUserName: () => string;
@@ -20,6 +22,8 @@ interface UserState {
   getUserGender: () => Genders;
   setUserId: (id: string) => void;
   getUserId: () => string;
+  setsoundActive: (active:  boolean) => void;
+  getsoundActive: () => boolean;
 }
 
 // Crea el store global con Zustand
@@ -28,6 +32,7 @@ const useGlobalStoreUser = create<UserState>((set) => ({
   userAge: 8,
   userGender: Genders.NonBinary,
   userId: "esto no es un id",
+  soundActive: true,
 
   setUserName: (name) => set(() => ({ userName: name })),
    getUserName: () => {
@@ -44,6 +49,10 @@ const useGlobalStoreUser = create<UserState>((set) => ({
   setUserId: (id) => set(() => ({ userId: id })),
    getUserId: () => {
     return useGlobalStoreUser.getState().userId;
+  },
+  setsoundActive: (active) => set(() => ({ soundActive: active })),
+   getsoundActive: () => {
+    return useGlobalStoreUser.getState().soundActive;
   },
 }));
 

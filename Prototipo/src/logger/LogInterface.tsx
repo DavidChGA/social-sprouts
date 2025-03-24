@@ -1,12 +1,13 @@
+/* eslint-disable prettier/prettier */
 import { Genders } from "../globalState/useGlobalStoreUser";
 import { gameTypes, logTypes, objectTypes } from "./LogEnums";
 
 interface Log {
-    action: logTypes;
-    object: objectTypes;
-    timestamp: string;
-    otherInfo: string;
-  }
+  action: logTypes;
+  object: objectTypes;
+  timestamp: string;
+  otherInfo: string;
+}
 
 interface LogGame extends Log {
   playerId: string;
@@ -14,7 +15,7 @@ interface LogGame extends Log {
 }
 
 interface LogInitializedGame extends LogGame {
-    category: string;
+  category: string;
 }
 
 interface LogInitializedVocabulary extends LogInitializedGame {
@@ -55,11 +56,12 @@ interface LogChangePlayer extends Log {
   player: userData;
 }
 
-interface userData{
-    userName: string;
-    userAge: number;
-    userGender: Genders;
-    userId: string
+interface userData {
+  userName: string;
+  userAge: number;
+  userGender: Genders;
+  userId: string;
+  soundActive: boolean;
 }
 
-export {Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect, LogInitializedVocabulary, LogInitializedSequence, LogChangePlayer, userData, LogInitializedEmotions};
+export { Log, LogCompleted, LogInitializedGame, LogInitializedRound, LogProgressed, LogSelect, LogInitializedVocabulary, LogInitializedSequence, LogChangePlayer, userData, LogInitializedEmotions };
