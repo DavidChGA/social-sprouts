@@ -50,7 +50,10 @@ export const HomeScreen = () => {
 
         <View style={homeStyles.buttonColumn}>
           <PrimaryButton
-            onPress={() => navigation.navigate('ModeSelection')}
+            onPress={() => {
+              setIsInSession(false);
+              navigation.navigate('ModeSelection');
+            }}
             label="Modo minijuegos"
           />
 
