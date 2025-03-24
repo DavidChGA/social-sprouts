@@ -46,8 +46,8 @@ export const GameScreenVocabulary = () => {
 
     const route = useRoute<GameScreenVocabularyRouteProp>();
     const category:string = route.params.category;
-    const rounds = parseInt(String(route.params.rounds));
-    const imagesPerRound = parseInt(String(route.params.imagesPerRound));
+    const rounds = parseInt(String(route.params.rounds), 10);
+    const imagesPerRound = parseInt(String(route.params.imagesPerRound), 10);
 
     const { userId } = useGlobalStoreUser();
 
@@ -60,7 +60,12 @@ export const GameScreenVocabulary = () => {
 
     // Función para mezclar un array (barajar)
     const shuffleArray = (array: any[]) => {
-        return array.sort(() => Math.random() - 0.5);
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
     };
 
     // Cargar las imágenes de la siguiente ronda
