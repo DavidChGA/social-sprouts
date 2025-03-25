@@ -88,8 +88,8 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
     modules: [
       { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' } as VocabularyConfig,
       { alias: 'Predeterminado', sequence: 'Lavado de manos' } as SequenceConfig,
-      { alias: 'Predeterminado', emotion: 'Felicidad', imagesPerRound: '3', correctsPerRound: '1', rounds: '3' } as EmotionsConfig
-    ]
+      { alias: 'Predeterminado', emotion: 'Felicidad', imagesPerRound: '3', correctsPerRound: '1', rounds: '3' } as EmotionsConfig,
+    ],
   },
   currentModuleIndex: -1,
 
@@ -100,12 +100,12 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
       if (nextIndex < state.session.modules.length) {
         const nextModule = state.session.modules[nextIndex];
 
-        if ('category' in nextModule) 
-          navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
-        else if ('sequence' in nextModule) 
-          navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']); 
+        if ('category' in nextModule)
+          {navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);}
+        else if ('sequence' in nextModule)
+          {navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);}
         else if ('emotion' in nextModule)
-          navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);
+          {navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);}
 
         return { currentModuleIndex: nextIndex };
       } else {
@@ -116,7 +116,7 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
           action: logTypes.Completed,
           object: objectTypes.Session,
           timestamp: new Date().toISOString(),
-          otherInfo: ''
+          otherInfo: '',
         };
 
         logger.log(logFinSesion);

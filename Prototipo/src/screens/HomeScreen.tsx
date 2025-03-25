@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { globalStyles } from '../theme/theme';
@@ -30,7 +30,7 @@ export const HomeScreen = () => {
       action: logTypes.Initialized,
       object: objectTypes.Session,
       timestamp: new Date().toISOString(),
-      otherInfo: ''
+      otherInfo: '',
     };
 
     logger.log(logInicioSesion);
@@ -53,13 +53,15 @@ export const HomeScreen = () => {
             label="Modo partida"
           />
 
-          <Pressable
-            onPress={() => navigation.navigate('UserConfig')}>
-            <Image
-              source={require('../assets/img/usuario.png')}
-              style={homeStyles.icon}
-            />
-          </Pressable>
+          <View style={{ flexDirection: 'row', marginTop: '10%' }}>
+            <Pressable style={{marginHorizontal: '6%'}}
+              onPress={() => navigation.navigate('SetupSession')}>
+              <Image
+                source={require('../assets/img/configuraciones.png')}
+                style={homeStyles.icon}
+              />
+            </Pressable>
+          </View>
         </View>
 
         <View style={homeStyles.buttonColumn}>
@@ -71,17 +73,26 @@ export const HomeScreen = () => {
             label="Modo minijuegos"
           />
 
-          <Pressable
-            onPress={() => navigation.navigate('Logs')}>
-            <Image
-              source={require('../assets/img/informacion.png')}
-              style={homeStyles.icon}
-            />
-          </Pressable>
+          <View style={{ flexDirection: 'row', marginTop: '10%', justifyContent: 'space-between'}}>
+            <Pressable style={{marginHorizontal: '6%'}}
+              onPress={() => navigation.navigate('UserConfig')}>
+              <Image
+                source={require('../assets/img/usuario.png')}
+                style={homeStyles.icon}
+              />
+            </Pressable>
 
+            <Pressable style={{marginHorizontal: '6%'}}
+              onPress={() => navigation.navigate('Logs')}>
+              <Image
+                source={require('../assets/img/informacion.png')}
+                style={homeStyles.icon}
+              />
+            </Pressable>
+          </View>
         </View>
       </View>
-    </View>
+    </View >
   );
 };
 

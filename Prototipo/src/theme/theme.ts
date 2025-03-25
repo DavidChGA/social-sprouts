@@ -36,6 +36,7 @@ export const globalStyles = StyleSheet.create({
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
+        paddingTop: '2%',
     },
 
     subtitle: {
