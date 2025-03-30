@@ -4,8 +4,8 @@ El Trastorno del Espectro Autista (TEA) está compuesto por un conjunto amplio d
 
 # Manual de instalación para Android
 
-## 1.- Descargar la última versión de la APK publicada en este repositorio en el dispositivo Android que desee.
-## 2.- 
+### 1.- Descargar la última versión de la APK publicada en este repositorio en el dispositivo Android que desee.
+### 2.- 
 
 # Manual de despliegue
 
