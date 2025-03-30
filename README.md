@@ -5,7 +5,6 @@ El Trastorno del Espectro Autista (TEA) está compuesto por un conjunto amplio d
 # Manual de instalación para Android
 
 ### 1.- Descargar la última versión de la APK publicada en este repositorio en el dispositivo Android que desee.
-### 2.- 
 
 # Manual de despliegue
 
@@ -14,23 +13,25 @@ El código de esta aplicación se generó empleando React Native sin un framewor
 ## 1.- [Configurar el entorno de desarrollo](https://reactnative.dev/docs/set-up-your-environment?platform=android&os=windows) acorde con lo que deseamos.
 
 ## 2.- Descargar o clonar el código fuente
-       Si el código está en un repositorio, clónalo usando:  
-       ```sh
+Si el código está en un repositorio, clónalo usando:  
+```
        git clone <URL_DEL_REPO>
-       ```
-       Luego entra en la carpeta del proyecto:  
-       ```sh
+```
+
+Luego entra en la carpeta del proyecto:  
+```
        cd nombre-del-proyecto
-       ```
+```
        
 ## 3.- Instalar dependencias  
-       Ejecuta el siguiente comando para instalar las dependencias del proyecto:  
-       ```sh
+Ejecuta el siguiente comando para instalar las dependencias del proyecto:  
+```
        npm install
-       ```
+```
 
 ## 4.- Iniciar Metro Bundler y ejecutar la aplicación
-       (Asegúrate de tener un emulador corriendo o un dispositivo conectado con `adb devices`)
-       ```sh
+Asegúrate de tener un emulador corriendo o un dispositivo conectado con `adb devices`.
+
+```
        npm run android
-       ```
+```
