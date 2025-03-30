@@ -3,9 +3,20 @@ import { Log } from './LogInterface';
 
 class Logger {
   private static instance: Logger;
-  private logFilePath = `${RNFS.DocumentDirectoryPath}/app.log`;
+  private logFilePath: string;
 
-  // es un singletion
+  private constructor() {
+    this.changeFilePath();
+  }
+
+  private changeFilePath(): void {
+    const fecha = new Date();
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const anio = fecha.getFullYear();
+    this.logFilePath = `${RNFS.DocumentDirectoryPath}/${dia}-${mes}-${anio}.log`;
+  }
+
   static getInstance(): Logger {
     if (!Logger.instance) {
       Logger.instance = new Logger();
@@ -14,11 +25,11 @@ class Logger {
   }
 
   async log(log: Log): Promise<void> {
-
-    const json =  JSON.stringify(log, null, 2);
+    this.changeFilePath(); //Compruebo que el archivo es el último día
+    const json = JSON.stringify(log, null, 2);
 
     try {
-      console.log('`[LOG]', json);
+      console.log('[LOG]', json);
       await RNFS.appendFile(this.logFilePath, json + '\n', 'utf8');
     } catch (error) {
       console.error('Error guardando log:', error);
@@ -26,6 +37,7 @@ class Logger {
   }
 
   async readLog(): Promise<string> {
+    this.changeFilePath();
     try {
       return await RNFS.readFile(this.logFilePath, 'utf8');
     } catch (error) {
