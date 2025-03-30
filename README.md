@@ -11,7 +11,7 @@ El Trastorno del Espectro Autista (TEA) está compuesto por un conjunto amplio d
 
 El código de esta aplicación se generó empleando React Native sin un framework y son los pasos necesarios para implementar y lanzar la aplicación los que se describen a continuación. 
 
-## 1.- [Configurar el entorno de desarrollo] (https://reactnative.dev/docs/set-up-your-environment?platform=android&os=windows) acorde con lo que deseamos.
+## 1.- [Configurar el entorno de desarrollo](https://reactnative.dev/docs/set-up-your-environment?platform=android&os=windows) acorde con lo que deseamos.
 
 ## 2.- Descargar o clonar el código fuente
        Si el código está en un repositorio, clónalo usando:  
