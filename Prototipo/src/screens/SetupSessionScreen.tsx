@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, Dimensions, FlatList, Pressable } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, FlatList, Pressable, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
 import { globalStyles } from '../theme/theme';
@@ -12,15 +12,7 @@ export const SetupSessionScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const {
         session,
-        vocabularyConfigs,
-        emotionsConfigs,
-        sequenceConfigs,
-        addVocabularyConfig,
-        addEmotionsConfig,
-        addSequenceConfig,
-        selectVocabularyConfig,
-        selectEmotionsConfig,
-        selectSequenceConfig,
+        removeModuleFromSession
     } = useGlobalStoreSetup();
 
     useEffect(() => {
@@ -31,50 +23,21 @@ export const SetupSessionScreen = () => {
 
     //VocabularySetup
     const navigateToVocabularySetup = () => {
-        navigation.navigate('SetupVocabulary', {
-            onConfigComplete: (config: any) => {
-
-                // Añadimos la config
-                addVocabularyConfig(config);
-
-                //Seleccionamos la config
-                selectVocabularyConfig(config.alias);
-
-            },
-        });
-    };
-
-    // EmotionsSetup
-    const navigateToEmotionsSetup = () => {
-        navigation.navigate('SetupEmotions', {
-            onConfigComplete: (config: any) => {
-
-                // Añadimos la config
-                addEmotionsConfig(config);
-
-                //Seleccionamos la config
-                selectEmotionsConfig(config.alias);
-            },
-        });
+        navigation.navigate('SetupVocabulary', { addInSession: true });
     };
 
     // SequenceSetup
     const navigateToSequenceSetup = () => {
-        navigation.navigate('SetupSequence', {
-            onConfigComplete: (config: any) => {
+        navigation.navigate('SetupSequence', { addInSession: true });
+    };
 
-                // Añadimos la config
-                addSequenceConfig(config);
-
-                // Seleccionamos la config
-                selectSequenceConfig(config.alias);
-
-            },
-        });
+    // EmotionsSetup
+    const navigateToEmotionsSetup = () => {
+        navigation.navigate('SetupEmotions', { addInSession: true });
     };
 
     // Render del list item
-    const renderSessionItem = ({ item }: { item: any }) => {
+    const renderSessionItem = ({ item }) => {
         let displayName = '';
         let type = '';
 
@@ -90,16 +53,27 @@ export const SetupSessionScreen = () => {
         }
 
         return (
-            <Pressable
-                style={[
-                    styles.sessionItem,
-                    type === 'vocabulary' && styles.vocabularySession,
-                    type === 'emotions' && styles.emotionsSession,
-                    type === 'sequence' && styles.sequenceSession,
-                ]}
-            >
-                <Text style={styles.sessionText}>{displayName}</Text>
-            </Pressable>
+            <View style={styles.sessionItemContainer}>
+                <Pressable
+                    style={[
+                        styles.sessionItem,
+                        type === 'vocabulary' && styles.vocabularySession,
+                        type === 'emotions' && styles.emotionsSession,
+                        type === 'sequence' && styles.sequenceSession,
+                        {display: 'flex', flex: 1}
+                    ]}
+                >
+                    <Text style={styles.sessionText}>{displayName}</Text>
+                </Pressable>
+
+                {/* Botón de eliminar */}
+                <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={() => removeModuleFromSession(item)}
+                >
+                    <Text style={styles.deleteButtonText}>✖</Text>
+                </TouchableOpacity>
+            </View>
         );
     };
 
@@ -110,7 +84,7 @@ export const SetupSessionScreen = () => {
             <View style={styles.contentContainer}>
                 {/* Session List */}
                 <View style={styles.listContainer}>
-                    <Text style={globalStyles.subtitle}>Sesiones Programadas</Text>
+                    <Text style={globalStyles.subtitle}>Juegos Programados</Text>
                     <FlatList
                         data={session.modules}
                         renderItem={renderSessionItem}
@@ -130,21 +104,21 @@ export const SetupSessionScreen = () => {
                         style={[styles.setupButton, styles.vocabularyButton]}
                         onPress={navigateToVocabularySetup}
                     >
-                        <Text style={styles.setupButtonText}>Configurar Vocabulario</Text>
-                    </Pressable>
-
-                    <Pressable
-                        style={[styles.setupButton, styles.emotionsButton]}
-                        onPress={navigateToEmotionsSetup}
-                    >
-                        <Text style={styles.setupButtonText}>Configurar Emociones</Text>
+                        <Text style={styles.setupButtonText}>Añadir Vocabulario</Text>
                     </Pressable>
 
                     <Pressable
                         style={[styles.setupButton, styles.sequenceButton]}
                         onPress={navigateToSequenceSetup}
                     >
-                        <Text style={styles.setupButtonText}>Configurar Secuencia</Text>
+                        <Text style={styles.setupButtonText}>Añadir Secuencia</Text>
+                    </Pressable>
+
+                    <Pressable
+                        style={[styles.setupButton, styles.emotionsButton]}
+                        onPress={navigateToEmotionsSetup}
+                    >
+                        <Text style={styles.setupButtonText}>Añadir Emociones</Text>
                     </Pressable>
                 </View>
             </View>
@@ -219,6 +193,24 @@ const styles = StyleSheet.create({
     setupButtonText: {
         color: 'white',
         fontSize: height * 0.03,
+        fontWeight: 'bold',
+    },
+    sessionItemContainer: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        marginBottom: 5
+    },
+    deleteButton: {
+        backgroundColor: '#ff4d4d',
+        padding: 5,
+        borderRadius: 5,
+        marginLeft: 10,
+        width: '7%',
+        alignSelf: 'center'
+    },
+    deleteButtonText: {
+        color: '#fff',
+        fontSize: 16,
         fontWeight: 'bold',
     },
 });

@@ -18,20 +18,26 @@ import { SetupSessionScreen } from '../screens/SetupSessionScreen';
 export type RootStackParams = {
   Home: undefined;
   SetupSession: undefined;
-  SetupVocabulary: undefined;
+  SetupVocabulary?: {
+    addInSession: boolean;
+  };
   GameVocabulary: {
     category: string;
     imagesPerRound: number;
     rounds: number;
   };
-  SetupSequence: undefined;
+  SetupSequence?: {
+    addInSession: boolean;
+  };
   GameSequence: {
     sequence: string;
   };
   GameSequencePreview: {
     sequence: string;
   };
-  SetupEmotions: undefined;
+  SetupEmotions?: {
+    addInSession: boolean;
+  };
   GameEmotions: {
     emotion: string;
     imagesPerRound: number;

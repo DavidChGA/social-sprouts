@@ -11,13 +11,15 @@ import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 
 const { height } = Dimensions.get('window');
 
-export const SetupSequenceScreen = () => {
+export const SetupSequenceScreen = ({ route }) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const addInSession = route.params;
   const {
     selectedSequenceConfig,
     defaultSequenceConfig,
     addSequenceConfig,
     selectSequenceConfig,
+    addModuleToSession,
   } = useGlobalStoreSetup();
 
   // Estados locales
@@ -56,6 +58,9 @@ export const SetupSequenceScreen = () => {
     // Guarda la nueva configuración y la selecciona automáticamente
     addSequenceConfig(newConfig);
     selectSequenceConfig(alias);
+    if(addInSession){
+      addModuleToSession(newConfig);
+    }
     navigation.goBack();
   };
 

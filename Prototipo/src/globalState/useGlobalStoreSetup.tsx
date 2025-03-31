@@ -33,10 +33,9 @@ interface EmotionsConfig extends Config {
 
 interface SetupState {
   session: Session;
-  isInSession: Boolean,
+  isInSession: boolean,
   currentModuleIndex: number;
   nextModule: (navigate: NavigationProp<RootStackParams>['navigate']) => void;
-  setIsInSession: (value: boolean) => void;
 
   vocabularyConfigs: VocabularyConfig[];
   sequenceConfigs: SequenceConfig[];
@@ -68,6 +67,13 @@ interface SetupState {
   removeEmotionsConfig: (alias: string) => void;
   selectEmotionsConfig: (alias: string) => void; //select
 
+  // Actions
+  setIsInSession: (value: boolean) => void;
+  setSessionModules: (modules: (VocabularyConfig | SequenceConfig | EmotionsConfig)[]) => void;
+  addModuleToSession: (module: VocabularyConfig | SequenceConfig | EmotionsConfig) => void;
+  removeModuleFromSession: (module: VocabularyConfig | SequenceConfig | EmotionsConfig) => void;
+  resetSession: () => void;
+
 }
 
 const useGlobalStoreSetup = create<SetupState>((set, get) => ({
@@ -93,19 +99,15 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
   },
   currentModuleIndex: -1,
 
-
   nextModule: (navigate) => {
     set((state) => {
       const nextIndex = state.currentModuleIndex + 1;
       if (nextIndex < state.session.modules.length) {
         const nextModule = state.session.modules[nextIndex];
 
-        if ('category' in nextModule)
-          {navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);}
-        else if ('sequence' in nextModule)
-          {navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);}
-        else if ('emotion' in nextModule)
-          {navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);}
+        if ('category' in nextModule) { navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']); }
+        else if ('sequence' in nextModule) { navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']); }
+        else if ('emotion' in nextModule) { navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']); }
 
         return { currentModuleIndex: nextIndex };
       } else {
@@ -129,8 +131,6 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
       }
     });
   },
-
-  setIsInSession: (value: boolean) => set({ isInSession: value }),
 
   // VOCABULARIO
   addVocabularyConfig: (config) =>
@@ -209,6 +209,32 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
         (config) => config.alias === alias
       ) || null,
     })),
+
+  //SESIÓN
+  setIsInSession: (value: boolean) => set({ isInSession: value }),
+  setSessionModules: (modules) => set({ session: { modules } }),
+
+  addModuleToSession: (module) =>
+    set((state) => ({ session: { modules: [...state.session.modules, module] } })),
+
+  removeModuleFromSession: (module) =>
+    set((state) => ({
+      session: {
+        modules: state.session.modules.filter((mod) => mod !== module),
+      },
+    })),
+
+  resetSession: () =>
+    set({
+      session: {
+        modules: [
+          get().defaultVocabularyConfig,
+          get().defaultSequenceConfig,
+          get().defaultEmotionsConfig,
+        ],
+      },
+      currentModuleIndex: -1,
+    }),
 
 }));
 
