@@ -45,7 +45,8 @@ export type RootStackParams = {
     rounds: number;
   };
   GameOver: {
-    attempts: number;
+    correctAnswers: number;
+    wrongAnswers: number;
     roundsPlayed: number;
   };
   Settings: undefined;

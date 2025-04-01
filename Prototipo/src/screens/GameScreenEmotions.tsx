@@ -52,7 +52,8 @@ export const GameScreenEmotions = () => {
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
     const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
-    const [attempts, setAttempts] = useState(0);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
+    const [wrongAnswers, setWrongAnswers] = useState(0);
 
 
     const { userId } = useGlobalStoreUser();
@@ -138,7 +139,7 @@ export const GameScreenEmotions = () => {
         const shuffledOtherImages = shuffleArray([...allOtherEmotionImages]);
 
         // Índices para seguir qué imágenes hemos usado
-        let emotionImageIndex:number = 0;
+        let emotionImageIndex: number = 0;
         let otherImageIndex = 0;
 
         // Para cada ronda
@@ -181,7 +182,6 @@ export const GameScreenEmotions = () => {
 
     // Manejar la selección de una imagen
     const handleImagePress = (item: any) => {
-        setAttempts((prevAttempts) => prevAttempts + 1);
 
         // Verificar si es una de las imágenes correctas y si no ha sido seleccionada ya
         const isCorrectImage = correctImages.some(img => img.name === item.name);
@@ -216,11 +216,13 @@ export const GameScreenEmotions = () => {
             logTryPInRound.otherInfo = "try to find the next img";
             logger.log(logTry);
             logger.log(logTryPInRound);
+            setCorrectAnswers((prevCorrectAnswers) => prevCorrectAnswers + 1);
         } else {
             logTry.result = false;
             logTryPInRound.otherInfo = "retry round";
             logger.log(logTry);
             logger.log(logTryPInRound);
+            setWrongAnswers((prevWrongAnswers) => prevWrongAnswers + 1);
         }
 
         setImageBorders((prevBorders) => ({
@@ -292,7 +294,8 @@ export const GameScreenEmotions = () => {
                 nextModule(navigation.navigate);
             } else {
                 navigation.navigate('GameOver', {
-                    attempts: attempts + 1,
+                    correctAnswers: correctAnswers,
+                    wrongAnswers: wrongAnswers,
                     roundsPlayed: rounds,
                 });
             }

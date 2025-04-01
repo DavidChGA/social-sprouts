@@ -49,7 +49,8 @@ export const GameScreenSequence = () => {
     const [currentImages, setCurrentImages] = useState<any[]>([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-    const [attempts, setAttempts] = useState(0);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
+    const [wrongAnswers, setWrongAnswers] = useState(0);
     const [modalImage, setModalImage] = useState('');
     const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [nextId, setNextId] = useState(1);
@@ -101,8 +102,6 @@ export const GameScreenSequence = () => {
 
     // Manejar la selección de una imagen
     const handleImagePress = async (id: number, name: string) => {
-
-        setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = id === nextId;
 
         const logTry: LogSelect = {
@@ -135,6 +134,10 @@ export const GameScreenSequence = () => {
                 ...prevBorders,
                 [name]: 'forestgreen', // Verde si es correcta
             }));
+            setCorrectAnswers((prevCorrectAnswers) => prevCorrectAnswers + 1);
+        }
+        else {
+            setWrongAnswers((prevWrongAnswers) => prevWrongAnswers + 1);
         }
 
         //Compruebo final de secuencia
@@ -156,7 +159,8 @@ export const GameScreenSequence = () => {
                 nextModule(navigation.navigate);
             } else {
                 navigation.navigate('GameOver', {
-                    attempts: attempts + 1,
+                    correctAnswers: correctAnswers,
+                    wrongAnswers: wrongAnswers,
                     roundsPlayed: 1,
                 });
             }
@@ -186,7 +190,7 @@ export const GameScreenSequence = () => {
                                     borderRadius: 10,
                                 }}
                             />
-                            <Text style={{  fontSize: height * 0.025, color: globalColors.dark, textAlign: 'center' }}>{item.name}</Text>
+                            <Text style={{ fontSize: height * 0.025, color: globalColors.dark, textAlign: 'center' }}>{item.name}</Text>
                         </View>
                     );
                 })}

@@ -42,7 +42,8 @@ export const GameScreenVocabulary = () => {
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
     const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
-    const [attempts, setAttempts] = useState(0);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
+    const [wrongAnswers, setWrongAnswers] = useState(0);
 
     const route = useRoute<GameScreenVocabularyRouteProp>();
     const category:string = route.params.category;
@@ -143,7 +144,6 @@ export const GameScreenVocabulary = () => {
 
     // Manejar la selección de una imagen
     const handleImagePress = (name: string) => {
-        setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = name === correctImage.name;
 
         const logTry: LogSelect = {
@@ -173,11 +173,13 @@ export const GameScreenVocabulary = () => {
             logger.log(logTry);
             logger.log(logTryP);
             setRoundCompleted(true);
+            setCorrectAnswers((prevCorrectAnswers) => prevCorrectAnswers + 1);
         } else {
             logTry.result = false;
             logTryP.otherInfo = "retry round";
             logger.log(logTry);
             logger.log(logTryP);
+            setWrongAnswers((prevWrongAnswers) => prevWrongAnswers + 1);
         }
 
         SoundPlayer.correctIncorrect(isCorrect);
@@ -225,7 +227,8 @@ export const GameScreenVocabulary = () => {
                 nextModule(navigation.navigate);
             } else {
                 navigation.navigate('GameOver', {
-                    attempts: attempts + 1,
+                    correctAnswers: correctAnswers,
+                    wrongAnswers: wrongAnswers,
                     roundsPlayed: rounds,
                 });
             }
