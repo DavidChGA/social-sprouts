@@ -122,7 +122,7 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
 
         return { currentModuleIndex: nextIndex };
       } else {
-        //Falta
+        state.setIsInSession(false);
 
         const { correctAnswersSession, wrongAnswersSession, roundsPlayedSession, setCorrectAnswersSession, setWrongAnswersSession, setRoundsPlayedSession } = get();
 
