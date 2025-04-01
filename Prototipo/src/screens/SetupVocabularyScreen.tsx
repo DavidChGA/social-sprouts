@@ -11,14 +11,16 @@ import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 
 const { height } = Dimensions.get('window');
 
-export const SetupVocabularyScreen = () => {
+export const SetupVocabularyScreen = ({ route }) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const addInSession = route.params;
   const {
     vocabularyConfigs,
     selectedVocabularyConfig,
     defaultVocabularyConfig,
     addVocabularyConfig,
     selectVocabularyConfig,
+    addModuleToSession,
   } = useGlobalStoreSetup();
 
   // Estados locales
@@ -96,6 +98,9 @@ export const SetupVocabularyScreen = () => {
 
     addVocabularyConfig(newConfig);
     selectVocabularyConfig(alias);
+    if(addInSession){
+      addModuleToSession(newConfig);
+    }
     navigation.goBack();
   };
 
@@ -124,7 +129,7 @@ export const SetupVocabularyScreen = () => {
             labelField="label"
             valueField="value"
             placeholder="Selecciona una configuración"
-            value={activeConfig.alias}
+            value={alias}
             onChange={(item) => {
               if (item.value === 'Nueva configuración') {
                 setAlias('');

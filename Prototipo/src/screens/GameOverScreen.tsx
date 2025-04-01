@@ -12,7 +12,7 @@ import type {RootStackParams} from '../routes/StackNavigator';
 
 export const GameOverScreen = ({ route }) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { attempts, roundsPlayed } = route.params;
+  const { correctAnswers, wrongAnswers, roundsPlayed } = route.params;
 
   useEffect(() => {
     navigation.setOptions({
@@ -25,7 +25,8 @@ export const GameOverScreen = ({ route }) => {
 
         <Text style={globalStyles.title}>¡Juego Terminado!</Text>
         <Text style={globalStyles.title}>Rondas Jugadas: {roundsPlayed}</Text>
-        <Text style={globalStyles.title}>Intentos Realizados: {attempts}</Text>
+        <Text style={globalStyles.title}>Respuestas correctas: {correctAnswers}</Text>
+        <Text style={globalStyles.title}>Respuestas incorrectas: {wrongAnswers}</Text>
 
       <PrimaryButton
         onPress={() => navigation.dispatch(StackActions.popToTop())}

@@ -13,23 +13,31 @@ import GameScreenSequencePreview from '../screens/GameScreenSequencePreview';
 import { GameScreenSequence } from '../screens/GameScreenSequence';
 import { SetupEmotionsScreen } from '../screens/SetupEmotionsScreen';
 import { GameScreenEmotions } from '../screens/GameScreenEmotions';
+import { SetupSessionScreen } from '../screens/SetupSessionScreen';
 
 export type RootStackParams = {
   Home: undefined;
-  SetupVocabulary: undefined;
+  SetupSession: undefined;
+  SetupVocabulary?: {
+    addInSession: boolean;
+  };
   GameVocabulary: {
     category: string;
     imagesPerRound: number;
     rounds: number;
   };
-  SetupSequence: undefined;
+  SetupSequence?: {
+    addInSession: boolean;
+  };
   GameSequence: {
     sequence: string;
   };
   GameSequencePreview: {
     sequence: string;
   };
-  SetupEmotions: undefined;
+  SetupEmotions?: {
+    addInSession: boolean;
+  };
   GameEmotions: {
     emotion: string;
     imagesPerRound: number;
@@ -37,7 +45,8 @@ export type RootStackParams = {
     rounds: number;
   };
   GameOver: {
-    attempts: number;
+    correctAnswers: number;
+    wrongAnswers: number;
     roundsPlayed: number;
   };
   Settings: undefined;
@@ -59,6 +68,7 @@ export const StackNavigator = () => {
       },
     }}>
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="SetupSession" component={SetupSessionScreen} />
       <Stack.Screen name="SetupVocabulary" component={SetupVocabularyScreen} />
       <Stack.Screen name="GameVocabulary" component={GameScreenVocabulary} />
       <Stack.Screen name="SetupSequence" component={SetupSequenceScreen} />

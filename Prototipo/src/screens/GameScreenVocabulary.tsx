@@ -30,7 +30,7 @@ interface Round {
 export const GameScreenVocabulary = () => {
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
-    const { isInSession } = useGlobalStoreSetup(state => state);
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession} = useGlobalStoreSetup(state => state);
     const { nextModule } = useGlobalStoreSetup(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
@@ -42,12 +42,13 @@ export const GameScreenVocabulary = () => {
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
     const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
-    const [attempts, setAttempts] = useState(0);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
+    const [wrongAnswers, setWrongAnswers] = useState(0);
 
     const route = useRoute<GameScreenVocabularyRouteProp>();
     const category:string = route.params.category;
-    const rounds = parseInt(String(route.params.rounds));
-    const imagesPerRound = parseInt(String(route.params.imagesPerRound));
+    const rounds = parseInt(String(route.params.rounds), 10);
+    const imagesPerRound = parseInt(String(route.params.imagesPerRound), 10);
 
     const { userId } = useGlobalStoreUser();
 
@@ -60,7 +61,12 @@ export const GameScreenVocabulary = () => {
 
     // Función para mezclar un array (barajar)
     const shuffleArray = (array: any[]) => {
-        return array.sort(() => Math.random() - 0.5);
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
     };
 
     // Cargar las imágenes de la siguiente ronda
@@ -138,7 +144,6 @@ export const GameScreenVocabulary = () => {
 
     // Manejar la selección de una imagen
     const handleImagePress = (name: string) => {
-        setAttempts((prevAttempts) => prevAttempts + 1);
         const isCorrect = name === correctImage.name;
 
         const logTry: LogSelect = {
@@ -168,11 +173,13 @@ export const GameScreenVocabulary = () => {
             logger.log(logTry);
             logger.log(logTryP);
             setRoundCompleted(true);
+            setCorrectAnswers((prevCorrectAnswers) => prevCorrectAnswers + 1);
         } else {
             logTry.result = false;
             logTryP.otherInfo = "retry round";
             logger.log(logTry);
             logger.log(logTryP);
+            setWrongAnswers((prevWrongAnswers) => prevWrongAnswers + 1);
         }
 
         SoundPlayer.correctIncorrect(isCorrect);
@@ -217,10 +224,14 @@ export const GameScreenVocabulary = () => {
             logger.log(logFin);
 
             if (isInSession) {
+                setCorrectAnswersSession(correctAnswers +  1 + correctAnswersSession);
+                setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
+                setRoundsPlayedSession(rounds + roundsPlayedSession);
                 nextModule(navigation.navigate);
             } else {
                 navigation.navigate('GameOver', {
-                    attempts: attempts + 1,
+                    correctAnswers: correctAnswers + 1,
+                    wrongAnswers: wrongAnswers,
                     roundsPlayed: rounds,
                 });
             }

@@ -33,11 +33,11 @@ export const GameScreenEmotions = () => {
 
     const route = useRoute<GameScreenEmotionsRouteProp>();
     const emotion = route.params.emotion;
-    const imagesPerRound = parseInt(String(route.params.imagesPerRound));
-    const correctsPerRound = parseInt(String(route.params.correctsPerRound));
-    const rounds = parseInt(String(route.params.rounds));
+    const imagesPerRound = parseInt(String(route.params.imagesPerRound), 10);
+    const correctsPerRound = parseInt(String(route.params.correctsPerRound), 10);
+    const rounds = parseInt(String(route.params.rounds), 10);
 
-    const { isInSession } = useGlobalStoreSetup(state => state);
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession} = useGlobalStoreSetup(state => state);
     const { nextModule } = useGlobalStoreSetup(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
@@ -52,7 +52,8 @@ export const GameScreenEmotions = () => {
     const [visibleTexts, setVisibleTexts] = useState<Record<string, boolean>>({});
     const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [roundsData, setRoundsData] = useState<any[]>([]);
-    const [attempts, setAttempts] = useState(0);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
+    const [wrongAnswers, setWrongAnswers] = useState(0);
 
 
     const { userId } = useGlobalStoreUser();
@@ -66,7 +67,12 @@ export const GameScreenEmotions = () => {
 
     // Función para mezclar un array (barajar)
     const shuffleArray = (array: any[]) => {
-        return array.sort(() => Math.random() - 0.5);
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+        return newArray;
     };
 
     // Cargar las imágenes de la siguiente ronda
@@ -133,7 +139,7 @@ export const GameScreenEmotions = () => {
         const shuffledOtherImages = shuffleArray([...allOtherEmotionImages]);
 
         // Índices para seguir qué imágenes hemos usado
-        let emotionImageIndex:number = 0;
+        let emotionImageIndex: number = 0;
         let otherImageIndex = 0;
 
         // Para cada ronda
@@ -176,7 +182,6 @@ export const GameScreenEmotions = () => {
 
     // Manejar la selección de una imagen
     const handleImagePress = (item: any) => {
-        setAttempts((prevAttempts) => prevAttempts + 1);
 
         // Verificar si es una de las imágenes correctas y si no ha sido seleccionada ya
         const isCorrectImage = correctImages.some(img => img.name === item.name);
@@ -211,11 +216,13 @@ export const GameScreenEmotions = () => {
             logTryPInRound.otherInfo = "try to find the next img";
             logger.log(logTry);
             logger.log(logTryPInRound);
+            setCorrectAnswers((prevCorrectAnswers) => prevCorrectAnswers + 1);
         } else {
             logTry.result = false;
             logTryPInRound.otherInfo = "retry round";
             logger.log(logTry);
             logger.log(logTryPInRound);
+            setWrongAnswers((prevWrongAnswers) => prevWrongAnswers + 1);
         }
 
         setImageBorders((prevBorders) => ({
@@ -254,7 +261,6 @@ export const GameScreenEmotions = () => {
 
         setTimeout(() => {
             setIsModalVisible(false);
-
             // Si la ronda está completa, avanzar a la siguiente
             if (isCorrect && selectedCorrectImages.length + 1 >= correctsPerRound) {
                 setTimeout(() => {
@@ -285,10 +291,14 @@ export const GameScreenEmotions = () => {
             logger.log(logFin);
 
             if (isInSession) {
+                setCorrectAnswersSession(correctAnswers + 1 + correctAnswersSession);
+                setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
+                setRoundsPlayedSession(rounds + roundsPlayedSession);
                 nextModule(navigation.navigate);
             } else {
                 navigation.navigate('GameOver', {
-                    attempts: attempts + 1,
+                    correctAnswers: correctAnswers + 1,
+                    wrongAnswers: wrongAnswers,
                     roundsPlayed: rounds,
                 });
             }
@@ -312,7 +322,7 @@ export const GameScreenEmotions = () => {
                     return (
                         <View key={index} style={{ alignItems: 'center', flexDirection: 'column', width: '17%', height: '100%' }}>
                             <ImageButtonEmotion
-                                onPress={() => (!visibleTexts[item.name] && !roundCompleted) ? handleImagePress(item) : undefined}
+                                onPress={() => (!visibleTexts[item.imgName] && !roundCompleted) ? handleImagePress(item) : undefined}
                                 image={item.imgName}
                                 style={{
                                     borderColor: borderColor, // Color según selección

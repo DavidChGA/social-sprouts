@@ -11,14 +11,16 @@ import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 
 const { height } = Dimensions.get('window');
 
-export const SetupEmotionsScreen = () => {
+export const SetupEmotionsScreen = ({ route }) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const addInSession = route.params;
   const {
     emotionsConfigs,
     selectedEmotionsConfig,
     defaultEmotionsConfig,
     addEmotionsConfig,
     selectEmotionsConfig,
+    addModuleToSession,
   } = useGlobalStoreSetup();
 
   // Estados locales
@@ -110,6 +112,9 @@ export const SetupEmotionsScreen = () => {
 
     addEmotionsConfig(newConfig);
     selectEmotionsConfig(alias);
+    if(addInSession){
+      addModuleToSession(newConfig);
+    }
     navigation.goBack();
   };
 
