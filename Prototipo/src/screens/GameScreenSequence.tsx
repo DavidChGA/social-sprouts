@@ -40,7 +40,7 @@ const shuffleArray = (array: any[]) => {
 
 export const GameScreenSequence = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
-    const { isInSession } = useGlobalStoreSetup(state => state);
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession} = useGlobalStoreSetup(state => state);
     const { nextModule } = useGlobalStoreSetup(state => state);
 
     const route = useRoute<GameScreenSequenceRouteProp>();
@@ -156,10 +156,13 @@ export const GameScreenSequence = () => {
             logger.log(logFin);
 
             if (isInSession) {
+                setCorrectAnswersSession(correctAnswers + 1 + correctAnswersSession);
+                setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
+                setRoundsPlayedSession(1 + roundsPlayedSession);
                 nextModule(navigation.navigate);
             } else {
                 navigation.navigate('GameOver', {
-                    correctAnswers: correctAnswers,
+                    correctAnswers: correctAnswers + 1,
                     wrongAnswers: wrongAnswers,
                     roundsPlayed: 1,
                 });

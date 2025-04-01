@@ -30,7 +30,7 @@ interface Round {
 export const GameScreenVocabulary = () => {
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
-    const { isInSession } = useGlobalStoreSetup(state => state);
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession} = useGlobalStoreSetup(state => state);
     const { nextModule } = useGlobalStoreSetup(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
@@ -224,10 +224,13 @@ export const GameScreenVocabulary = () => {
             logger.log(logFin);
 
             if (isInSession) {
+                setCorrectAnswersSession(correctAnswers +  1 + correctAnswersSession);
+                setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
+                setRoundsPlayedSession(rounds + roundsPlayedSession);
                 nextModule(navigation.navigate);
             } else {
                 navigation.navigate('GameOver', {
-                    correctAnswers: correctAnswers,
+                    correctAnswers: correctAnswers + 1,
                     wrongAnswers: wrongAnswers,
                     roundsPlayed: rounds,
                 });

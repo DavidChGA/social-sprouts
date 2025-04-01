@@ -35,6 +35,9 @@ interface SetupState {
   session: Session;
   isInSession: boolean,
   currentModuleIndex: number;
+  correctAnswersSession: number;
+  wrongAnswersSession: number;
+  roundsPlayedSession: number;
   nextModule: (navigate: NavigationProp<RootStackParams>['navigate']) => void;
 
   vocabularyConfigs: VocabularyConfig[];
@@ -69,6 +72,9 @@ interface SetupState {
 
   // Actions
   setIsInSession: (value: boolean) => void;
+  setCorrectAnswersSession: (value: number) => void;
+  setWrongAnswersSession: (value: number) => void;
+  setRoundsPlayedSession: (value: number) => void;
   setSessionModules: (modules: (VocabularyConfig | SequenceConfig | EmotionsConfig)[]) => void;
   addModuleToSession: (module: VocabularyConfig | SequenceConfig | EmotionsConfig) => void;
   removeModuleFromSession: (module: VocabularyConfig | SequenceConfig | EmotionsConfig) => void;
@@ -90,6 +96,11 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
   defaultEmotionsConfig: { alias: 'Predeterminado', emotion: 'Felicidad', imagesPerRound: '3', correctsPerRound: '1', rounds: '3' },
 
   isInSession: false,
+
+  correctAnswersSession: 0,
+  wrongAnswersSession: 0,
+  roundsPlayedSession: 0,
+
   session: {
     modules: [
       { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' } as VocabularyConfig,
@@ -113,6 +124,8 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
       } else {
         //Falta
 
+        const { correctAnswersSession, wrongAnswersSession, roundsPlayedSession, setCorrectAnswersSession, setWrongAnswersSession, setRoundsPlayedSession } = get();
+
         //LOG Final de sesion
         const logFinSesion: LogCompletedSession = {
           action: logTypes.Completed,
@@ -124,9 +137,15 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
         logger.log(logFinSesion);
 
         navigate('GameOver', {
-          attempts: state.session.modules.length,
-          roundsPlayed: state.session.modules.length,
+          correctAnswers: correctAnswersSession,
+          wrongAnswers: wrongAnswersSession,
+          roundsPlayed: roundsPlayedSession
         });
+
+        setCorrectAnswersSession(0);
+        setWrongAnswersSession(0);
+        setRoundsPlayedSession(0);
+
         return { currentModuleIndex: -1 };
       }
     });
@@ -212,6 +231,10 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
 
   //SESIÓN
   setIsInSession: (value: boolean) => set({ isInSession: value }),
+  setCorrectAnswersSession: (value: number) => set({ correctAnswersSession: value }),
+  setWrongAnswersSession: (value: number) => set({ wrongAnswersSession: value }),
+  setRoundsPlayedSession: (value: number) => set({ roundsPlayedSession: value }),
+
   setSessionModules: (modules) => set({ session: { modules } }),
 
   addModuleToSession: (module) =>
