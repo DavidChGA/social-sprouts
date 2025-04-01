@@ -82,13 +82,13 @@ export const HomeScreen = () => {
               />
             </Pressable>
 
-            <Pressable style={{marginHorizontal: '6%'}}
+            {/* <Pressable style={{marginHorizontal: '6%'}}
               onPress={() => navigation.navigate('Logs')}>
               <Image
                 source={require('../assets/img/informacion.png')}
                 style={homeStyles.icon}
               />
-            </Pressable>
+            </Pressable> */}
           </View>
         </View>
       </View>

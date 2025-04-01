@@ -2,9 +2,15 @@
 import { create } from 'zustand';
 
 enum Genders{
-  Male = "M",
-  Female = "F",
-  NonBinary = "NB"
+  Masculino = "M",
+  Femenino = "F",
+  'No Binario' = "NB"
+}
+
+enum Levels{
+  'Grado 1' = "G1",
+  'Grado 2' = "G2",
+  'Grado 3' = "G3"
 }
 
 interface UserState {
@@ -12,6 +18,7 @@ interface UserState {
   userAge: number,
   userGender: Genders,
   userId: string,
+  userLevel: Levels,
   soundActive: boolean,
 
   setUserName: (name: string) => void;
@@ -22,6 +29,8 @@ interface UserState {
   getUserGender: () => Genders;
   setUserId: (id: string) => void;
   getUserId: () => string;
+  setUserLevel: (level: Levels) => void;
+  getUserLevel: () => Levels;
   setsoundActive: (active:  boolean) => void;
   getsoundActive: () => boolean;
 }
@@ -30,8 +39,9 @@ interface UserState {
 const useGlobalStoreUser = create<UserState>((set) => ({
   userName: "UserTest",
   userAge: 8,
-  userGender: Genders.NonBinary,
+  userGender: Genders.Masculino,
   userId: "esto no es un id",
+  userLevel: Levels['Grado 1'],
   soundActive: true,
 
   setUserName: (name) => set(() => ({ userName: name })),
@@ -50,10 +60,14 @@ const useGlobalStoreUser = create<UserState>((set) => ({
    getUserId: () => {
     return useGlobalStoreUser.getState().userId;
   },
+  setUserLevel: (level) => set(() => ({ userLevel: level })),
+  getUserLevel: () => {
+   return useGlobalStoreUser.getState().userLevel;
+ },
   setsoundActive: (active) => set(() => ({ soundActive: active })),
    getsoundActive: () => {
     return useGlobalStoreUser.getState().soundActive;
   },
 }));
 
-export {useGlobalStoreUser, Genders};
+export {useGlobalStoreUser, Genders, Levels};

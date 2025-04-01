@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Genders } from "../globalState/useGlobalStoreUser";
+import { Genders, Levels } from "../globalState/useGlobalStoreUser";
 import { gameTypes, logTypes, objectTypes } from "./LogEnums";
 
 interface Log {
@@ -68,6 +68,7 @@ interface userData {
   userName: string;
   userAge: number;
   userGender: Genders;
+  userLevel: Levels;
   userId: string;
   soundActive: boolean;
 }

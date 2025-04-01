@@ -76,9 +76,9 @@ function GameModeSelectionScreen() {
         <SettingsButton onPress={() => navigation.navigate('SetupVocabulary')} />
       </View>
 
-      <Text style={styles.configText}>
+      {/* <Text style={styles.configText}>
         Configuración actual: {activeVocabularyConfig.alias}
-      </Text>
+      </Text> */}
 
       {/* EMOCIONES */}
       <Text style={globalStyles.subtitle}>EMOCIONES</Text>
@@ -118,9 +118,9 @@ function GameModeSelectionScreen() {
         />
         <SettingsButton onPress={() => navigation.navigate('SetupEmotions')} />
       </View>
-      <Text style={styles.configText}>
+      {/* <Text style={styles.configText}>
         Configuración actual: {activeEmotionsConfig.alias}
-      </Text>
+      </Text> */}
 
       <Text style={globalStyles.subtitle}>SECUENCIA</Text>
       <View style={styles.fila}>
@@ -134,9 +134,9 @@ function GameModeSelectionScreen() {
         />
         <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
       </View>
-      <Text style={styles.configText}>
+      {/* <Text style={styles.configText}>
         Configuración actual: {activeSequenceConfig.alias}
-      </Text>
+      </Text> */}
     </View>
   );
 }
