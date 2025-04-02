@@ -15,6 +15,7 @@ export const SetupSequenceScreen = ({ route }) => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
   const addInSession = route.params;
   const {
+    sequenceConfigs,
     selectedSequenceConfig,
     defaultSequenceConfig,
     addSequenceConfig,
@@ -50,6 +51,13 @@ export const SetupSequenceScreen = ({ route }) => {
       return;
     }
 
+    // Verificar si ya existe una configuración con el mismo alias
+    const aliasExists = sequenceConfigs.some(config => config.alias === alias);
+    if (aliasExists) {
+      Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
+      return;
+    }
+
     const newConfig = {
       alias,
       sequence,
@@ -58,46 +66,91 @@ export const SetupSequenceScreen = ({ route }) => {
     // Guarda la nueva configuración y la selecciona automáticamente
     addSequenceConfig(newConfig);
     selectSequenceConfig(alias);
-    if(addInSession){
+    if (addInSession) {
       addModuleToSession(newConfig);
     }
     navigation.goBack();
   };
 
+  const activeConfig = selectedSequenceConfig ? selectedSequenceConfig : defaultSequenceConfig;
+  const otherConfigs = sequenceConfigs.filter(config => config.alias !== activeConfig.alias);
+  const configListData = [
+    { label: activeConfig.alias, value: activeConfig.alias, config: activeConfig },
+    ...otherConfigs.map(c => ({ label: c.alias, value: c.alias, config: c })),
+    { label: 'Nueva configuración', value: 'Nueva configuración' },
+  ];
+
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.title}>Configurar Secuencia</Text>
 
-      <View style={styles.column}>
-        <Text style={styles.label}>Alias para la configuración:</Text>
-        <TextInput
-          style={styles.input}
-          value={alias}
-          onChangeText={setAlias}
-          placeholder="Nombre de la configuración"
-          placeholderTextColor="gray"
-        />
+      <View style={styles.row}>
+        {/* Columna 1 - Configuraciones y botón */}
+        <View style={styles.column}>
+          {/* Lista de configuraciones */}
+          <Text style={styles.label}>
+            Tus configuraciones:
+          </Text>
+          <Dropdown
+            data={configListData}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecciona una configuración"
+            value={alias}
+            onChange={(item) => {
+              if (item.value === 'Nueva configuración') {
+                setAlias('');
+                setSequence('');
+              } else {
+                setAlias(item.config!.alias);
+                setSequence(item.config!.sequence);
+                selectSequenceConfig(item.config!.alias);
+              }
+            }}
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedText}
+          />
+          <Text style={styles.label}>Alias para la configuración:</Text>
+          <TextInput
+            style={styles.input}
+            value={alias !== defaultSequenceConfig.alias ? alias : ''}
+            onChangeText={setAlias}
+            placeholder="Nombre de la configuración"
+            placeholderTextColor="gray"
+          />
 
-        <Text style={styles.label}>Selecciona una secuencia:</Text>
-        <Dropdown
-          data={sequences}
-          labelField="label"
-          valueField="value"
-          placeholder="Selecciona una secuencia"
-          value={sequence}
-          onChange={(item) => setSequence(item.value)}
-          style={styles.dropdown}
-          placeholderStyle={styles.placeholder}
-          selectedTextStyle={styles.selectedText}
-        />
+        </View>
+
+        {/* Columna 2 - Categoría, imágenes y rondas */}
+        <View style={styles.column}>
+
+          <Text style={styles.label}>Selecciona una secuencia:</Text>
+          <Dropdown
+            data={sequences}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecciona una secuencia"
+            value={sequence}
+            onChange={(item) => setSequence(item.value)}
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedText}
+          />
+        </View>
+       
+
       </View>
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
-
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Espaciado entre columnas
+  },
   label: {
     fontSize: height * 0.03,
     marginVertical: '2%',
@@ -119,15 +172,16 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    height: '15%',
+    height: '20%',
     borderRadius: 5,
     marginBottom: '1%',
-    paddingHorizontal: '6%',
     fontSize: height * 0.025,
+    padding: '7%',
     backgroundColor: 'white',
   },
   column: {
-    margin: '1%',
-    justifyContent: 'center',
+    marginTop: '10%',
+    marginHorizontal: '5%',
+    width: '30%',
   },
 });
