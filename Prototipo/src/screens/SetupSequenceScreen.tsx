@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: '1%',
     fontSize: height * 0.025,
-    padding: '7%',
     backgroundColor: 'white',
   },
   column: {
