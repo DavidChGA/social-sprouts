@@ -248,9 +248,9 @@ const styles = StyleSheet.create({
     height: '15%',
     borderRadius: 5,
     marginBottom: '1%',
-    paddingHorizontal: '2%',
     fontSize: height * 0.025,
     backgroundColor: 'white',
+    color: 'black',
   },
   column: {
     marginVertical: '1%',

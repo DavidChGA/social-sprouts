@@ -278,12 +278,12 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    height: '10%',
+    height: '12%',
     borderRadius: 5,
     marginBottom: '1%',
-    paddingHorizontal: '2%',
     fontSize: height * 0.025,
     backgroundColor: 'white',
+    padding: '7%',
   },
   column: {
     marginHorizontal: '5%',
