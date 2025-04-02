@@ -283,7 +283,6 @@ const styles = StyleSheet.create({
     marginBottom: '1%',
     fontSize: height * 0.025,
     backgroundColor: 'white',
-    padding: '7%',
   },
   column: {
     marginHorizontal: '5%',
