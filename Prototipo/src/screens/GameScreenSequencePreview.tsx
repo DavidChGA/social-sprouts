@@ -68,7 +68,7 @@ export const GameScreenSequencePreview = () => {
                       sequence: sequence,
                     })
                   }
-                label="Continuar"
+                label="Memorizado, quiero continuar"
             />
         </View>
     );
