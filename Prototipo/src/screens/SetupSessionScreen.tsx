@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, Dimensions, FlatList, Pressable, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, Text, Dimensions, Pressable, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
 import { globalStyles } from '../theme/theme';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+import DraggableFlatList, { RenderItemParams } from 'react-native-draggable-flatlist';
 
 const { height } = Dimensions.get('window');
 
@@ -13,13 +14,20 @@ export const SetupSessionScreen = () => {
     const {
         session,
         removeModuleFromSession,
+        updateSessionModules,
     } = useGlobalStoreSetup();
+
+    const [modules, setModules] = useState(session.modules);
 
     useEffect(() => {
         navigation.setOptions({
             headerShown: false,
         });
     }, [navigation]);
+
+    useEffect(() => {
+        setModules(session.modules);
+    }, [session.modules]);
 
     //VocabularySetup
     const navigateToVocabularySetup = () => {
@@ -36,8 +44,13 @@ export const SetupSessionScreen = () => {
         navigation.navigate('SetupEmotions', { addInSession: true });
     };
 
+    const handleDragEnd = ({ data }) => {
+        setModules(data);
+        updateSessionModules(data);
+    };
+
     // Render del list item
-    const renderSessionItem = ({ item }) => {
+    const renderSessionItem = ({ item, drag, isActive }: RenderItemParams<any>) => {
         let displayName = '';
         let type = '';
 
@@ -53,7 +66,15 @@ export const SetupSessionScreen = () => {
         }
 
         return (
-            <View style={styles.sessionItemContainer}>
+            <View style={[
+                styles.sessionItemContainer,
+                isActive && styles.selectedItem,
+            ]}>
+                <TouchableOpacity
+                    style={styles.dragHandle}
+                    onLongPress={drag}>
+                    <Text style={styles.dragHandleText}>≡</Text>
+                </TouchableOpacity>
                 <Pressable
                     style={[
                         styles.sessionItem,
@@ -85,16 +106,17 @@ export const SetupSessionScreen = () => {
                 {/* Session List */}
                 <View style={styles.listContainer}>
                     <Text style={globalStyles.subtitle}>Juegos Programados</Text>
-                    <FlatList
-                        data={session.modules}
+                    <DraggableFlatList
+                        data={modules}
                         renderItem={renderSessionItem}
                         keyExtractor={(item, index) => `session_${index}`}
+                        onDragEnd={handleDragEnd}
                         ListEmptyComponent={
                             <Text style={styles.emptyListText}>
                                 No hay sesiones programadas
                             </Text>
                         }
-                        style={styles.sessionList}
+                        style={{marginBottom: '10%'}}
                     />
                 </View>
 
@@ -143,16 +165,13 @@ const styles = StyleSheet.create({
         width: '30%',
         justifyContent: 'center',
     },
-    sessionList: {
-        flex: 1,
-        margin: '1%',
-    },
     sessionItem: {
         backgroundColor: 'white',
         padding: '2%',
         marginVertical: '1%',
         borderRadius: 8,
         elevation: 3,
+        flex: 1,
     },
     vocabularySession: {
         borderLeftColor: 'blue',
@@ -197,7 +216,7 @@ const styles = StyleSheet.create({
     },
     sessionItemContainer: {
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         marginBottom: 5,
     },
     deleteButton: {
@@ -207,11 +226,25 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         width: '7%',
         alignSelf: 'center',
+        justifyContent: 'center',
     },
     deleteButtonText: {
         color: '#fff',
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    dragHandle: {
+        padding: 10,
+        marginRight: 10,
+    },
+    dragHandleText: {
+        fontSize: 40,
+        color: 'black',
+    },
+    selectedItem: {
+        backgroundColor: 'lightgrey',
+        padding: '1%',
+        elevation: 5,
     },
 });

@@ -78,6 +78,7 @@ interface SetupState {
   setSessionModules: (modules: (VocabularyConfig | SequenceConfig | EmotionsConfig)[]) => void;
   addModuleToSession: (module: VocabularyConfig | SequenceConfig | EmotionsConfig) => void;
   removeModuleFromSession: (module: VocabularyConfig | SequenceConfig | EmotionsConfig) => void;
+  updateSessionModules: (modules: (VocabularyConfig | SequenceConfig | EmotionsConfig)[]) => void;
   resetSession: () => void;
 
 }
@@ -139,7 +140,7 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
         navigate('GameOver', {
           correctAnswers: correctAnswersSession,
           wrongAnswers: wrongAnswersSession,
-          roundsPlayed: roundsPlayedSession
+          roundsPlayed: roundsPlayedSession,
         });
 
         setCorrectAnswersSession(0);
@@ -246,6 +247,9 @@ const useGlobalStoreSetup = create<SetupState>((set, get) => ({
         modules: state.session.modules.filter((mod) => mod !== module),
       },
     })),
+
+  updateSessionModules: (modules) =>
+    set({ session: { modules } }),
 
   resetSession: () =>
     set({
