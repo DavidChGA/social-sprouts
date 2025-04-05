@@ -45,9 +45,9 @@ export const SetupVocabularyScreen = ({ route }) => {
 
   // Opciones válidas de imágenes y rondas
   const options = [
-    { imagesPerRound: 3, rounds: [1, 3, 5] },
-    { imagesPerRound: 4, rounds: [1, 3, 5] },
-    { imagesPerRound: 5, rounds: [1, 2, 4] },
+    { imagesPerRound: 3, rounds: [1, 2, 3, 4, 5] },
+    { imagesPerRound: 4, rounds: [1, 2, 3, 4, 5] },
+    { imagesPerRound: 5, rounds: [1, 2, 3, 4] },
     { imagesPerRound: 6, rounds: [1, 2, 3] },
   ];
 
@@ -98,7 +98,7 @@ export const SetupVocabularyScreen = ({ route }) => {
 
     addVocabularyConfig(newConfig);
     selectVocabularyConfig(alias);
-    if(addInSession){
+    if (addInSession) {
       addModuleToSession(newConfig);
     }
     navigation.goBack();
@@ -211,10 +211,8 @@ export const SetupVocabularyScreen = ({ route }) => {
           />
 
         </View>
-
       </View>
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
-
     </View>
   );
 };
@@ -229,7 +227,7 @@ const styles = StyleSheet.create({
     marginVertical: '2%',
   },
   dropdown: {
-    height: '15%',
+    height: '13%',
     backgroundColor: 'white',
     borderRadius: 8,
     marginBottom: '1%',
@@ -253,9 +251,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   column: {
-    marginVertical: '1%',
+    marginTop: '3%',
     marginHorizontal: '5%',
-    justifyContent: 'center',
     width: '30%',
   },
   disabledDropdown: {
