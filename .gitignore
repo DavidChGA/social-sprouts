@@ -1,3 +1,5 @@
 Prototipo/src/assets/config-imgDownload.ipynb
 *.apk
 *.lock
+Prototipo/yarn.lock
+Prototipo/package-lock.json
