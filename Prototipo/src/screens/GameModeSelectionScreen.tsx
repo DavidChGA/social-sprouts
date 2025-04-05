@@ -41,7 +41,7 @@ function GameModeSelectionScreen() {
               rounds: 3,
             })
           }
-          label="Nivel I"
+          label="Fácil"
         />
         <PrimaryButton
           onPress={() =>
@@ -51,7 +51,7 @@ function GameModeSelectionScreen() {
               rounds: 5,
             })
           }
-          label="Nivel II"
+          label="Medio"
         />
         <PrimaryButton
           onPress={() =>
@@ -61,7 +61,7 @@ function GameModeSelectionScreen() {
               rounds: 4,
             })
           }
-          label="Nivel III"
+          label="Difícil"
         />
         <PrimaryButton
           onPress={() =>
@@ -83,7 +83,7 @@ function GameModeSelectionScreen() {
       {/* EMOCIONES */}
       <Text style={globalStyles.subtitle}>EMOCIONES</Text>
       <View style={styles.fila}>
-      <PrimaryButton
+        <PrimaryButton
           onPress={() =>
             navigation.navigate('GameEmotions', {
               emotion: activeEmotionsConfig.emotion,
@@ -92,7 +92,7 @@ function GameModeSelectionScreen() {
               rounds: 3,
             })
           }
-          label="Nivel I"
+          label="Fácil"
         />
         <PrimaryButton
           onPress={() =>
@@ -103,7 +103,7 @@ function GameModeSelectionScreen() {
               rounds: 3,
             })
           }
-          label="Nivel II"
+          label="Difícil"
         />
         <PrimaryButton
           onPress={() =>

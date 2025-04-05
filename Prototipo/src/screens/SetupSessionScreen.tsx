@@ -12,7 +12,7 @@ export const SetupSessionScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const {
         session,
-        removeModuleFromSession
+        removeModuleFromSession,
     } = useGlobalStoreSetup();
 
     useEffect(() => {
@@ -42,13 +42,13 @@ export const SetupSessionScreen = () => {
         let type = '';
 
         if ('category' in item) {
-            displayName = `Vocabulario: ${item.alias}`;
+            displayName = `Vocabulario: ${item.category} + ${item.rounds} rondas + ${item.imagesPerRound} imágenes`;
             type = 'vocabulary';
         } else if ('emotion' in item) {
-            displayName = `Emociones: ${item.alias}`;
+            displayName = `Emociones: ${item.emotion} + ${item.rounds} rondas + ${item.imagesPerRound} imágenes + ${item.correctsPerRound} imágenes correctas por ronda`;
             type = 'emotions';
         } else if ('sequence' in item) {
-            displayName = `Secuencia: ${item.alias}`;
+            displayName = `Secuencia: ${item.sequence}`;
             type = 'sequence';
         }
 
@@ -60,7 +60,7 @@ export const SetupSessionScreen = () => {
                         type === 'vocabulary' && styles.vocabularySession,
                         type === 'emotions' && styles.emotionsSession,
                         type === 'sequence' && styles.sequenceSession,
-                        {display: 'flex', flex: 1}
+                        {display: 'flex', flex: 1},
                     ]}
                 >
                     <Text style={styles.sessionText}>{displayName}</Text>
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     sessionItemContainer: {
         flexDirection: 'row',
         alignItems: 'flex-start',
-        marginBottom: 5
+        marginBottom: 5,
     },
     deleteButton: {
         backgroundColor: '#ff4d4d',
@@ -206,11 +206,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginLeft: 10,
         width: '7%',
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     deleteButtonText: {
         color: '#fff',
         fontSize: 16,
         fontWeight: 'bold',
+        textAlign: 'center',
     },
 });
