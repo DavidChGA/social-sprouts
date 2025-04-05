@@ -73,36 +73,40 @@ export const SetupVocabularyScreen = ({ route }) => {
       })) || []
     : [];
 
-  const saveConfig = () => {
-    if (!alias || !category || !imagesPerRound || !rounds) {
-      Alert.alert(
-        'Error',
-        'Por favor selecciona todos los campos antes de continuar.'
-      );
-      return;
-    }
+    const saveConfig = () => {
+      if (!alias || !category || !imagesPerRound || !rounds) {
+        Alert.alert(
+          'Error',
+          'Por favor selecciona todos los campos antes de continuar.'
+        );
+        return;
+      }
 
-    // Verificar si ya existe una configuración con el mismo alias
-    const aliasExists = vocabularyConfigs.some(config => config.alias === alias);
-    if (aliasExists) {
-      Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
-      return;
-    }
+      // Verificar si estamos seleccionando una configuración que ya existe
+      const isExistingConfig = vocabularyConfigs.some(config => config.alias === alias);
 
-    const newConfig = {
-      alias,
-      category,
-      imagesPerRound,
-      rounds,
+
+      if (!isExistingConfig) {
+        const newConfig = {
+          alias,
+          category,
+          imagesPerRound,
+          rounds,
+        };
+        addVocabularyConfig(newConfig);
+      }
+
+      selectVocabularyConfig(alias);
+      if (addInSession) {
+        addModuleToSession({
+          alias,
+          category,
+          imagesPerRound,
+          rounds,
+        });
+      }
+      navigation.goBack();
     };
-
-    addVocabularyConfig(newConfig);
-    selectVocabularyConfig(alias);
-    if (addInSession) {
-      addModuleToSession(newConfig);
-    }
-    navigation.goBack();
-  };
 
   const activeConfig = selectedVocabularyConfig ? selectedVocabularyConfig : defaultVocabularyConfig;
   const otherConfigs = vocabularyConfigs.filter(config => config.alias !== activeConfig.alias);

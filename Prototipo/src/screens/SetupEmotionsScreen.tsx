@@ -68,13 +68,13 @@ export const SetupEmotionsScreen = ({ route }) => {
 
   // Opciones de imágenes correctas (convertimos a string)
   const imageCorrectOptions = images
-  ? options
-    .find(option => option.images.toString() === images)
-    ?.correctsPerRound.map(corrects => ({
-      label: `${corrects} imágenes correctas`,
-      value: corrects.toString(),
-    })) || []
-  : [];
+    ? options
+      .find(option => option.images.toString() === images)
+      ?.correctsPerRound.map(corrects => ({
+        label: `${corrects} imágenes correctas`,
+        value: corrects.toString(),
+      })) || []
+    : [];
 
   // Opciones de rondas (convertimos a string)
   const roundOptions = images
@@ -87,7 +87,7 @@ export const SetupEmotionsScreen = ({ route }) => {
     : [];
 
   const saveConfig = () => {
-    if (!alias || !emotion || !images || !rounds) {
+    if (!alias || !emotion || !images || !rounds || !correctsPerRound) {
       Alert.alert(
         'Error',
         'Por favor selecciona todos los campos antes de continuar.'
@@ -95,25 +95,28 @@ export const SetupEmotionsScreen = ({ route }) => {
       return;
     }
 
-    // Verificar si ya existe una configuración con el mismo alias
-    const aliasExists = emotionsConfigs.some(config => config.alias === alias);
-    if (aliasExists) {
-      Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
-      return;
+    const isExistingConfig = emotionsConfigs.some(config => config.alias === alias);
+
+    if (!isExistingConfig) {
+      const newConfig = {
+        alias,
+        emotion,
+        imagesPerRound: images,
+        rounds,
+        correctsPerRound,
+      };
+      addEmotionsConfig(newConfig);
     }
 
-    const newConfig = {
-      alias,
-      emotion,
-      imagesPerRound: images,
-      rounds,
-      correctsPerRound,
-    };
-
-    addEmotionsConfig(newConfig);
     selectEmotionsConfig(alias);
-    if(addInSession){
-      addModuleToSession(newConfig);
+    if (addInSession) {
+      addModuleToSession({
+        alias,
+        emotion,
+        imagesPerRound: images,
+        rounds,
+        correctsPerRound,
+      });
     }
     navigation.goBack();
   };
