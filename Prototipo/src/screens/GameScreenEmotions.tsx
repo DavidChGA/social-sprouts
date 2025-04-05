@@ -265,7 +265,7 @@ export const GameScreenEmotions = () => {
             if (isCorrect && selectedCorrectImages.length + 1 >= correctsPerRound) {
                 setTimeout(() => {
                     handleNextRound();
-                }, 1500);
+                }, 500);
             }
         }, 1500);
 

@@ -199,7 +199,7 @@ export const GameScreenVocabulary = () => {
             if (isCorrect) {
                 setTimeout(() => {
                     handleNextRound();
-                }, 1500);
+                }, 500);
 
             }
         }, 1500);
