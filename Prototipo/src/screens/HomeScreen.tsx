@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
-import { View, Image, StyleSheet, Pressable, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, Pressable, Dimensions, Text } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
@@ -10,12 +10,14 @@ import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import logger from '../logger/Logger';
 import { logTypes, objectTypes } from '../logger/LogEnums';
 import { LogInitializedSession } from '../logger/LogInterface';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 const { height } = Dimensions.get('window');
 
 export const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
   const { setIsInSession, nextModule, session } = useGlobalStoreSetup();
+  const {userName} = useGlobalStoreUser();
 
   useEffect(() => {
     navigation.setOptions({
@@ -92,6 +94,7 @@ export const HomeScreen = () => {
           </View>
         </View>
       </View>
+      <Text style={homeStyles.configTextUserName}>[ATENCIÓN] Estás loggeado como: {userName}</Text>
     </View >
   );
 };
@@ -100,22 +103,23 @@ const homeStyles = StyleSheet.create({
   container: {
     flexDirection: 'column',
   },
-
   buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     bottom: '1%',
   },
-
   buttonColumn: {
     flexDirection: 'column',
     alignItems: 'center',
   },
-
   icon: {
     marginTop: '15%',
     width: height * 0.06,
     height: height * 0.06,
+  },
+  configTextUserName: {
+    textAlign: 'center',
+    fontSize: height * 0.03,
   },
 });

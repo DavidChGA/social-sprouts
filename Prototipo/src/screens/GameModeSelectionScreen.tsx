@@ -8,11 +8,13 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { SettingsButton } from '../components/SettingsButton';
 import { Text } from 'react-native';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 const { height } = Dimensions.get('window');
 
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const {userName} = useGlobalStoreUser();
   const { selectedVocabularyConfig, selectedSequenceConfig, selectedEmotionsConfig, defaultVocabularyConfig, defaultSequenceConfig, defaultEmotionsConfig } =
     useGlobalStoreSetup();
 
@@ -30,6 +32,7 @@ function GameModeSelectionScreen() {
   return (
     <View style={[globalStyles.container]}>
       <Text style={globalStyles.title}>SELECCIONA UN MINIJUEGO</Text>
+      <Text style={styles.configTextUserName}>Estás jugando como: {userName}</Text>
       {/* VOCABULARIO */}
 
       <Text style={globalStyles.subtitle}>VOCABULARIO</Text>
@@ -157,7 +160,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-
+  configTextUserName: {
+    textAlign: 'center',
+    fontSize: height * 0.03,
+  },
 });
 
 export default GameModeSelectionScreen;

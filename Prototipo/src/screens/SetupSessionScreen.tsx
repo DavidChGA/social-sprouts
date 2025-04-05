@@ -6,11 +6,14 @@ import { RootStackParams } from '../routes/StackNavigator';
 import { globalStyles } from '../theme/theme';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import DraggableFlatList, { RenderItemParams } from 'react-native-draggable-flatlist';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 const { height } = Dimensions.get('window');
 
 export const SetupSessionScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
+    const { userName } = useGlobalStoreUser();
+
     const {
         session,
         removeModuleFromSession,
@@ -81,7 +84,7 @@ export const SetupSessionScreen = () => {
                         type === 'vocabulary' && styles.vocabularySession,
                         type === 'emotions' && styles.emotionsSession,
                         type === 'sequence' && styles.sequenceSession,
-                        {display: 'flex', flex: 1},
+                        { display: 'flex', flex: 1 },
                     ]}
                 >
                     <Text style={styles.sessionText}>{displayName}</Text>
@@ -101,6 +104,7 @@ export const SetupSessionScreen = () => {
     return (
         <View style={[globalStyles.container, styles.screenContainer]}>
             <Text style={globalStyles.title}>Configurar Sesión</Text>
+            <Text style={styles.configTextUserName}>Estás jugando como: {userName}</Text>
 
             <View style={styles.contentContainer}>
                 {/* Session List */}
@@ -116,7 +120,7 @@ export const SetupSessionScreen = () => {
                                 No hay sesiones programadas
                             </Text>
                         }
-                        style={{marginBottom: '10%'}}
+                        style={{ marginBottom: '10%' }}
                     />
                 </View>
 
@@ -149,6 +153,10 @@ export const SetupSessionScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    configTextUserName: {
+        textAlign: 'center',
+        fontSize: height * 0.03,
+    },
     screenContainer: {
         flex: 1,
     },
