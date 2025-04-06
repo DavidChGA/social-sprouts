@@ -8,7 +8,7 @@ import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import logger from '../logger/Logger';
-import { logTypes, objectTypes } from '../logger/LogEnums';
+import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { LogInitializedSession } from '../logger/LogInterface';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
@@ -27,8 +27,28 @@ export const HomeScreen = () => {
 
   const startSession = () => {
 
+    let sessionModules = session.modules.map((mod) => {
+      let minigame: string;
+
+      if ('category' in mod) {
+        minigame = gameTypes.Vocabulary;
+      } else if ('sequence' in mod) {
+        minigame = gameTypes.Sequence;
+      } else if ('emotion' in mod) {
+        minigame = gameTypes.Emotions;
+      } else {
+        minigame = 'unknown'; //NO VA A PASAR
+      }
+
+      return {
+        minigame,
+        ...mod,
+      };
+    });
+
+
     const logInicioSesion: LogInitializedSession = {
-      session: session,
+      session: sessionModules,
       action: logTypes.Initialized,
       object: objectTypes.Session,
       timestamp: new Date().toISOString(),
