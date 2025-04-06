@@ -20,6 +20,7 @@ export const SetupSequenceScreen = ({ route }) => {
     defaultSequenceConfig,
     addSequenceConfig,
     selectSequenceConfig,
+    updateSequenceConfig,
     addModuleToSession,
   } = useGlobalStoreSetup();
 
@@ -51,23 +52,26 @@ export const SetupSequenceScreen = ({ route }) => {
       return;
     }
 
-    // Verificar si ya existe una configuración con el mismo alias
-    const aliasExists = sequenceConfigs.some(config => config.alias === alias);
-    if (aliasExists) {
-      Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
-      return;
-    }
+    const isExistingConfig = sequenceConfigs.some(config => config.alias === alias);
 
-    const newConfig = {
+    const configData = {
       alias,
       sequence,
     };
 
-    // Guarda la nueva configuración y la selecciona automáticamente
-    addSequenceConfig(newConfig);
+    if (isExistingConfig) {
+      updateSequenceConfig(alias, configData);
+    }
+    else {
+      addSequenceConfig(configData);
+    }
+
     selectSequenceConfig(alias);
     if (addInSession) {
-      addModuleToSession(newConfig);
+      addModuleToSession({
+        alias,
+        sequence,
+      });
     }
     navigation.goBack();
   };
@@ -138,7 +142,7 @@ export const SetupSequenceScreen = ({ route }) => {
             selectedTextStyle={styles.selectedText}
           />
         </View>
-       
+
 
       </View>
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
@@ -172,7 +176,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   input: {
-    height: '20%',
+    height: '22%',
     borderRadius: 5,
     marginBottom: '1%',
     fontSize: height * 0.025,

@@ -20,6 +20,7 @@ export const SetupEmotionsScreen = ({ route }) => {
     defaultEmotionsConfig,
     addEmotionsConfig,
     selectEmotionsConfig,
+    updateEmotionsConfig,
     addModuleToSession,
   } = useGlobalStoreSetup();
 
@@ -49,8 +50,8 @@ export const SetupEmotionsScreen = ({ route }) => {
   // Opciones válidas de imágenes y rondas
   //TODO
   const options = [
-    { images: 3, rounds: [1, 3, 5], correctsPerRound: [1, 2] },
-    { images: 4, rounds: [1, 3, 5], correctsPerRound: [1, 2, 3] },
+    { images: 3, rounds: [1, 2, 3, 4, 5], correctsPerRound: [1, 2] },
+    { images: 4, rounds: [1, 2, 3, 4, 5], correctsPerRound: [1, 2, 3] },
     { images: 5, rounds: [1, 2], correctsPerRound: [1, 2, 3, 4] },
   ];
 
@@ -68,13 +69,13 @@ export const SetupEmotionsScreen = ({ route }) => {
 
   // Opciones de imágenes correctas (convertimos a string)
   const imageCorrectOptions = images
-  ? options
-    .find(option => option.images.toString() === images)
-    ?.correctsPerRound.map(corrects => ({
-      label: `${corrects} imágenes correctas`,
-      value: corrects.toString(),
-    })) || []
-  : [];
+    ? options
+      .find(option => option.images.toString() === images)
+      ?.correctsPerRound.map(corrects => ({
+        label: `${corrects} imágenes correctas`,
+        value: corrects.toString(),
+      })) || []
+    : [];
 
   // Opciones de rondas (convertimos a string)
   const roundOptions = images
@@ -87,7 +88,7 @@ export const SetupEmotionsScreen = ({ route }) => {
     : [];
 
   const saveConfig = () => {
-    if (!alias || !emotion || !images || !rounds) {
+    if (!alias || !emotion || !images || !rounds || !correctsPerRound) {
       Alert.alert(
         'Error',
         'Por favor selecciona todos los campos antes de continuar.'
@@ -95,14 +96,9 @@ export const SetupEmotionsScreen = ({ route }) => {
       return;
     }
 
-    // Verificar si ya existe una configuración con el mismo alias
-    const aliasExists = emotionsConfigs.some(config => config.alias === alias);
-    if (aliasExists) {
-      Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
-      return;
-    }
+    const isExistingConfig = emotionsConfigs.some(config => config.alias === alias);
 
-    const newConfig = {
+    const configData = {
       alias,
       emotion,
       imagesPerRound: images,
@@ -110,10 +106,23 @@ export const SetupEmotionsScreen = ({ route }) => {
       correctsPerRound,
     };
 
-    addEmotionsConfig(newConfig);
+    if (isExistingConfig) {
+      updateEmotionsConfig(alias, configData);
+    }
+    else {
+      addEmotionsConfig(configData);
+    }
+
+
     selectEmotionsConfig(alias);
-    if(addInSession){
-      addModuleToSession(newConfig);
+    if (addInSession) {
+      addModuleToSession({
+        alias,
+        emotion,
+        imagesPerRound: images,
+        rounds,
+        correctsPerRound,
+      });
     }
     navigation.goBack();
   };

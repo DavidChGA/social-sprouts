@@ -20,6 +20,7 @@ export const SetupVocabularyScreen = ({ route }) => {
     defaultVocabularyConfig,
     addVocabularyConfig,
     selectVocabularyConfig,
+    updateVocabularyConfig,
     addModuleToSession,
   } = useGlobalStoreSetup();
 
@@ -45,9 +46,9 @@ export const SetupVocabularyScreen = ({ route }) => {
 
   // Opciones válidas de imágenes y rondas
   const options = [
-    { imagesPerRound: 3, rounds: [1, 3, 5] },
-    { imagesPerRound: 4, rounds: [1, 3, 5] },
-    { imagesPerRound: 5, rounds: [1, 2, 4] },
+    { imagesPerRound: 3, rounds: [1, 2, 3, 4, 5] },
+    { imagesPerRound: 4, rounds: [1, 2, 3, 4, 5] },
+    { imagesPerRound: 5, rounds: [1, 2, 3, 4] },
     { imagesPerRound: 6, rounds: [1, 2, 3] },
   ];
 
@@ -82,24 +83,32 @@ export const SetupVocabularyScreen = ({ route }) => {
       return;
     }
 
-    // Verificar si ya existe una configuración con el mismo alias
-    const aliasExists = vocabularyConfigs.some(config => config.alias === alias);
-    if (aliasExists) {
-      Alert.alert('Error', 'El alias ya está en uso. Usa un nombre diferente.');
-      return;
-    }
+    // Verificar si estamos seleccionando una configuración que ya existe
+    const isExistingConfig = vocabularyConfigs.some(config => config.alias === alias);
 
-    const newConfig = {
+    const configData = {
       alias,
       category,
       imagesPerRound,
       rounds,
     };
 
-    addVocabularyConfig(newConfig);
+
+    if (isExistingConfig) {
+      updateVocabularyConfig(alias, configData);
+    }
+    else {
+      addVocabularyConfig(configData);
+    }
+
     selectVocabularyConfig(alias);
-    if(addInSession){
-      addModuleToSession(newConfig);
+    if (addInSession) {
+      addModuleToSession({
+        alias,
+        category,
+        imagesPerRound,
+        rounds,
+      });
     }
     navigation.goBack();
   };
@@ -211,10 +220,8 @@ export const SetupVocabularyScreen = ({ route }) => {
           />
 
         </View>
-
       </View>
       <SecondaryButton onPress={saveConfig} label="Guardar configuración" />
-
     </View>
   );
 };
@@ -229,7 +236,7 @@ const styles = StyleSheet.create({
     marginVertical: '2%',
   },
   dropdown: {
-    height: '15%',
+    height: '13%',
     backgroundColor: 'white',
     borderRadius: 8,
     marginBottom: '1%',
@@ -253,9 +260,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   column: {
-    marginVertical: '1%',
+    marginTop: '3%',
     marginHorizontal: '5%',
-    justifyContent: 'center',
     width: '30%',
   },
   disabledDropdown: {

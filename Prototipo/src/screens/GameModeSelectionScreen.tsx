@@ -4,13 +4,17 @@ import React, { useEffect } from 'react';
 import { RootStackParams } from '../routes/StackNavigator';
 import { PrimaryButton } from '../components/PrimaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { globalStyles } from '../theme/theme';
 import { SettingsButton } from '../components/SettingsButton';
 import { Text } from 'react-native';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
+
+const { height } = Dimensions.get('window');
 
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const {userName, soundActive} = useGlobalStoreUser();
   const { selectedVocabularyConfig, selectedSequenceConfig, selectedEmotionsConfig, defaultVocabularyConfig, defaultSequenceConfig, defaultEmotionsConfig } =
     useGlobalStoreSetup();
 
@@ -28,6 +32,7 @@ function GameModeSelectionScreen() {
   return (
     <View style={[globalStyles.container]}>
       <Text style={globalStyles.title}>SELECCIONA UN MINIJUEGO</Text>
+      <Text style={styles.configTextUserName}>Estás jugando como: {userName} - Sonido {soundActive ? 'activado' : 'desactivado'}</Text>
       {/* VOCABULARIO */}
 
       <Text style={globalStyles.subtitle}>VOCABULARIO</Text>
@@ -41,7 +46,7 @@ function GameModeSelectionScreen() {
               rounds: 3,
             })
           }
-          label="Nivel I"
+          label="Fácil"
         />
         <PrimaryButton
           onPress={() =>
@@ -51,7 +56,7 @@ function GameModeSelectionScreen() {
               rounds: 5,
             })
           }
-          label="Nivel II"
+          label="Medio"
         />
         <PrimaryButton
           onPress={() =>
@@ -61,7 +66,7 @@ function GameModeSelectionScreen() {
               rounds: 4,
             })
           }
-          label="Nivel III"
+          label="Difícil"
         />
         <PrimaryButton
           onPress={() =>
@@ -76,14 +81,14 @@ function GameModeSelectionScreen() {
         <SettingsButton onPress={() => navigation.navigate('SetupVocabulary')} />
       </View>
 
-      {/* <Text style={styles.configText}>
-        Configuración actual: {activeVocabularyConfig.alias}
-      </Text> */}
+      <Text style={styles.configText}>
+        Configuración actual - {activeVocabularyConfig.alias}: {activeVocabularyConfig.category} + {activeVocabularyConfig.rounds} rondas + {activeVocabularyConfig.imagesPerRound} imágenes
+      </Text>
 
       {/* EMOCIONES */}
       <Text style={globalStyles.subtitle}>EMOCIONES</Text>
       <View style={styles.fila}>
-      <PrimaryButton
+        <PrimaryButton
           onPress={() =>
             navigation.navigate('GameEmotions', {
               emotion: activeEmotionsConfig.emotion,
@@ -92,7 +97,7 @@ function GameModeSelectionScreen() {
               rounds: 3,
             })
           }
-          label="Nivel I"
+          label="Fácil"
         />
         <PrimaryButton
           onPress={() =>
@@ -103,7 +108,7 @@ function GameModeSelectionScreen() {
               rounds: 3,
             })
           }
-          label="Nivel II"
+          label="Difícil"
         />
         <PrimaryButton
           onPress={() =>
@@ -118,9 +123,9 @@ function GameModeSelectionScreen() {
         />
         <SettingsButton onPress={() => navigation.navigate('SetupEmotions')} />
       </View>
-      {/* <Text style={styles.configText}>
-        Configuración actual: {activeEmotionsConfig.alias}
-      </Text> */}
+      <Text style={styles.configText}>
+        Configuración actual - {activeEmotionsConfig.alias}: {activeEmotionsConfig.emotion} + {activeEmotionsConfig.rounds} rondas + {activeEmotionsConfig.imagesPerRound} imágenes + {activeEmotionsConfig.correctsPerRound} imágenes correctas por ronda
+      </Text>
 
       <Text style={globalStyles.subtitle}>SECUENCIA</Text>
       <View style={styles.fila}>
@@ -134,16 +139,16 @@ function GameModeSelectionScreen() {
         />
         <SettingsButton onPress={() => navigation.navigate('SetupSequence')} />
       </View>
-      {/* <Text style={styles.configText}>
-        Configuración actual: {activeSequenceConfig.alias}
-      </Text> */}
+      <Text style={styles.configText}>
+        Configuración actual - {activeSequenceConfig.alias}: {activeSequenceConfig.sequence}
+      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   configText: {
-    textAlign: 'center',
+    fontSize: height * 0.02,
   },
   section: {
     flexDirection: 'column',
@@ -154,7 +159,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-
+  configTextUserName: {
+    textAlign: 'center',
+    fontSize: height * 0.025,
+  },
 });
 
 export default GameModeSelectionScreen;

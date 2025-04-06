@@ -45,7 +45,7 @@ export const globalStyles = StyleSheet.create({
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
-        marginTop: '2%',
+        marginTop: '1%',
     },
 
 
@@ -89,7 +89,7 @@ export const globalStyles = StyleSheet.create({
 
     PButtonText: {
         color: globalColors.light,
-        fontSize: height * 0.05,
+        fontSize: height * 0.045,
         alignSelf: 'center',
     },
 

@@ -26,7 +26,7 @@ export const LogScreen = () => {
   const fetchLogFiles = async () => {
     try {
 
-      const files = await RNFS.readDir(RNFS.DocumentDirectoryPath);
+      const files = await RNFS.readDir(RNFS.ExternalDirectoryPath);
       const logFiles = files.filter(file => file.name.endsWith('.log')).map(file => ({ label: file.name, value: file.name }));
       setLogFiles(logFiles);
 
@@ -43,7 +43,7 @@ export const LogScreen = () => {
   const fetchLogs = async (fileName: string) => {
     try {
 
-      const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+      const filePath = `${RNFS.ExternalDirectoryPath}/${fileName}`;
       const content = await RNFS.readFile(filePath, 'utf8');
       setLogs(content || 'No hay logs disponibles.');
 
