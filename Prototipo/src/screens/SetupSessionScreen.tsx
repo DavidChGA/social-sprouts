@@ -238,16 +238,16 @@ const styles = StyleSheet.create({
     },
     deleteButtonText: {
         color: '#fff',
-        fontSize: 16,
+        fontSize: height * 0.025,
         fontWeight: 'bold',
         textAlign: 'center',
     },
     dragHandle: {
-        padding: 10,
+        padding: height * 0.0075,
         marginRight: 10,
     },
     dragHandleText: {
-        fontSize: 40,
+        fontSize: height * 0.05,
         color: 'black',
     },
     selectedItem: {
