@@ -120,6 +120,6 @@ const homeStyles = StyleSheet.create({
   },
   configTextUserName: {
     textAlign: 'center',
-    fontSize: height * 0.03,
+    fontSize: height * 0.025,
   },
 });

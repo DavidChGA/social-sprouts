@@ -45,7 +45,7 @@ export const globalStyles = StyleSheet.create({
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
-        marginTop: '2%',
+        marginTop: '1%',
     },
 
 
