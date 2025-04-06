@@ -18,7 +18,7 @@ const { height } = Dimensions.get('window');
 export const UserConfigScreen = () => {
 
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const {users, selectedUser, addUser, updateUser, selectUser} = useGlobalStoreUser(); //¿? 3 FUNCIONES...
+  const { users, selectedUser, addUser, updateUser, selectUser } = useGlobalStoreUser(); //¿? 3 FUNCIONES...
 
   useEffect(() => {
     navigation.setOptions({
@@ -55,11 +55,11 @@ export const UserConfigScreen = () => {
       soundActive: soundActive,
     };
 
-    if(selectedUser.userName === userName){
+    if (selectedUser.userName === userName) {
       //update
 
     }
-    else{
+    else {
       //add
       //Y FALTA LA SESSION...
 
@@ -85,51 +85,51 @@ export const UserConfigScreen = () => {
 
   //----
   const configListData = [
-    ...users.map((user: User) => ({label: user.userName, value: user.userId, user: user})),
+    ...users.map((user: User) => ({ label: user.userName, value: user.userId, user: user })),
     { label: 'Nuevo Usuario', value: 'Nuevo Usuario', user: null },
   ];
 
   return (
     <View style={globalStyles.container}>
 
-      {/* Lista de usuarios */}
-      <Text style={[styles.label, {marginTop: 80}]}>
-        Usuarios:
-      </Text>
-      <Dropdown
-        data={configListData}
-        labelField="label"
-        valueField="value"
-        placeholder="Selecciona una configuración"
-        value={userName}
-        onChange={(item) => {
-          if (item.value === 'Nuevo Usuario') {
-            setUserName('')
-            setUserAge(8)
-            setUserGender(Genders.Masculino)
-            setUserLevel(Levels['Grado 1'])
-            setUserId(uuidv4())
-            setSoundActive(true)
-          } else {
-            setUserName(item.user!.userName)
-            setUserAge(item.user!.userAge)
-            setUserGender(item.user!.userGender)
-            setUserLevel(item.user!.userLevel)
-            setUserId(item.user!.userId)
-            setSoundActive(item.user!.soundActive)
-          }
-        }}
-        style={styles.dropdown2}
-        placeholderStyle={styles.placeholder}
-        selectedTextStyle={styles.selectedText}
-      />
-
       <Text style={globalStyles.title}>Configurar Usuario</Text>
 
       {/* <Text style={styles.configText}> Loggeado actualmente como: {userName}, {userAge}, {userGender}, {soundActive}, {userId} </Text> */}
       <View style={styles.row}>
         <View style={styles.column}>
-          {/* Name */}
+          {/* Lista de usuarios */}
+          <Text style={[styles.label, {marginTop: '4%'}]}>
+            Usuarios:
+          </Text>
+          <Dropdown
+            data={configListData}
+            labelField="label"
+            valueField="value"
+            placeholder="Selecciona una configuración"
+            value={userName}
+            onChange={(item) => {
+              if (item.value === 'Nuevo Usuario') {
+                setUserName('');
+                setUserAge(8);
+                setUserGender(Genders.Masculino);
+                setUserLevel(Levels['Grado 1']);
+                setUserId(uuidv4());
+                setSoundActive(true);
+              } else {
+                setUserName(item.user!.userName);
+                setUserAge(item.user!.userAge);
+                setUserGender(item.user!.userGender);
+                setUserLevel(item.user!.userLevel);
+                setUserId(item.user!.userId);
+                setSoundActive(item.user!.soundActive);
+              }
+            }}
+            style={styles.dropdown}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedText}
+          />
+
+          <Text style={styles.label}>Nombre:</Text>
           <TextInput
             style={styles.input}
             placeholder="Escribir nombre"
@@ -138,7 +138,7 @@ export const UserConfigScreen = () => {
             value={userName}
           />
 
-          {/* Age */}
+          <Text style={styles.label}>Edad:</Text>
           <TextInput
             style={styles.input}
             placeholder="Escribir edad"
@@ -150,7 +150,7 @@ export const UserConfigScreen = () => {
           />
         </View>
         <View style={styles.column}>
-          <Text style={styles.label}>Género:</Text>
+          <Text style={[styles.label, {marginTop: '4%'}]}>Género:</Text>
           <Dropdown
             data={genderOptions}
             labelField="label"
@@ -181,7 +181,7 @@ export const UserConfigScreen = () => {
               <View style={soundActive ? styles.radioSelected : styles.radioUnselected} />
             </TouchableOpacity>
             <Text style={styles.radioText}>
-              {soundActive ? "Sonido al jugar Activado" : "Sonido al jugar Desactivado"}
+              {soundActive ? 'Sonido al jugar Activado' : 'Sonido al jugar Desactivado'}
             </Text>
           </View>
         </View>
@@ -195,22 +195,13 @@ export const UserConfigScreen = () => {
 const styles = StyleSheet.create({
   label: {
     fontSize: height * 0.03,
-    marginVertical: '2%',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between', // Espaciado entre columnas
   },
-  dropdown2: {
-    height: '13%',
-    backgroundColor: 'white',
-    borderRadius: 8,
-    marginBottom: '1%',
-    paddingHorizontal: '6%',
-    fontSize: height * 0.025,
-  },
   dropdown: {
-    height: '15%',
+    height: '12%',
     backgroundColor: 'white',
     borderRadius: 8,
     marginBottom: '10%',
@@ -234,9 +225,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   column: {
-    marginVertical: '1%',
     marginHorizontal: '5%',
-    justifyContent: 'center',
     width: '30%',
   },
   configText: {
@@ -244,34 +233,34 @@ const styles = StyleSheet.create({
     marginVertical: '1%',
   },
   radioContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: "5%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '5%',
   },
   radioButton: {
     width: height * 0.04, // 4% del alto de la pantalla
     height: height * 0.04,
     borderRadius: height * 0.02, // Hace que el botón sea circular
     borderWidth: 2,
-    borderColor: "#007AFF",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: "3%",
+    borderColor: '#007AFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: '3%',
   },
   radioSelected: {
     width: height * 0.02, // 2% del alto de la pantalla
     height: height * 0.02,
     borderRadius: height * 0.01,
-    backgroundColor: "#007AFF",
+    backgroundColor: '#007AFF',
   },
   radioUnselected: {
     width: height * 0.02,
     height: height * 0.02,
     borderRadius: height * 0.01,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   radioText: {
     fontSize: height * 0.025,
-    color: "#333",
+    color: '#333',
   },
 });
