@@ -12,7 +12,6 @@ import { AnswerModal } from '../components/AnswerModal';
 import gameConfig from '../assets/emotions-config.json';
 import logger from '../logger/Logger';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
-import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import { LogCompleted, LogInitializedEmotions, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import SoundPlayer from '../utils/soundPlayer';
@@ -37,8 +36,8 @@ export const GameScreenEmotions = () => {
     const correctsPerRound = parseInt(String(route.params.correctsPerRound), 10);
     const rounds = parseInt(String(route.params.rounds), 10);
 
-    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession} = useGlobalStoreSetup(state => state);
-    const { nextModule } = useGlobalStoreSetup(state => state);
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, 
+        setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession, nextModule} = useGlobalStoreUser(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [modalImage, setModalImage] = useState('');
@@ -55,8 +54,7 @@ export const GameScreenEmotions = () => {
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [wrongAnswers, setWrongAnswers] = useState(0);
 
-
-    const { userId } = useGlobalStoreUser();
+    const { selectedUser } = useGlobalStoreUser();
 
     useEffect(() => {
         navigation.setOptions({
@@ -83,7 +81,7 @@ export const GameScreenEmotions = () => {
         setRoundCompleted(false);
 
         const logInicioRonda: LogInitializedRound = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Initialized,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -113,7 +111,7 @@ export const GameScreenEmotions = () => {
         const roundsArray: Round[] = [];
 
         const logInicio: LogInitializedEmotions = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Initialized,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -191,7 +189,7 @@ export const GameScreenEmotions = () => {
         SoundPlayer.correctIncorrect(isCorrect);
 
         const logTry: LogSelect = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Selected,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -203,7 +201,7 @@ export const GameScreenEmotions = () => {
         };
 
         const logTryPInRound: LogProgressed = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Progressed,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -244,7 +242,7 @@ export const GameScreenEmotions = () => {
             if (updatedSelectedCount >= correctsPerRound) {
 
                 const logTryPGame: LogProgressed = {
-                    playerId: userId,
+                    playerId: selectedUser.userId,
                     action: logTypes.Progressed,
                     object: objectTypes.Game,
                     timestamp: new Date().toISOString(),
@@ -280,7 +278,7 @@ export const GameScreenEmotions = () => {
         } else {
 
             const logFin: LogCompleted = {
-                playerId: userId,
+                playerId: selectedUser.userId,
                 action: logTypes.Completed,
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),

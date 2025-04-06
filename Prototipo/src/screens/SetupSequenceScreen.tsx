@@ -8,6 +8,7 @@ import gameConfig from '../assets/sequence-config.json';
 import { globalStyles } from '../theme/theme';
 import { SecondaryButton } from '../components/SecondaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 const { height } = Dimensions.get('window');
 
@@ -21,8 +22,9 @@ export const SetupSequenceScreen = ({ route }) => {
     addSequenceConfig,
     selectSequenceConfig,
     updateSequenceConfig,
-    addModuleToSession,
   } = useGlobalStoreSetup();
+
+  const {addModuleToSession} = useGlobalStoreUser();
 
   // Estados locales
   const [alias, setAlias] = useState(

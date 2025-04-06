@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { SecondaryButton } from '../components/SecondaryButton';
-import { Genders, Levels, useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
+import { Genders, Levels, useGlobalStoreUser, User } from '../globalState/useGlobalStoreUser';
 import { Dropdown } from 'react-native-element-dropdown';
 import { globalStyles } from '../theme/theme';
 import 'react-native-get-random-values';
@@ -18,13 +18,21 @@ const { height } = Dimensions.get('window');
 export const UserConfigScreen = () => {
 
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { userName, userAge, userGender, userId, userLevel, soundActive, setUserName, setUserAge, setUserGender, setUserId, setUserLevel, setsoundActive, getUserAge, getUserGender, getUserId, getUserLevel, getUserName, getsoundActive } = useGlobalStoreUser();
+  const {users, selectedUser, addUser, updateUser, selectUser} = useGlobalStoreUser(); //¿? 3 FUNCIONES...
 
   useEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   });
+
+  // Estados locales
+  const [userName, setUserName] = useState<string>(selectedUser.userName);
+  const [userAge, setUserAge] = useState<number>(selectedUser.userAge);
+  const [userGender, setUserGender] = useState<Genders>(selectedUser.userGender);
+  const [userLevel, setUserLevel] = useState<Levels>(selectedUser.userLevel);
+  const [userId, setUserId] = useState<string>(selectedUser.userId);
+  const [soundActive, setSoundActive] = useState<boolean>(selectedUser.soundActive);
 
   const genderOptions = Object.entries(Genders).map(([key, value]) => ({
     label: key,
@@ -36,18 +44,31 @@ export const UserConfigScreen = () => {
     value: value,
   }));
 
-  const saveConfig = () => {
-    const uniqueId = uuidv4();
-    setUserId(uniqueId);
 
+  const saveConfig = () => {
     const userDataV: userData = {
-      userName: getUserName(),
-      userAge: getUserAge(),
+      userName: userName,
+      userAge: userAge,
       userGender: userGender,
       userLevel: userLevel,
-      userId: getUserId(),
-      soundActive: getsoundActive(),
+      userId: userId,
+      soundActive: soundActive,
     };
+
+    if(selectedUser.userName === userName){
+      //update
+
+    }
+    else{
+      //add
+      //Y FALTA LA SESSION...
+
+      //const uniqueId = uuidv4(); //sobra
+      //¿?
+      //setUserId(uniqueId); // CAMBIAR...
+
+      //
+    }
 
     const logCreation: LogChangePlayer = {
       player: userDataV,
@@ -62,8 +83,47 @@ export const UserConfigScreen = () => {
     navigation.goBack();
   };
 
+  //----
+  const configListData = [
+    ...users.map((user: User) => ({label: user.userName, value: user.userId, user: user})),
+    { label: 'Nuevo Usuario', value: 'Nuevo Usuario', user: null },
+  ];
+
   return (
     <View style={globalStyles.container}>
+
+      {/* Lista de usuarios */}
+      <Text style={[styles.label, {marginTop: 80}]}>
+        Usuarios:
+      </Text>
+      <Dropdown
+        data={configListData}
+        labelField="label"
+        valueField="value"
+        placeholder="Selecciona una configuración"
+        value={userName}
+        onChange={(item) => {
+          if (item.value === 'Nuevo Usuario') {
+            setUserName('')
+            setUserAge(8)
+            setUserGender(Genders.Masculino)
+            setUserLevel(Levels['Grado 1'])
+            setUserId(uuidv4())
+            setSoundActive(true)
+          } else {
+            setUserName(item.user!.userName)
+            setUserAge(item.user!.userAge)
+            setUserGender(item.user!.userGender)
+            setUserLevel(item.user!.userLevel)
+            setUserId(item.user!.userId)
+            setSoundActive(item.user!.soundActive)
+          }
+        }}
+        style={styles.dropdown2}
+        placeholderStyle={styles.placeholder}
+        selectedTextStyle={styles.selectedText}
+      />
+
       <Text style={globalStyles.title}>Configurar Usuario</Text>
 
       {/* <Text style={styles.configText}> Loggeado actualmente como: {userName}, {userAge}, {userGender}, {soundActive}, {userId} </Text> */}
@@ -75,6 +135,7 @@ export const UserConfigScreen = () => {
             placeholder="Escribir nombre"
             placeholderTextColor="gray"
             onChangeText={setUserName}
+            value={userName}
           />
 
           {/* Age */}
@@ -85,6 +146,7 @@ export const UserConfigScreen = () => {
             onChangeText={(age) => setUserAge(parseInt(age, 10))}
             keyboardType="numeric"
             maxLength={2}
+            value={String(userAge)}
           />
         </View>
         <View style={styles.column}>
@@ -115,7 +177,7 @@ export const UserConfigScreen = () => {
           />
 
           <View style={styles.radioContainer}>
-            <TouchableOpacity onPress={() => setsoundActive(!soundActive)} style={styles.radioButton}>
+            <TouchableOpacity onPress={() => setSoundActive(!soundActive)} style={styles.radioButton}>
               <View style={soundActive ? styles.radioSelected : styles.radioUnselected} />
             </TouchableOpacity>
             <Text style={styles.radioText}>
@@ -138,6 +200,14 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between', // Espaciado entre columnas
+  },
+  dropdown2: {
+    height: '13%',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    marginBottom: '1%',
+    paddingHorizontal: '6%',
+    fontSize: height * 0.025,
   },
   dropdown: {
     height: '15%',

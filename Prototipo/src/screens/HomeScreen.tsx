@@ -6,7 +6,6 @@ import { globalStyles } from '../theme/theme';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
-import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import logger from '../logger/Logger';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { LogInitializedSession } from '../logger/LogInterface';
@@ -16,8 +15,7 @@ const { height } = Dimensions.get('window');
 
 export const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { setIsInSession, nextModule, session } = useGlobalStoreSetup();
-  const {userName, soundActive} = useGlobalStoreUser();
+  const { setIsInSession, nextModule, selectedUser } = useGlobalStoreUser();
 
   useEffect(() => {
     navigation.setOptions({
@@ -27,7 +25,7 @@ export const HomeScreen = () => {
 
   const startSession = () => {
 
-    let sessionModules = session.modules.map((mod) => {
+    let sessionModules = selectedUser.session.modules.map((mod) => {
       let minigame: string;
 
       if ('category' in mod) {
@@ -114,7 +112,7 @@ export const HomeScreen = () => {
           </View>
         </View>
       </View>
-      <Text style={homeStyles.configTextUserName}>[ATENCIÓN] Estás loggeado como: {userName} - Sonido {soundActive ? 'activado' : 'desactivado'}</Text>
+      <Text style={homeStyles.configTextUserName}>[ATENCIÓN] Estás loggeado como: {selectedUser.userName} - Sonido {selectedUser.soundActive ? 'activado' : 'desactivado'}</Text>
     </View >
   );
 };

@@ -8,6 +8,7 @@ import { globalStyles } from '../theme/theme';
 import gameConfig from '../assets/emotions-config.json';
 import { SecondaryButton } from '../components/SecondaryButton';
 import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
+import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
 const { height } = Dimensions.get('window');
 
@@ -21,8 +22,9 @@ export const SetupEmotionsScreen = ({ route }) => {
     addEmotionsConfig,
     selectEmotionsConfig,
     updateEmotionsConfig,
-    addModuleToSession,
   } = useGlobalStoreSetup();
+
+  const {addModuleToSession} = useGlobalStoreUser();
 
   // Estados locales
   const [alias, setAlias] = useState(
