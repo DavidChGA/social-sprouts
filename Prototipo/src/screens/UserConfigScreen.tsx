@@ -66,6 +66,7 @@ export const UserConfigScreen = () => {
       userDataV.session = defaultSession
       addUser(userDataV)
     }
+    selectUser(userDataV);
 
     const logCreation: LogChangePlayer = {
       player: userDataV,
