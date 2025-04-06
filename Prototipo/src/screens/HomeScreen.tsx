@@ -17,7 +17,7 @@ const { height } = Dimensions.get('window');
 export const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
   const { setIsInSession, nextModule, session } = useGlobalStoreSetup();
-  const {userName} = useGlobalStoreUser();
+  const {userName, soundActive} = useGlobalStoreUser();
 
   useEffect(() => {
     navigation.setOptions({
@@ -94,7 +94,7 @@ export const HomeScreen = () => {
           </View>
         </View>
       </View>
-      <Text style={homeStyles.configTextUserName}>[ATENCIÓN] Estás loggeado como: {userName}</Text>
+      <Text style={homeStyles.configTextUserName}>[ATENCIÓN] Estás loggeado como: {userName} - Sonido {soundActive ? 'activado' : 'desactivado'}</Text>
     </View >
   );
 };

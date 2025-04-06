@@ -12,7 +12,7 @@ const { height } = Dimensions.get('window');
 
 export const SetupSessionScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
-    const { userName } = useGlobalStoreUser();
+    const { userName, soundActive } = useGlobalStoreUser();
 
     const {
         session,
@@ -104,7 +104,7 @@ export const SetupSessionScreen = () => {
     return (
         <View style={[globalStyles.container, styles.screenContainer]}>
             <Text style={globalStyles.title}>Configurar Sesión</Text>
-            <Text style={styles.configTextUserName}>Estás jugando como: {userName}</Text>
+            <Text style={styles.configTextUserName}>Estás jugando como: {userName} - Sonido {soundActive ? 'activado' : 'desactivado'}</Text>
 
             <View style={styles.contentContainer}>
                 {/* Session List */}
