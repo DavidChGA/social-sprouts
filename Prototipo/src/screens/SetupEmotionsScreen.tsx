@@ -20,6 +20,7 @@ export const SetupEmotionsScreen = ({ route }) => {
     defaultEmotionsConfig,
     addEmotionsConfig,
     selectEmotionsConfig,
+    updateEmotionsConfig,
     addModuleToSession,
   } = useGlobalStoreSetup();
 
@@ -97,16 +98,21 @@ export const SetupEmotionsScreen = ({ route }) => {
 
     const isExistingConfig = emotionsConfigs.some(config => config.alias === alias);
 
-    if (!isExistingConfig) {
-      const newConfig = {
-        alias,
-        emotion,
-        imagesPerRound: images,
-        rounds,
-        correctsPerRound,
-      };
-      addEmotionsConfig(newConfig);
+    const configData = {
+      alias,
+      emotion,
+      imagesPerRound: images,
+      rounds,
+      correctsPerRound,
+    };
+
+    if (isExistingConfig) {
+      updateEmotionsConfig(alias, configData);
     }
+    else {
+      addEmotionsConfig(configData);
+    }
+
 
     selectEmotionsConfig(alias);
     if (addInSession) {

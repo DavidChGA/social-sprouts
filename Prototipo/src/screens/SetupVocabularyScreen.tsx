@@ -20,6 +20,7 @@ export const SetupVocabularyScreen = ({ route }) => {
     defaultVocabularyConfig,
     addVocabularyConfig,
     selectVocabularyConfig,
+    updateVocabularyConfig,
     addModuleToSession,
   } = useGlobalStoreSetup();
 
@@ -73,40 +74,44 @@ export const SetupVocabularyScreen = ({ route }) => {
       })) || []
     : [];
 
-    const saveConfig = () => {
-      if (!alias || !category || !imagesPerRound || !rounds) {
-        Alert.alert(
-          'Error',
-          'Por favor selecciona todos los campos antes de continuar.'
-        );
-        return;
-      }
+  const saveConfig = () => {
+    if (!alias || !category || !imagesPerRound || !rounds) {
+      Alert.alert(
+        'Error',
+        'Por favor selecciona todos los campos antes de continuar.'
+      );
+      return;
+    }
 
-      // Verificar si estamos seleccionando una configuración que ya existe
-      const isExistingConfig = vocabularyConfigs.some(config => config.alias === alias);
+    // Verificar si estamos seleccionando una configuración que ya existe
+    const isExistingConfig = vocabularyConfigs.some(config => config.alias === alias);
 
-
-      if (!isExistingConfig) {
-        const newConfig = {
-          alias,
-          category,
-          imagesPerRound,
-          rounds,
-        };
-        addVocabularyConfig(newConfig);
-      }
-
-      selectVocabularyConfig(alias);
-      if (addInSession) {
-        addModuleToSession({
-          alias,
-          category,
-          imagesPerRound,
-          rounds,
-        });
-      }
-      navigation.goBack();
+    const configData = {
+      alias,
+      category,
+      imagesPerRound,
+      rounds,
     };
+
+
+    if (isExistingConfig) {
+      updateVocabularyConfig(alias, configData);
+    }
+    else {
+      addVocabularyConfig(configData);
+    }
+
+    selectVocabularyConfig(alias);
+    if (addInSession) {
+      addModuleToSession({
+        alias,
+        category,
+        imagesPerRound,
+        rounds,
+      });
+    }
+    navigation.goBack();
+  };
 
   const activeConfig = selectedVocabularyConfig ? selectedVocabularyConfig : defaultVocabularyConfig;
   const otherConfigs = vocabularyConfigs.filter(config => config.alias !== activeConfig.alias);

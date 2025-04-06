@@ -20,6 +20,7 @@ export const SetupSequenceScreen = ({ route }) => {
     defaultSequenceConfig,
     addSequenceConfig,
     selectSequenceConfig,
+    updateSequenceConfig,
     addModuleToSession,
   } = useGlobalStoreSetup();
 
@@ -53,14 +54,16 @@ export const SetupSequenceScreen = ({ route }) => {
 
     const isExistingConfig = sequenceConfigs.some(config => config.alias === alias);
 
-    if (!isExistingConfig) {
-      const newConfig = {
-        alias,
-        sequence,
-      };
+    const configData = {
+      alias,
+      sequence,
+    };
 
-      // Guarda la nueva configuración y la selecciona automáticamente
-      addSequenceConfig(newConfig);
+    if (isExistingConfig) {
+      updateSequenceConfig(alias, configData);
+    }
+    else {
+      addSequenceConfig(configData);
     }
 
     selectSequenceConfig(alias);
