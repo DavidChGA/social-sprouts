@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { LogChangePlayer, userData } from '../logger/LogInterface';
 import logger from '../logger/Logger';
 import { logTypes, objectTypes } from '../logger/LogEnums';
+import {defaultSession} from '../globalState/useGlobalStoreUser'; 
 
 const { height } = Dimensions.get('window');
 
@@ -46,28 +47,24 @@ export const UserConfigScreen = () => {
 
 
   const saveConfig = () => {
-    const userDataV: userData = {
+    const userDataV = {
       userName: userName,
       userAge: userAge,
       userGender: userGender,
       userLevel: userLevel,
       userId: userId,
       soundActive: soundActive,
+      session: selectedUser.session
     };
 
     if (selectedUser.userName === userName) {
-      //update
-
+      //Update
+      updateUser(userDataV)
     }
     else {
-      //add
-      //Y FALTA LA SESSION...
-
-      //const uniqueId = uuidv4(); //sobra
-      //¿?
-      //setUserId(uniqueId); // CAMBIAR...
-
-      //
+      //Add
+      userDataV.session = defaultSession
+      addUser(userDataV)
     }
 
     const logCreation: LogChangePlayer = {
@@ -85,7 +82,7 @@ export const UserConfigScreen = () => {
 
   //----
   const configListData = [
-    ...users.map((user: User) => ({ label: user.userName, value: user.userId, user: user })),
+    ...users.map((user: User) => ({ label: user.userName, value: user.userName, user: user })),
     { label: 'Nuevo Usuario', value: 'Nuevo Usuario', user: null },
   ];
 

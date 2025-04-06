@@ -65,7 +65,7 @@ interface UserState {
   resetSession: () => void;
 }
 
-const defaultSession: Session = {
+export const defaultSession: Session = {
   modules: [
     { alias: 'Predeterminado', category: 'Animal', imagesPerRound: '3', rounds: '3' } as VocabularyConfig,
     { alias: 'Predeterminado', sequence: 'Lavado de manos' } as SequenceConfig,
