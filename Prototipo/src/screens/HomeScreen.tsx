@@ -3,18 +3,20 @@
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Pressable, Dimensions, Text } from 'react-native';
 import { globalStyles } from '../theme/theme';
-import { type NavigationProp, useNavigation } from '@react-navigation/native';
+import { type NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import logger from '../logger/Logger';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { LogInitializedSession } from '../logger/LogInterface';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { height } = Dimensions.get('window');
 
 export const HomeScreen = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParams>>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+  const { name: routeName } = useRoute();
   const { setIsInSession, nextModule, selectedUser } = useGlobalStoreUser();
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export const HomeScreen = () => {
     logger.log(logInicioSesion);
 
     setIsInSession(true);
-    nextModule(navigation.navigate);
+    nextModule(navigation, routeName);
   };
 
   return (

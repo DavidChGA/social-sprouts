@@ -15,6 +15,7 @@ import { LogCompleted, LogInitializedRound, LogInitializedVocabulary, LogProgres
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import SoundPlayer from '../utils/soundPlayer';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { height } = Dimensions.get('window');
 
@@ -28,7 +29,9 @@ interface Round {
 
 export const GameScreenVocabulary = () => {
 
-    const navigation = useNavigation<NavigationProp<RootStackParams>>();
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+    const { name: routeName } = useRoute();
+
     const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, 
         setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession, nextModule} = useGlobalStoreUser(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -226,7 +229,7 @@ export const GameScreenVocabulary = () => {
                 setCorrectAnswersSession(correctAnswers +  1 + correctAnswersSession);
                 setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
                 setRoundsPlayedSession(rounds + roundsPlayedSession);
-                nextModule(navigation.navigate);
+                nextModule(navigation, routeName);
             } else {
                 navigation.navigate('GameOver', {
                     correctAnswers: correctAnswers + 1,

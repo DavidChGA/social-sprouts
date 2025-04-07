@@ -17,6 +17,7 @@ import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import logger from '../logger/Logger';
 import SoundPlayer from '../utils/soundPlayer';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { height } = Dimensions.get('window');
 
@@ -38,7 +39,9 @@ const shuffleArray = (array: any[]) => {
 };
 
 export const GameScreenSequence = () => {
-    const navigation = useNavigation<NavigationProp<RootStackParams>>();
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+    const { name: routeName } = useRoute();
+
     const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, 
         setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession, nextModule} = useGlobalStoreUser(state => state);
 
@@ -158,7 +161,7 @@ export const GameScreenSequence = () => {
                 setCorrectAnswersSession(correctAnswers + 1 + correctAnswersSession);
                 setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
                 setRoundsPlayedSession(1 + roundsPlayedSession);
-                nextModule(navigation.navigate);
+                nextModule(navigation, routeName);
             } else {
                 navigation.navigate('GameOver', {
                     correctAnswers: correctAnswers + 1,

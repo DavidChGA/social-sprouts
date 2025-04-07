@@ -15,6 +15,7 @@ import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import { LogCompleted, LogInitializedEmotions, LogInitializedRound, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import SoundPlayer from '../utils/soundPlayer';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { height } = Dimensions.get('window');
 
@@ -28,8 +29,9 @@ interface Round {
 
 export const GameScreenEmotions = () => {
 
-    const navigation = useNavigation<NavigationProp<RootStackParams>>();
-
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+    const { name: routeName } = useRoute();
+    
     const route = useRoute<GameScreenEmotionsRouteProp>();
     const emotion = route.params.emotion;
     const imagesPerRound = parseInt(String(route.params.imagesPerRound), 10);
@@ -292,7 +294,8 @@ export const GameScreenEmotions = () => {
                 setCorrectAnswersSession(correctAnswers + 1 + correctAnswersSession);
                 setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
                 setRoundsPlayedSession(rounds + roundsPlayedSession);
-                nextModule(navigation.navigate);
+                
+                nextModule(navigation, route.name);
             } else {
                 navigation.navigate('GameOver', {
                     correctAnswers: correctAnswers + 1,

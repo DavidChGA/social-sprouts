@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { create } from 'zustand';
-import { NavigationProp } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
 import { EmotionsConfig, SequenceConfig, VocabularyConfig } from './useGlobalStoreSetup';
 
 import { LogCompletedSession } from '../logger/LogInterface';
 import logger from '../logger/Logger';
 import { logTypes, objectTypes } from '../logger/LogEnums';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 enum Genders {
   Masculino = "M",
@@ -44,7 +44,7 @@ interface UserState {
   correctAnswersSession: number;
   wrongAnswersSession: number;
   roundsPlayedSession: number;
-  nextModule: (navigate: NavigationProp<RootStackParams>['navigate']) => void;
+  nextModule: (navigation: StackNavigationProp<RootStackParams>, routeName: string ) => void;
 
   // Actions
   addUser: (user: User) => void;
@@ -102,17 +102,36 @@ const useGlobalStoreUser = create<UserState>((set, get) => ({
   roundsPlayedSession: 0,
   currentModuleIndex: -1,
 
-  nextModule: (navigate) => {
+  nextModule: (navigation: StackNavigationProp<RootStackParams>, routeName: string) => {
     set((state: UserState) => {
+
       const nextIndex = state.currentModuleIndex + 1;
       if (nextIndex < state.selectedUser.session.modules.length) {
         const nextModule = state.selectedUser.session.modules[nextIndex];
+      
+      if ('category' in nextModule) {
+        if (routeName === 'GameVocabulary') {
+          navigation.replace('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
+        } else {
+          navigation.navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
+        }
+      } else if ('sequence' in nextModule) {
+        if (routeName === 'GameSequencePreview') {
+          navigation.replace('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);
+        }
+        else{
+          navigation.navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);
+        }
+      } else if ('emotion' in nextModule) {
+        if (routeName === 'GameEmotions') {
+          navigation.replace('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);
+        }
+        else{
+          navigation.navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);
+        }
+      }
 
-        if ('category' in nextModule) { navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']); }
-        else if ('sequence' in nextModule) { navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']); }
-        else if ('emotion' in nextModule) { navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']); }
-
-        return { currentModuleIndex: nextIndex };
+      return { currentModuleIndex: nextIndex };
       } else {
         state.setIsInSession(false);
 
@@ -128,7 +147,7 @@ const useGlobalStoreUser = create<UserState>((set, get) => ({
 
         logger.log(logFinSesion);
 
-        navigate('GameOver', {
+        navigation.navigate('GameOver', {
           correctAnswers: correctAnswersSession,
           wrongAnswers: wrongAnswersSession,
           roundsPlayed: roundsPlayedSession,
