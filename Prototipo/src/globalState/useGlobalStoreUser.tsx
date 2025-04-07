@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParams } from '../routes/StackNavigator';
 import { EmotionsConfig, SequenceConfig, VocabularyConfig } from './useGlobalStoreSetup';
 
@@ -44,7 +46,7 @@ interface UserState {
   correctAnswersSession: number;
   wrongAnswersSession: number;
   roundsPlayedSession: number;
-  nextModule: (navigation: StackNavigationProp<RootStackParams>, routeName: string ) => void;
+  nextModule: (navigation: StackNavigationProp<RootStackParams>, routeName: string) => void;
 
   // Actions
   addUser: (user: User) => void;
@@ -83,195 +85,202 @@ const defaultUser: User = {
 };
 
 // Crea el store global con Zustand
-const useGlobalStoreUser = create<UserState>((set, get) => ({
-  users: [defaultUser],
-  selectedUser: defaultUser,
+const useGlobalStoreUser = create<UserState>()(
+  persist(
+    (set, get) => ({
+      users: [defaultUser],
+      selectedUser: defaultUser,
 
-  setsoundActive: (active) => set((state) => ({
-    selectedUser: {
-      ...state.selectedUser,
-      soundActive: active,
-    },
-  })),
+      setsoundActive: (active) => set((state) => ({
+        selectedUser: {
+          ...state.selectedUser,
+          soundActive: active,
+        },
+      })),
 
-  //Session
-  isInSession: false,
+      //Session
+      isInSession: false,
 
-  correctAnswersSession: 0,
-  wrongAnswersSession: 0,
-  roundsPlayedSession: 0,
-  currentModuleIndex: -1,
-
-  nextModule: (navigation: StackNavigationProp<RootStackParams>, routeName: string) => {
-    set((state: UserState) => {
-
-      const nextIndex = state.currentModuleIndex + 1;
-      if (nextIndex < state.selectedUser.session.modules.length) {
-        const nextModule = state.selectedUser.session.modules[nextIndex];
-      
-      if ('category' in nextModule) {
-        if (routeName === 'GameVocabulary') {
-          navigation.replace('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
-        } else {
-          navigation.navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
-        }
-      } else if ('sequence' in nextModule) {
-        if (routeName === 'GameSequence') {
-          navigation.replace('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);
-        }
-        else{
-          navigation.navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);
-        }
-      } else if ('emotion' in nextModule) {
-        if (routeName === 'GameEmotions') {
-          navigation.replace('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);
-        }
-        else{
-          navigation.navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);
-        }
-      }
-
-      return { currentModuleIndex: nextIndex };
-      } else {
-        state.setIsInSession(false);
-
-        const { correctAnswersSession, wrongAnswersSession, roundsPlayedSession, setCorrectAnswersSession, setWrongAnswersSession, setRoundsPlayedSession } = get();
-
-        //LOG Final de sesion
-        const logFinSesion: LogCompletedSession = {
-          action: logTypes.Completed,
-          object: objectTypes.Session,
-          timestamp: new Date().toISOString(),
-          otherInfo: '',
-        };
-
-        logger.log(logFinSesion);
-
-        navigation.navigate('GameOver', {
-          correctAnswers: correctAnswersSession,
-          wrongAnswers: wrongAnswersSession,
-          roundsPlayed: roundsPlayedSession,
-        });
-
-        setCorrectAnswersSession(0);
-        setWrongAnswersSession(0);
-        setRoundsPlayedSession(0);
-
-        return { currentModuleIndex: -1 };
-      }
-    });
-  },
-
-  //SESIÓN
-  setIsInSession: (value: boolean) => set({ isInSession: value }),
-  setCorrectAnswersSession: (value: number) => set({ correctAnswersSession: value }),
-  setWrongAnswersSession: (value: number) => set({ wrongAnswersSession: value }),
-  setRoundsPlayedSession: (value: number) => set({ roundsPlayedSession: value }),
-
-  setSessionModules: (modules) =>
-    set((state) => ({
-      selectedUser: {
-        ...state.selectedUser,
-        session: { modules },
-      },
-    })),
-
-  addModuleToSession: (module) =>
-    set((state) => {
-      const updatedModules = [...state.selectedUser.session.modules, module];
-
-      const updatedSelectedUser = {
-        ...state.selectedUser,
-        session: { modules: updatedModules },
-      };
-
-      state.updateUser(updatedSelectedUser);
-
-      return {
-        selectedUser: updatedSelectedUser,
-      };
-    }),
-
-  removeModuleFromSession: (module) =>
-    set((state) => {
-      const updatedModules = state.selectedUser.session.modules.filter(
-        (mod) => mod !== module
-      );
-
-      const updatedSelectedUser = {
-        ...state.selectedUser,
-        session: { modules: updatedModules },
-      };
-
-      state.updateUser(updatedSelectedUser);
-
-      return {
-        selectedUser: updatedSelectedUser,
-      };
-    }),
-
-  updateSessionModules: (modules) =>
-    set((state) => {
-      const updatedSelectedUser = {
-        ...state.selectedUser,
-        session: { modules },
-      };
-
-      state.updateUser(updatedSelectedUser);
-
-      return {
-        selectedUser: updatedSelectedUser,
-      };
-    }),
-
-
-  //¿?
-  resetSession: () =>
-    set((state) => ({
+      correctAnswersSession: 0,
+      wrongAnswersSession: 0,
+      roundsPlayedSession: 0,
       currentModuleIndex: -1,
-    })),
+
+      nextModule: (navigation: StackNavigationProp<RootStackParams>, routeName: string) => {
+        set((state: UserState) => {
+
+          const nextIndex = state.currentModuleIndex + 1;
+          if (nextIndex < state.selectedUser.session.modules.length) {
+            const nextModule = state.selectedUser.session.modules[nextIndex];
+
+            if ('category' in nextModule) {
+              if (routeName === 'GameVocabulary') {
+                navigation.replace('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
+              } else {
+                navigation.navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
+              }
+            } else if ('sequence' in nextModule) {
+              if (routeName === 'GameSequence') {
+                navigation.replace('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);
+              }
+              else {
+                navigation.navigate('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);
+              }
+            } else if ('emotion' in nextModule) {
+              if (routeName === 'GameEmotions') {
+                navigation.replace('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);
+              }
+              else {
+                navigation.navigate('GameEmotions', nextModule as unknown as RootStackParams['GameEmotions']);
+              }
+            }
+
+            return { currentModuleIndex: nextIndex };
+          } else {
+            state.setIsInSession(false);
+
+            const { correctAnswersSession, wrongAnswersSession, roundsPlayedSession, setCorrectAnswersSession, setWrongAnswersSession, setRoundsPlayedSession } = get();
+
+            //LOG Final de sesion
+            const logFinSesion: LogCompletedSession = {
+              action: logTypes.Completed,
+              object: objectTypes.Session,
+              timestamp: new Date().toISOString(),
+              otherInfo: '',
+            };
+
+            logger.log(logFinSesion);
+
+            navigation.navigate('GameOver', {
+              correctAnswers: correctAnswersSession,
+              wrongAnswers: wrongAnswersSession,
+              roundsPlayed: roundsPlayedSession,
+            });
+
+            setCorrectAnswersSession(0);
+            setWrongAnswersSession(0);
+            setRoundsPlayedSession(0);
+
+            return { currentModuleIndex: -1 };
+          }
+        });
+      },
+
+      //SESIÓN
+      setIsInSession: (value: boolean) => set({ isInSession: value }),
+      setCorrectAnswersSession: (value: number) => set({ correctAnswersSession: value }),
+      setWrongAnswersSession: (value: number) => set({ wrongAnswersSession: value }),
+      setRoundsPlayedSession: (value: number) => set({ roundsPlayedSession: value }),
+
+      setSessionModules: (modules) =>
+        set((state) => ({
+          selectedUser: {
+            ...state.selectedUser,
+            session: { modules },
+          },
+        })),
+
+      addModuleToSession: (module) =>
+        set((state) => {
+          const updatedModules = [...state.selectedUser.session.modules, module];
+
+          const updatedSelectedUser = {
+            ...state.selectedUser,
+            session: { modules: updatedModules },
+          };
+
+          state.updateUser(updatedSelectedUser);
+
+          return {
+            selectedUser: updatedSelectedUser,
+          };
+        }),
+
+      removeModuleFromSession: (module) =>
+        set((state) => {
+          const updatedModules = state.selectedUser.session.modules.filter(
+            (mod) => mod !== module
+          );
+
+          const updatedSelectedUser = {
+            ...state.selectedUser,
+            session: { modules: updatedModules },
+          };
+
+          state.updateUser(updatedSelectedUser);
+
+          return {
+            selectedUser: updatedSelectedUser,
+          };
+        }),
+
+      updateSessionModules: (modules) =>
+        set((state) => {
+          const updatedSelectedUser = {
+            ...state.selectedUser,
+            session: { modules },
+          };
+
+          state.updateUser(updatedSelectedUser);
+
+          return {
+            selectedUser: updatedSelectedUser,
+          };
+        }),
 
 
-  //USER
-  addUser: (user) =>
-    set((state) => ({
-      users: [...state.users, user],
-    })),
+      //¿?
+      resetSession: () =>
+        set((state) => ({
+          currentModuleIndex: -1,
+        })),
 
-  removeUser: (user) =>
-    set((state) => {
-      const newUsers = state.users.filter((u) => u.userId !== user.userId);
-      const newSelectedUser = state.selectedUser.userId === user.userId
-        ? newUsers[0] || defaultUser
-        : state.selectedUser;
 
-      return {
-        users: newUsers.length > 0 ? newUsers : [defaultUser],
-        selectedUser: newSelectedUser,
-      };
+      //USER
+      addUser: (user) =>
+        set((state) => ({
+          users: [...state.users, user],
+        })),
+
+      removeUser: (user) =>
+        set((state) => {
+          const newUsers = state.users.filter((u) => u.userId !== user.userId);
+          const newSelectedUser = state.selectedUser.userId === user.userId
+            ? newUsers[0] || defaultUser
+            : state.selectedUser;
+
+          return {
+            users: newUsers.length > 0 ? newUsers : [defaultUser],
+            selectedUser: newSelectedUser,
+          };
+        }),
+
+      selectUser: (user) => {
+        set({ selectedUser: user });
+      },
+
+      updateUser: (user) =>
+        set((state) => {
+          const updatedUsers = state.users.map((u) =>
+            u.userId === user.userId ? { ...u, ...user } : u
+          );
+
+          const updatedSelectedUser =
+            state.selectedUser.userId === user.userId
+              ? { ...state.selectedUser, ...user }
+              : state.selectedUser;
+
+          return {
+            users: updatedUsers,
+            selectedUser: updatedSelectedUser,
+          };
+        }),
     }),
-
-  selectUser: (user) => {
-    set({ selectedUser: user });
-  },
-
-  updateUser: (user) =>
-    set((state) => {
-      const updatedUsers = state.users.map((u) =>
-        u.userId === user.userId ? { ...u, ...user } : u
-      );
-
-      const updatedSelectedUser =
-        state.selectedUser.userId === user.userId
-          ? { ...state.selectedUser, ...user }
-          : state.selectedUser;
-
-      return {
-        users: updatedUsers,
-        selectedUser: updatedSelectedUser,
-      };
-    }),
-
-}));
+    {
+      name: 'user-storage', // nombre para tu storage
+      storage: createJSONStorage(() => AsyncStorage), // usar AsyncStorage
+    }
+  )
+);
 
 export { useGlobalStoreUser, Genders, Levels };
