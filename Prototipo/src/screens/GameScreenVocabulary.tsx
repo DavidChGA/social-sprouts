@@ -14,8 +14,8 @@ import logger from '../logger/Logger';
 import { LogCompleted, LogInitializedRound, LogInitializedVocabulary, LogProgressed, LogSelect } from '../logger/LogInterface';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
-import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import SoundPlayer from '../utils/soundPlayer';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { height } = Dimensions.get('window');
 
@@ -29,9 +29,11 @@ interface Round {
 
 export const GameScreenVocabulary = () => {
 
-    const navigation = useNavigation<NavigationProp<RootStackParams>>();
-    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession} = useGlobalStoreSetup(state => state);
-    const { nextModule } = useGlobalStoreSetup(state => state);
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+    const { name: routeName } = useRoute();
+
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, 
+        setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession, nextModule} = useGlobalStoreUser(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [modalImage, setModalImage] = useState('');
@@ -50,7 +52,7 @@ export const GameScreenVocabulary = () => {
     const rounds = parseInt(String(route.params.rounds), 10);
     const imagesPerRound = parseInt(String(route.params.imagesPerRound), 10);
 
-    const { userId } = useGlobalStoreUser();
+    const { selectedUser } = useGlobalStoreUser();
 
     useEffect(() => {
         navigation.setOptions({
@@ -76,7 +78,7 @@ export const GameScreenVocabulary = () => {
         setRoundCompleted(false);
 
         const logInicioRonda: LogInitializedRound = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Initialized,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -105,7 +107,7 @@ export const GameScreenVocabulary = () => {
         const roundsArray: Round[] = [];
 
         const logInicio: LogInitializedVocabulary = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Initialized,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -147,7 +149,7 @@ export const GameScreenVocabulary = () => {
         const isCorrect = name === correctImage.name;
 
         const logTry: LogSelect = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Selected,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -159,7 +161,7 @@ export const GameScreenVocabulary = () => {
         };
 
         const logTryP: LogProgressed = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Progressed,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -213,7 +215,7 @@ export const GameScreenVocabulary = () => {
         } else {
 
             const logFin: LogCompleted = {
-                playerId: userId,
+                playerId: selectedUser.userId,
                 action: logTypes.Completed,
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
@@ -227,7 +229,7 @@ export const GameScreenVocabulary = () => {
                 setCorrectAnswersSession(correctAnswers +  1 + correctAnswersSession);
                 setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
                 setRoundsPlayedSession(rounds + roundsPlayedSession);
-                nextModule(navigation.navigate);
+                nextModule(navigation, routeName);
             } else {
                 navigation.navigate('GameOver', {
                     correctAnswers: correctAnswers + 1,

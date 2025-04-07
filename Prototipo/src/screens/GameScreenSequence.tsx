@@ -16,8 +16,8 @@ import { LogCompleted, LogInitializedSequence, LogSelect } from '../logger/LogIn
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 import { gameTypes, logTypes, objectTypes } from '../logger/LogEnums';
 import logger from '../logger/Logger';
-import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import SoundPlayer from '../utils/soundPlayer';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { height } = Dimensions.get('window');
 
@@ -39,9 +39,11 @@ const shuffleArray = (array: any[]) => {
 };
 
 export const GameScreenSequence = () => {
-    const navigation = useNavigation<NavigationProp<RootStackParams>>();
-    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession} = useGlobalStoreSetup(state => state);
-    const { nextModule } = useGlobalStoreSetup(state => state);
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
+    const { name: routeName } = useRoute();
+
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, 
+        setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession, nextModule} = useGlobalStoreUser(state => state);
 
     const route = useRoute<GameScreenSequenceRouteProp>();
     const { sequence } = route.params;
@@ -55,7 +57,7 @@ export const GameScreenSequence = () => {
     const [imageBorders, setImageBorders] = useState<Record<string, string>>({});
     const [nextId, setNextId] = useState(1);
 
-    const { userId } = useGlobalStoreUser();
+    const { selectedUser } = useGlobalStoreUser();
 
     const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -70,7 +72,7 @@ export const GameScreenSequence = () => {
         const imagesSequence = gameConfig.secuencias[sequence];
 
         const logInicio: LogInitializedSequence = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Initialized,
             object: objectTypes.Game,
             timestamp: new Date().toISOString(),
@@ -105,7 +107,7 @@ export const GameScreenSequence = () => {
         const isCorrect = id === nextId;
 
         const logTry: LogSelect = {
-            playerId: userId,
+            playerId: selectedUser.userId,
             action: logTypes.Selected,
             object: objectTypes.Round,
             timestamp: new Date().toISOString(),
@@ -145,7 +147,7 @@ export const GameScreenSequence = () => {
             await wait(1000);
 
             const logFin: LogCompleted = {
-                playerId: userId,
+                playerId: selectedUser.userId,
                 action: logTypes.Completed,
                 object: objectTypes.Game,
                 timestamp: new Date().toISOString(),
@@ -159,7 +161,7 @@ export const GameScreenSequence = () => {
                 setCorrectAnswersSession(correctAnswers + 1 + correctAnswersSession);
                 setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
                 setRoundsPlayedSession(1 + roundsPlayedSession);
-                nextModule(navigation.navigate);
+                nextModule(navigation, routeName);
             } else {
                 navigation.navigate('GameOver', {
                     correctAnswers: correctAnswers + 1,

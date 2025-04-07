@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import RNFS from 'react-native-fs';
-import logger from '../logger/Logger';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
 import { Dropdown } from 'react-native-element-dropdown';

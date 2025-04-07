@@ -4,7 +4,6 @@ import { View, StyleSheet, Text, Dimensions, Pressable, TouchableOpacity } from 
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../routes/StackNavigator';
 import { globalStyles } from '../theme/theme';
-import useGlobalStoreSetup from '../globalState/useGlobalStoreSetup';
 import DraggableFlatList, { RenderItemParams } from 'react-native-draggable-flatlist';
 import { useGlobalStoreUser } from '../globalState/useGlobalStoreUser';
 
@@ -12,15 +11,9 @@ const { height } = Dimensions.get('window');
 
 export const SetupSessionScreen = () => {
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
-    const { userName, soundActive } = useGlobalStoreUser();
+    const { selectedUser, removeModuleFromSession, updateSessionModules } = useGlobalStoreUser();
 
-    const {
-        session,
-        removeModuleFromSession,
-        updateSessionModules,
-    } = useGlobalStoreSetup();
-
-    const [modules, setModules] = useState(session.modules);
+    const [modules, setModules] = useState(selectedUser.session.modules);
 
     useEffect(() => {
         navigation.setOptions({
@@ -29,8 +22,8 @@ export const SetupSessionScreen = () => {
     }, [navigation]);
 
     useEffect(() => {
-        setModules(session.modules);
-    }, [session.modules]);
+        setModules(selectedUser.session.modules);
+    }, [selectedUser.session.modules]);
 
     //VocabularySetup
     const navigateToVocabularySetup = () => {
@@ -104,7 +97,7 @@ export const SetupSessionScreen = () => {
     return (
         <View style={[globalStyles.container, styles.screenContainer]}>
             <Text style={globalStyles.title}>Configurar Sesión</Text>
-            <Text style={styles.configTextUserName}>Estás jugando como: {userName} - Sonido {soundActive ? 'activado' : 'desactivado'}</Text>
+            <Text style={styles.configTextUserName}>Estás jugando como: {selectedUser.userName} - Sonido {selectedUser.soundActive ? 'activado' : 'desactivado'}</Text>
 
             <View style={styles.contentContainer}>
                 {/* Session List */}

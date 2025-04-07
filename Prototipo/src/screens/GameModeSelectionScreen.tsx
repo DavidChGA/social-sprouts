@@ -14,7 +14,7 @@ const { height } = Dimensions.get('window');
 
 function GameModeSelectionScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const {userName, soundActive} = useGlobalStoreUser();
+  const {selectedUser} = useGlobalStoreUser();
   const { selectedVocabularyConfig, selectedSequenceConfig, selectedEmotionsConfig, defaultVocabularyConfig, defaultSequenceConfig, defaultEmotionsConfig } =
     useGlobalStoreSetup();
 
@@ -32,7 +32,7 @@ function GameModeSelectionScreen() {
   return (
     <View style={[globalStyles.container]}>
       <Text style={globalStyles.title}>SELECCIONA UN MINIJUEGO</Text>
-      <Text style={styles.configTextUserName}>Estás jugando como: {userName} - Sonido {soundActive ? 'activado' : 'desactivado'}</Text>
+      <Text style={styles.configTextUserName}>Estás jugando como: {selectedUser.userName} - Sonido {selectedUser.soundActive ? 'activado' : 'desactivado'}</Text>
       {/* VOCABULARIO */}
 
       <Text style={globalStyles.subtitle}>VOCABULARIO</Text>
