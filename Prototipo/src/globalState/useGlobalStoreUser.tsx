@@ -116,7 +116,7 @@ const useGlobalStoreUser = create<UserState>((set, get) => ({
           navigation.navigate('GameVocabulary', nextModule as unknown as RootStackParams['GameVocabulary']);
         }
       } else if ('sequence' in nextModule) {
-        if (routeName === 'GameSequencePreview') {
+        if (routeName === 'GameSequence') {
           navigation.replace('GameSequencePreview', nextModule as unknown as RootStackParams['GameSequencePreview']);
         }
         else{
