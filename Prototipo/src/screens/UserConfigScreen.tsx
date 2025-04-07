@@ -19,7 +19,7 @@ const { height } = Dimensions.get('window');
 export const UserConfigScreen = () => {
 
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
-  const { users, selectedUser, addUser, updateUser, selectUser } = useGlobalStoreUser(); //¿? 3 FUNCIONES...
+  const { users, selectedUser, addUser, updateUser, selectUser } = useGlobalStoreUser();
 
   useEffect(() => {
     navigation.setOptions({

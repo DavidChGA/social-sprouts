@@ -23,7 +23,7 @@ class SoundPlayer {
     }
 
     static playSound() {
-        if (this.sound && useGlobalStoreUser.getState().getsoundActive()) {
+        if (this.sound && useGlobalStoreUser.getState().selectedUser.soundActive) {
             this.sound.play((success) => {
                 if (!success) {
                     console.log("Error al reproducir el sonido");
@@ -33,7 +33,7 @@ class SoundPlayer {
     }
 
     static correctIncorrect(isCorrect: boolean) {
-        if (useGlobalStoreUser.getState().getsoundActive()) {
+        if (useGlobalStoreUser.getState().selectedUser.soundActive) {
             if (isCorrect) {
                 this.soundCorrect.play((success) => {
                     if (!success) {
