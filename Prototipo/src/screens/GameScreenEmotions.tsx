@@ -31,7 +31,7 @@ export const GameScreenEmotions = () => {
 
     const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
     const { name: routeName } = useRoute();
-    
+
     const route = useRoute<GameScreenEmotionsRouteProp>();
     const emotion = route.params.emotion;
     const imagesPerRound = parseInt(String(route.params.imagesPerRound), 10);
@@ -295,7 +295,7 @@ export const GameScreenEmotions = () => {
                 setWrongAnswersSession(wrongAnswers + wrongAnswersSession);
                 setRoundsPlayedSession(rounds + roundsPlayedSession);
                 
-                nextModule(navigation, route.name);
+                nextModule(navigation, routeName);
             } else {
                 navigation.navigate('GameOver', {
                     correctAnswers: correctAnswers + 1,
