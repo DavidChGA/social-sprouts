@@ -57,8 +57,12 @@ export const UserConfigScreen = () => {
       session: selectedUser.session
     };
 
-    if (selectedUser.userName === userName) {
+    const isExistingUser= users.some(user => user.userId === userId);
+
+    if (isExistingUser) {
       //Update
+      const userFound = users.find(user => user.userId === userId);
+      userDataV.session = userFound!.session;
       updateUser(userDataV)
     }
     else {
@@ -141,10 +145,18 @@ export const UserConfigScreen = () => {
             style={styles.input}
             placeholder="Escribir edad"
             placeholderTextColor="gray"
-            onChangeText={(age) => setUserAge(parseInt(age, 10))}
+            onChangeText={(age) => {
+              const parsedAge = parseInt(age, 10);
+              if (!isNaN(parsedAge)) {
+                setUserAge(parsedAge);
+              }
+              else{
+                setUserAge(0);
+              }
+            }}
             keyboardType="numeric"
             maxLength={2}
-            value={String(userAge)}
+            value={userAge === 0 ? "" : String(userAge)}
           />
         </View>
         <View style={styles.column}>

@@ -8,13 +8,13 @@ import { LogCompletedSession } from '../logger/LogInterface';
 import logger from '../logger/Logger';
 import { logTypes, objectTypes } from '../logger/LogEnums';
 
-enum Genders{
+enum Genders {
   Masculino = "M",
   Femenino = "F",
   'No Binario' = "NB"
 }
 
-enum Levels{
+enum Levels {
   'Grado 1' = "G1",
   'Grado 2' = "G2",
   'Grado 3' = "G3"
@@ -37,7 +37,7 @@ export interface User {
 interface UserState {
   users: User[];
   selectedUser: User;
-  setsoundActive: (active:  boolean) => void;
+  setsoundActive: (active: boolean) => void;
 
   isInSession: boolean,
   currentModuleIndex: number;
@@ -51,7 +51,6 @@ interface UserState {
   updateUser: (user: User) => void;
   removeUser: (user: User) => void;
   selectUser: (user: User) => void;
-  //setSessionToUser: (user: User, session: Session) => void;
 
   // Actions
   setIsInSession: (value: boolean) => void;
@@ -157,47 +156,63 @@ const useGlobalStoreUser = create<UserState>((set, get) => ({
         session: { modules },
       },
     })),
-  
+
   addModuleToSession: (module) =>
     set((state) => {
       const updatedModules = [...state.selectedUser.session.modules, module];
+
+      const updatedSelectedUser = {
+        ...state.selectedUser,
+        session: { modules: updatedModules },
+      };
+
+      state.updateUser(updatedSelectedUser);
+
       return {
-        selectedUser: {
-          ...state.selectedUser,
-          session: { modules: updatedModules },
-        },
+        selectedUser: updatedSelectedUser,
       };
     }),
-  
+
   removeModuleFromSession: (module) =>
     set((state) => {
       const updatedModules = state.selectedUser.session.modules.filter(
         (mod) => mod !== module
       );
+
+      const updatedSelectedUser = {
+        ...state.selectedUser,
+        session: { modules: updatedModules },
+      };
+
+      state.updateUser(updatedSelectedUser);
+
       return {
-        selectedUser: {
-          ...state.selectedUser,
-          session: { modules: updatedModules },
-        },
+        selectedUser: updatedSelectedUser,
       };
     }),
-  
+
   updateSessionModules: (modules) =>
-    set((state) => ({
-      selectedUser: {
+    set((state) => {
+      const updatedSelectedUser = {
         ...state.selectedUser,
         session: { modules },
-      },
-    })),
-  
-  
+      };
+
+      state.updateUser(updatedSelectedUser);
+
+      return {
+        selectedUser: updatedSelectedUser,
+      };
+    }),
+
+
   //¿?
   resetSession: () =>
     set((state) => ({
       currentModuleIndex: -1,
     })),
 
-  
+
   //USER
   addUser: (user) =>
     set((state) => ({
