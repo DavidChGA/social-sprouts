@@ -1,6 +1,33 @@
-# Social Sprouts
+<h1 align="center">
 
-El Trastorno del Espectro Autista (TEA) está compuesto por un conjunto amplio de alteraciones que afectan al neurodesarrollo, entre los que se encuentran déficits persistentes en comunicación, interacción social y reciprocidad socioemocional. Estas barreras provocan que las personas que lo presentan tengan dificultades para comunicarse con su entorno. En este trabajo se propone diseñar y evaluar una aplicación gamificada de código libre con el objetivo de mejorar las habilidades sociales de estos niños. En particular, se propone mejorar su desempeño sociocomunicativo: expresión verbal, reconocimiento emocional y predictibilidad y adaptación a nuevos entornos.
+![Logo SocialSprouts](./Prototipo/src/assets/img/LogoSP-color.png)
+
+  
+</h1>
+  
+<h1 align="center">
+
+Social Sprouts - Aplicación para el apoyo a la integración social de niños con TEA
+
+</h1>
+
+El Trastorno del Espectro Autista (TEA) está compuesto por un conjunto amplio de
+alteraciones que afectan al neurodesarrollo, entre los que se encuentran déficits persis-
+tentes en comunicación, interacción social y reciprocidad socioemocional. Estas barreras
+provocan que las personas que lo presentan tengan dificultades para comunicarse con su
+entorno.
+</br></br>
+En este trabajo se propone diseñar y evaluar una aplicación gamificada de código libre con
+el objetivo de mejorar las habilidades sociales de estos niños. En particular, se propone
+mejorar su desempeño sociocomunicativo: expresión verbal, reconocimiento emocional y
+predictibilidad y adaptación a nuevos entornos.
+</br></br>
+Los juegos aplicados a este objetivo están basados principalmente en lograr que el niño
+aprenda mientras está entretenido, integrándolos en su rutina. El aprendizaje le facilitará
+asociar imágenes o pictogramas, bien a un vocabulario verbal (de modo que se le facilite
+la comunicación cuando no disponga de medios facilitadores como los Sistemas Aumen-
+tativos y Alternativos de Comunicación “SAAC”) o a la idea de emociones y contextos
+sociales (viajes, visitas médicas, eventos sociales, etc).
 
 # Manual de instalación para Android
 
