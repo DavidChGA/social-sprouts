@@ -2,24 +2,29 @@
 
 El script permite descargar pictogramas desde la API de ARASAAC en función de palabras clave proporcionadas por el usuario. Los pictogramas se guardarán en una carpeta 
 (la cual a su vez tras la ejecución contendrá en directorios separadas cada conjunto de imágenes por palabra clave) y se generan archivos JSON y TypeScript con información 
-estructurada.
+estructurada. 
 
-El archivo game-config.json presenta cada conjunto de imágenes según categoría asignandoles un id que se autoincrementa dentro de la misma además de tener cada imagen una clave 
-name que será con la que se le identifique y además se empleará para mostrar el nombre o texto asociado a esa imagen. 
+De igual manera se descargarán los audios correspondientes a cada imagen obtenida a través de la API de VoiceRSS (servicio Text-to-Speech) y se generará la misma estructura 
+de archivo TypeScript que la empleada para las imágenes.
 
-Por otro lado el archivo imageMap.ts contiene una estructura imageMap de tipo Record<string, any> en el que las claves (string) son los nombres de los pictogramas en mayúsculas y 
-los valores (any) son las imágenes importadas dinámicamente mediante la función require() que es la encargada en React Native de importar archivos estáticos (cómo son las imágenes 
-almacenadas en local).
+El archivo vocabulary-config.json presenta cada conjunto de imágenes según categoría asignandoles un id que se autoincrementa dentro de la misma además de tener cada imagen una 
+clave name que será con la que se le identifique y además se empleará para mostrar el nombre o texto asociado a esa imagen. 
+
+Por otro lado los archivos imageMap.ts y soundMap.ts contienen una estructura, imageMap y soundMap respectivamente, de tipo Record<string, any> en el que las claves (string) son 
+los nombres de los pictogramas en mayúsculas y los valores (any) son las imágenes p sonidos importadas dinámicamente mediante la función require() que es la encargada en React 
+Native de importar archivos estáticos (cómo son los recursos almacenados en local). 
 
 Para ejecutar el script deberá tener configurado Python y realizar desde la terminal el siguiente comando (siendo palabra1, palabra2 y sucesivos todas las palabras claves que se 
 deseen solicitar, y el argumento language siendo opcional y teniendo por valor 2 carácteres para el idioma):
 
-python script.py palabra1 palabra2 palabraX --language xx
+python config-Vocabulary.py palabra1 palabra2 palabraX --language xx
 
 Los archivos generados serán:
 
 Carpeta de imágenes: src/assets/img/{palabra clave}/
+Carpeta de sonidos: src/assets/sounds/{palabra clave}/
 
 Archivo JSON: src/assets/vocabulary-config.json
 
-Archivo TypeScript: src/assets/imageMap.ts
+Archivo TypeScript imágenes: src/assets/imageMap.ts
+Archivo TypeScript sonidos: src/assets/soundMap.ts
