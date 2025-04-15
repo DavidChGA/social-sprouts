@@ -64,3 +64,6 @@ Asegúrate de tener un emulador corriendo o un dispositivo conectado con `adb de
 ```
        npm run android
 ```
+
+# Manual de usuario y desarrollador
+El [Manual de usuario](https://github.com/DavidChGA/social-sprouts/wiki/manual-de-usuario) y el [Manual de desarrollador](https://github.com/DavidChGA/social-sprouts/wiki/manual-de-desarrollador) pueden ser consultados en sus respectivas páginas de la Wiki de este repositorio.
