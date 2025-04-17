@@ -1,4 +1,4 @@
-package com.prototipo.newarchitecture.components;
+package es.ucm.fdi.socialsprouts.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

@@ -1,4 +1,4 @@
-package com.prototipo;
+package es.ucm.fdi.socialsprouts;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
