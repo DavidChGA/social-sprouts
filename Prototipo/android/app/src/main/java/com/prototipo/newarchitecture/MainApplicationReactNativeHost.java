@@ -1,4 +1,4 @@
-package com.prototipo.newarchitecture;
+package es.ucm.fdi.socialsprouts.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.prototipo.BuildConfig;
-import com.prototipo.newarchitecture.components.MainComponentsRegistry;
-import com.prototipo.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import es.ucm.fdi.socialsprouts.BuildConfig;
+import es.ucm.fdi.socialsprouts.newarchitecture.components.MainComponentsRegistry;
+import es.ucm.fdi.socialsprouts.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

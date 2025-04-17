@@ -1,4 +1,4 @@
-package com.prototipo.newarchitecture.modules;
+package es.ucm.fdi.socialsprouts.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
