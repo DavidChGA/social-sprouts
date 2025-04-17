@@ -67,3 +67,7 @@ Asegúrate de tener un emulador corriendo o un dispositivo conectado con `adb de
 
 # Manual de usuario y desarrollador
 El [Manual de usuario](https://github.com/DavidChGA/social-sprouts/wiki/manual-de-usuario) y el [Manual de desarrollador](https://github.com/DavidChGA/social-sprouts/wiki/manual-de-desarrollador) pueden ser consultados en sus respectivas páginas de la Wiki de este repositorio.
+
+- En el Manual de usuario se describen las funcionalidades con las que cuenta la aplicación además de desarrollarse cómo navegar a través de sus pantallas e interactuar con los distintos elementos con los que se cuenta.
+
+- En el Manual de desarrollador se describen los procesos para añadir recursos y configurar de manera automatizada el minijuego de Vocabulario y cómo añadir nuevos módulos de minijuego a la aplicación si se deseara.
