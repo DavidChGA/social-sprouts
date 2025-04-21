@@ -58,7 +58,7 @@ interface SetupState {
 
 const useGlobalStoreSetup = create<SetupState>()(
   persist(
-    (set, get) => ({
+    (set, _get) => ({
       vocabularyConfigs: [],
       sequenceConfigs: [],
       emotionsConfigs: [],
