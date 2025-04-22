@@ -148,7 +148,7 @@ function GameModeSelectionScreen() {
 
 const styles = StyleSheet.create({
   configText: {
-    fontSize: height * 0.02,
+    fontSize: height * 0.025,
   },
   section: {
     flexDirection: 'column',

@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Pressable, Dimensions, Text } from 'react-native';
 import { globalStyles } from '../theme/theme';
-import { type NavigationProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { PrimaryButton } from '../components/PrimaryButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import logger from '../logger/Logger';
@@ -140,6 +140,7 @@ const homeStyles = StyleSheet.create({
   },
   configTextUserName: {
     textAlign: 'center',
-    fontSize: height * 0.025,
+    fontSize: height * 0.03,
+    color: 'black',
   },
 });

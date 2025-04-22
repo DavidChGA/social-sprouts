@@ -116,6 +116,7 @@ export const SetupSequenceScreen = ({ route }) => {
             style={styles.dropdown}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
+            itemTextStyle={styles.selectedText}
           />
           <Text style={styles.label}>Alias para la configuración:</Text>
           <TextInput
@@ -142,6 +143,7 @@ export const SetupSequenceScreen = ({ route }) => {
             style={styles.dropdown}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
+            itemTextStyle={styles.selectedText}
           />
         </View>
 
@@ -183,6 +185,7 @@ const styles = StyleSheet.create({
     marginBottom: '1%',
     fontSize: height * 0.025,
     backgroundColor: 'white',
+    color: 'black',
   },
   column: {
     marginTop: '10%',

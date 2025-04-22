@@ -32,7 +32,7 @@ export const globalStyles = StyleSheet.create({
 
     title: {
         color: globalColors.light,
-        fontSize: height * 0.065,
+        fontSize: height * 0.06,
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
@@ -41,7 +41,7 @@ export const globalStyles = StyleSheet.create({
 
     subtitle: {
         color: globalColors.gray,
-        fontSize: height * 0.04,
+        fontSize: height * 0.035,
         alignSelf: 'center',
         textAlign: 'center',
         fontWeight: 'bold',
@@ -55,6 +55,7 @@ export const globalStyles = StyleSheet.create({
         borderWidth: height * 0.005,
         padding: height * 0.01,
         margin: '2%',
+        marginBottom: '1%',
     },
 
     imageButton: {
@@ -89,7 +90,7 @@ export const globalStyles = StyleSheet.create({
 
     PButtonText: {
         color: globalColors.light,
-        fontSize: height * 0.045,
+        fontSize: height * 0.04,
         alignSelf: 'center',
     },
 
