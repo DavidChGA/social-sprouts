@@ -1,6 +1,6 @@
 <h1 align="center">
 
-![Logo SocialSprouts](./Prototipo/src/assets/img/LogoSP-color.png)
+![Logo SocialSprouts](./SocialSprouts/src/assets/img/LogoSP-color.png)
 
   
 </h1>
