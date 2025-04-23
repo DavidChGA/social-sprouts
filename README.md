@@ -25,8 +25,8 @@ predictibilidad y adaptación a nuevos entornos.
 Los juegos aplicados a este objetivo están basados principalmente en lograr que el niño
 aprenda mientras está entretenido, integrándolos en su rutina. El aprendizaje le facilitará
 asociar imágenes o pictogramas, bien a un vocabulario verbal (de modo que se le facilite
-la comunicación cuando no disponga de medios facilitadores como los Sistemas Aumen-
-tativos y Alternativos de Comunicación “SAAC”) o a la idea de emociones y contextos
+la comunicación cuando no disponga de medios facilitadores como los Sistemas Aumentativos y 
+Alternativos de Comunicación “SAAC”) o a la idea de emociones y contextos
 sociales (viajes, visitas médicas, eventos sociales, etc).
 
 # Manual de instalación para Android
