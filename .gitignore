@@ -1,5 +1,5 @@
 *.ipynb
 *.apk
 *.lock
-Prototipo/yarn.lock
-Prototipo/package-lock.json
+SocialSprouts/yarn.lock
+SocialSprouts/package-lock.json
