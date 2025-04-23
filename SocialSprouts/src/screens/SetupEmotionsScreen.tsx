@@ -174,6 +174,7 @@ export const SetupEmotionsScreen = ({ route }) => {
             style={styles.dropdown}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
+            itemTextStyle={styles.selectedText}
           />
           <Text style={styles.label}>Alias para la configuración:</Text>
           <TextInput
@@ -294,6 +295,7 @@ const styles = StyleSheet.create({
     marginBottom: '1%',
     fontSize: height * 0.025,
     backgroundColor: 'white',
+    color: 'black',
   },
   column: {
     marginHorizontal: '5%',

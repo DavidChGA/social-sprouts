@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import type { RootStackParams } from '../routes/StackNavigator';
 import gameConfig from '../assets/sequence-config.json';
 import React from 'react';
@@ -23,12 +23,6 @@ const { height } = Dimensions.get('window');
 
 type GameScreenSequenceRouteProp = RouteProp<RootStackParams, 'GameSequence'>;
 
-interface Round {
-    roundNumber: number;
-    images: any[];
-    correctImage: any;
-}
-
 const shuffleArray = (array: any[]) => {
     const newArray = [...array];
     for (let i = newArray.length - 1; i > 0; i--) {
@@ -42,7 +36,7 @@ export const GameScreenSequence = () => {
     const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
     const { name: routeName } = useRoute();
 
-    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, 
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession,
         setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession, nextModule} = useGlobalStoreUser(state => state);
 
     const route = useRoute<GameScreenSequenceRouteProp>();

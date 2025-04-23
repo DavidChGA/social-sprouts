@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Image, Pressable, Dimensions } from 'react-native';
 import { globalColors, globalStyles } from '../theme/theme';
-import { type NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { ImageButton } from '../components/ImageButton';
 import type { RootStackParams } from '../routes/StackNavigator';
 import { AnswerModal } from '../components/AnswerModal';
@@ -32,7 +32,7 @@ export const GameScreenVocabulary = () => {
     const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
     const { name: routeName } = useRoute();
 
-    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession, 
+    const { isInSession, correctAnswersSession, roundsPlayedSession, wrongAnswersSession,
         setCorrectAnswersSession, setRoundsPlayedSession, setWrongAnswersSession, nextModule} = useGlobalStoreUser(state => state);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');

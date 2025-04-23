@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Dimensions, Pressable, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
@@ -113,7 +114,7 @@ export const SetupSessionScreen = () => {
                                 No hay sesiones programadas
                             </Text>
                         }
-                        style={{ marginBottom: '10%' }}
+                        style={{ marginBottom: '10%'}}
                     />
                 </View>
 
@@ -187,7 +188,8 @@ const styles = StyleSheet.create({
         borderLeftWidth: height * 0.0075,
     },
     sessionText: {
-        fontSize: height * 0.02,
+        fontSize: height * 0.025,
+        color: 'black',
     },
     emptyListText: {
         textAlign: 'center',

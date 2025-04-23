@@ -158,6 +158,7 @@ export const SetupVocabularyScreen = ({ route }) => {
             style={styles.dropdown}
             placeholderStyle={styles.placeholder}
             selectedTextStyle={styles.selectedText}
+            itemTextStyle={styles.selectedText}
           />
           <Text style={styles.label}>Alias para la configuración:</Text>
           <TextInput
