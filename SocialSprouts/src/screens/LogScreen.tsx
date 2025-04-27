@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import RNFS from 'react-native-fs';

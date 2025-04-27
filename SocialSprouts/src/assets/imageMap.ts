@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const imageMap: Record<string, any> = {
   // COMIDA
   'BOCADILLO': require('../assets/img/vocabulario/comida/bocadillo.png'),

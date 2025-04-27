@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { RootStackParams } from '../routes/StackNavigator';

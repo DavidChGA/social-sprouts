@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Pressable, Image, Dimensions } from 'react-native';
 import React from 'react';
 

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const imageMapEmotions: Record<string, any> = {
     // PICTOGRAMAS
     'FELICIDADPICTOGRAMA': require('../assets/img/emociones/pictogramas/felicidad.png'),

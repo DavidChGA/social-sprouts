@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Pressable, Dimensions, Text } from 'react-native';
 import { globalStyles } from '../theme/theme';

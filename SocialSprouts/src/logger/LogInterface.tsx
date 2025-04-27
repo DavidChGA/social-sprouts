@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Genders, Levels } from "../globalState/useGlobalStoreUser";
 import { gameTypes, logTypes, objectTypes } from "./LogEnums";
 

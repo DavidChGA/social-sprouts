@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Alert, TextInput, Dimensions } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';

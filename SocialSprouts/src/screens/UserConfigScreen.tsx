@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';

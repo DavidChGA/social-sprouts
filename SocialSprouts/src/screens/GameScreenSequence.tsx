@@ -1,8 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable quotes */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-native/no-inline-styles */
-
 import { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
