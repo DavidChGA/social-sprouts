@@ -70,4 +70,4 @@ El [Manual de usuario](https://github.com/DavidChGA/social-sprouts/wiki/manual-d
 
 - En el Manual de usuario se describen las funcionalidades con las que cuenta la aplicación además de desarrollarse cómo navegar a través de sus pantallas e interactuar con los distintos elementos con los que se cuenta.
 
-- En el Manual de desarrollador se describen los procesos para añadir recursos y configurar de manera automatizada el minijuego de Vocabulario y cómo añadir nuevos módulos de minijuego a la aplicación si se deseara.
+- En el Manual de desarrollador se describen los procesos para añadir recursos y configurar de manera automatizada el minijuego de Vocabulario y cómo añadir nuevos módulos de minijuego a la aplicación si se deseara. También se describe el funcionamiento del sistema de registro, las sesiones y los minijuegos ya existentes en la aplicación.
