@@ -154,7 +154,7 @@ export const GameScreenEmotions = () => {
             );
             otherImageIndex += (imagesPerRound - correctsPerRound);
 
-            // 6. Combinar y mezclar todas las imágenes para esta ronda
+            // Combinar y mezclar todas las imágenes para esta ronda
             const allRoundImages = shuffleArray([...correctImagesForRound, ...incorrectImagesForRound]);
 
             roundsArray.push({
