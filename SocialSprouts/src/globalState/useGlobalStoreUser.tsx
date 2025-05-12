@@ -228,7 +228,6 @@ const useGlobalStoreUser = create<UserState>()(
         }),
 
 
-      //¿?
       resetSession: () =>
         set((state) => ({
           currentModuleIndex: -1,
@@ -276,8 +275,8 @@ const useGlobalStoreUser = create<UserState>()(
         }),
     }),
     {
-      name: 'user-storage', // nombre para tu storage
-      storage: createJSONStorage(() => AsyncStorage), // usar AsyncStorage
+      name: 'user-storage',
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 );

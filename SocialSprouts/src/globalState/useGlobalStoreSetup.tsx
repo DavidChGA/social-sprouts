@@ -150,8 +150,8 @@ const useGlobalStoreSetup = create<SetupState>()(
         })),
       }),
       {
-        name: 'setup-storage', // nombre para tu storage
-        storage: createJSONStorage(() => AsyncStorage), // usar AsyncStorage
+        name: 'setup-storage',
+        storage: createJSONStorage(() => AsyncStorage),
       }
     )
   );
