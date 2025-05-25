@@ -42,11 +42,11 @@ export const LogScreen = () => {
 
       const filePath = `${RNFS.ExternalDirectoryPath}/${fileName}`;
       const content = await RNFS.readFile(filePath, 'utf8');
-      setLogs(content || 'No hay logs disponibles.');
+      setLogs(content || 'No hay logs.');
 
     } catch (error) {
       console.error('Error leyendo log:', error);
-      setLogs('No hay logs disponibles.');
+      setLogs('No hay logs.');
     }
   };
 
