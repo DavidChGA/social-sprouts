@@ -156,7 +156,7 @@ export const SetupSequenceScreen = ({ route }) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Espaciado entre columnas
+    justifyContent: 'space-between',
   },
   label: {
     fontSize: height * 0.03,

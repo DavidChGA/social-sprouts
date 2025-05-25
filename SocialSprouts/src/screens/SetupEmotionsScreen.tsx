@@ -49,14 +49,13 @@ export const SetupEmotionsScreen = ({ route }) => {
   }, [navigation]);
 
   // Opciones válidas de imágenes y rondas
-  //TODO
   const options = [
     { images: 3, rounds: [1, 2, 3, 4, 5], correctsPerRound: [1, 2] },
     { images: 4, rounds: [1, 2, 3, 4, 5], correctsPerRound: [1, 2, 3] },
     { images: 5, rounds: [1, 2], correctsPerRound: [1, 2, 3, 4] },
   ];
 
-  // Emocións: se generan a partir del JSON de configuración
+  // Emocions: se generan a partir del JSON de configuración
   const emociones = Object.keys(gameConfig.emociones).map((emo) => ({
     label: emo,
     value: emo,
@@ -202,7 +201,6 @@ export const SetupEmotionsScreen = ({ route }) => {
             itemTextStyle={styles.selectedText}
           />
 
-          {/* Aquí puedes agregar selectores para imágenes y rondas si los necesitas */}
           {/* Selección de número de imágenes */}
           <Text style={styles.label}>Número de imágenes por ronda:</Text>
           <Dropdown
@@ -266,7 +264,7 @@ export const SetupEmotionsScreen = ({ route }) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between', // Espaciado entre columnas
+    justifyContent: 'space-between',
   },
   label: {
     fontSize: height * 0.03,
